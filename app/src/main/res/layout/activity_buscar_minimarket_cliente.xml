@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fondo"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#222831"
+    tools:context=".buscar_minimarket_cliente">
+
+    <TextView
+        android:id="@+id/textViewFiltrar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Filtrar"
+        android:textAlignment="center"
+        android:textColor="#EEEEEE"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/listViewListadoMinimarketsCercanos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.81"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/plainTextBuscador"
+        android:layout_width="267dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="48dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        android:textColor="#EEEEEE"
+        app:layout_constraintBottom_toTopOf="@+id/textViewFiltrar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textViewDatosMinimarket"
+        android:layout_width="159dp"
+        android:layout_height="86dp"
+        android:layout_marginBottom="72dp"
+        android:text="Minimarkets cercanos"
+        android:textColor="#EEEEEE"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ListView
+        android:id="@+id/listViewListadoMinimarketsCercanos"
+        android:layout_width="317dp"
+        android:layout_height="397dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/textViewDatosMinimarket"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

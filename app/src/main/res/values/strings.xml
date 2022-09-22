@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">MyStoreClose</string>
+    <string name="iniciarSesion">Iniciar Sesión</string>
+    <string name="registrarse">Registrarse</string>
+    <string name="nombreUsuario">Nombre de usuario</string>
+    <string name="contrasenia">Contraseña</string>
+    <string name="buscarProducto">Buscar producto</string>
+    <string name="agregarProducto">Agregar producto</string>
+    <string name="encargosSolicitados">Encargos solicitados</string>
+    <string name="modificarProducto">Modificar producto</string>
+    <string name="eliminarProducto">Eliminar producto</string>
+    <string name="duracionOferta">Duración de la oferta</string>
+    <string name="subirImagen">Subir Imagen</string>
+    <string name="aceptar">Aceptar</string>
+    <string name="rechazar">Rechazar</string>
+    <string name="rutEmpresa">Rut empresa</string>
+    <string name="invitado">Iniciar sesión como invitado</string>
+    <string name="empresaNombre">Nombre empresa</string>
+    <string name="direccion">Dirección minimarket</string>
+    <string name="localNombre">Nombre del local</string>
+    <string name="correo">Correo electrónico</string>
+    <string name="confContrasenia">Confirmar contraseña</string>
+    <string name="nombreCompleto">Nombre completo</string>
+</resources>

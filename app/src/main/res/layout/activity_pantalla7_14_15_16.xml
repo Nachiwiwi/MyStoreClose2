@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/logoImg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#222831"
+    tools:context=".pantalla7_14_15_16">
+
+    <Button
+        android:id="@+id/botonEncargosSol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="18dp"
+        android:layout_marginBottom="33dp"
+        android:backgroundTint="@color/colorBoton1"
+        android:text="@string/encargosSolicitados"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/listaProductos" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="45dp"
+        android:layout_marginEnd="33dp"
+        android:backgroundTint="@color/colorBoton1"
+        android:text="@string/buscarProducto"
+        android:textColor="#eeeeee"
+        app:layout_constraintBottom_toTopOf="@+id/botonAgregarProducto7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/botonAgregarProducto7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="42dp"
+        android:backgroundTint="@color/colorBoton1"
+        android:text="@string/agregarProducto"
+        app:layout_constraintBottom_toTopOf="@+id/listaProductos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button3" />
+
+    <ListView
+        android:id="@+id/listaProductos"
+        android:layout_width="325dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="126dp"
+        android:background="@color/colorBoton2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <ImageButton
+        android:id="@+id/botonVolverPantalla7"
+        android:layout_width="61dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="Volver"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="?attr/actionModeCloseDrawable" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="52dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="117dp"
+        android:layout_marginBottom="111dp"
+        android:contentDescription="logoImagen"
+        app:layout_constraintBottom_toTopOf="@+id/listaProductos"
+        app:layout_constraintEnd_toStartOf="@+id/button3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logotallersw" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#222831"
+    tools:context=".pantalla11">
+
+    <EditText
+        android:id="@+id/textoPlanoCambiarNombreProducto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="26dp"
+        android:background="@color/colorBoton1"
+        android:ems="10"
+        android:hint="Nombre producto"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:textAlignment="center"
+        android:textColorHint="#EEEEEE"
+        app:layout_constraintBottom_toTopOf="@+id/textoPlanoCambiarPrecioProducto"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <EditText
+        android:id="@+id/textoPlanoCambiarPrecioOferta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="31dp"
+        android:background="@color/colorBoton1"
+        android:ems="10"
+        android:hint="Precio Oferta"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:textAlignment="center"
+        android:textColorHint="#EEEEEE"
+        app:layout_constraintBottom_toTopOf="@+id/textoPlanoCambiarDuracionOferta"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textoPlanoCambiarPrecioProducto" />
+
+    <EditText
+        android:id="@+id/textoPlanoCambiarPrecioProducto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="22dp"
+        android:background="@color/colorBoton1"
+        android:ems="10"
+        android:hint="Precio"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:textAlignment="center"
+        android:textColorHint="#EEEEEE"
+        app:layout_constraintBottom_toTopOf="@+id/textoPlanoCambiarPrecioOferta"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textoPlanoCambiarNombreProducto" />
+
+    <EditText
+        android:id="@+id/textoPlanoCambiarDescripcionProducto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="11dp"
+        android:background="@color/colorBoton1"
+        android:ems="10"
+        android:hint="Descripción del producto"
+        android:inputType="textPersonName"
+        android:minHeight="60dp"
+        android:textAlignment="center"
+        android:textColorHint="#EEEEEE"
+        app:layout_constraintBottom_toTopOf="@+id/imageButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textoPlanoCambiarDuracionOferta" />
+
+    <EditText
+        android:id="@+id/textoPlanoCambiarDuracionOferta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="23dp"
+        android:background="@color/colorBoton1"
+        android:ems="10"
+        android:hint="@string/duracionOferta"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:textAlignment="center"
+        android:textColorHint="#EEEEEE"
+        app:layout_constraintBottom_toTopOf="@+id/textoPlanoCambiarDescripcionProducto"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textoPlanoCambiarPrecioOferta" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="51dp"
+        android:layout_marginBottom="37dp"
+        android:text="@string/modificarProducto"
+        android:textColor="#EEEEEE"
+        app:layout_constraintBottom_toTopOf="@+id/textoPlanoCambiarNombreProducto"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="119dp"
+        android:layout_marginEnd="56dp"
+        android:layout_marginBottom="35dp"
+        android:text="@string/subirImagen"
+        android:textColor="#EEEEEE"
+        app:layout_constraintBottom_toTopOf="@+id/imageView2"
+        app:layout_constraintEnd_toStartOf="@+id/imageButton"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="54dp"
+        android:layout_marginBottom="10dp"
+        android:contentDescription="@string/subirImagen"
+        app:layout_constraintBottom_toTopOf="@+id/imageView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView6"
+        app:layout_constraintTop_toBottomOf="@+id/textoPlanoCambiarDescripcionProducto"
+        app:srcCompat="@android:drawable/stat_sys_upload" />
+
+    <Button
+        android:id="@+id/button8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/colorBoton2"
+        android:minHeight="48dp"
+        android:text="@string/modificarProducto"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="122dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="17dp"
+        android:contentDescription="@string/subirImagen"
+        app:layout_constraintBottom_toTopOf="@+id/button8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageButton"
+        app:srcCompat="@android:mipmap/sym_def_app_icon" />
+
+    <ImageButton
+        android:id="@+id/botonVolverPantalla11"
+        android:layout_width="70dp"
+        android:layout_height="58dp"
+        android:layout_marginEnd="66dp"
+        android:layout_marginBottom="33dp"
+        android:contentDescription="Volver"
+        android:minWidth="50dp"
+        android:minHeight="50dp"
+        app:layout_constraintBottom_toTopOf="@+id/textoPlanoCambiarNombreProducto"
+        app:layout_constraintEnd_toStartOf="@+id/textView5"
+        app:srcCompat="?attr/actionModeCloseDrawable" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

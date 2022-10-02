@@ -14,7 +14,7 @@
         android:id="@+id/botonRegistrarse1"
         android:layout_width="200dp"
         android:layout_height="60dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="24dp"
         android:backgroundTint="@color/colorBoton1"
         android:minHeight="40dp"
         android:text="@string/registrarse"
@@ -28,13 +28,12 @@
         android:id="@+id/botonLogin1"
         android:layout_width="200dp"
         android:layout_height="60dp"
-        android:layout_marginBottom="8dp"
         android:backgroundTint="@color/colorBoton2"
         android:minHeight="40dp"
         android:text="@string/iniciarSesion"
         app:layout_constraintBottom_toTopOf="@+id/button4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.478"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -52,20 +51,21 @@
 
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="269dp"
-        android:layout_height="222dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         app:layout_constraintBottom_toTopOf="@+id/botonRegistrarse1"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.644"
+        app:layout_constraintVertical_bias="0.258"
         app:srcCompat="@drawable/logotallersw" />
 
     <Button
         android:id="@+id/button4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="108dp"
+        android:layout_marginBottom="200dp"
         android:background="#00FFFFFF"
         android:text="@string/invitado"
         app:layout_constraintBottom_toBottomOf="parent"

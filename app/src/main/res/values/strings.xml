@@ -21,4 +21,10 @@
     <string name="correo">Correo electrónico</string>
     <string name="confContrasenia">Confirmar contraseña</string>
     <string name="nombreCompleto">Nombre completo</string>
+    <string name="busMinimarket">Buscar minimarket</string>
+    <string name="busProducto">Buscar producto</string>
+    <string name="ofertaDes">Oferta destacada</string>
+    <string name="inicio">Inicio</string>
+    <string name="encargo">Pedidos</string>
+    <string name="perfil">Perfil</string>
 </resources>

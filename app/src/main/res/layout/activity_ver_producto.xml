@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#222831"
-    tools:context=".pantalla7_14_15_16">
+    tools:context=".VerProducto">
 
     <Button
         android:id="@+id/botonEncargosSol"

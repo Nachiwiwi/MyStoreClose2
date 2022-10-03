@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#222831"
-    tools:context=".buscar_producto_cliente">
+    tools:context=".BuscarProductoCliente">
 
     <ImageView
         android:id="@+id/imageView16"

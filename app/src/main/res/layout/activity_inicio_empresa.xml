@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#222831"
-    tools:context=".pantalla9_10">
+    tools:context=".InicioEmpresa">
 
     <ListView
         android:id="@+id/listaDetallesProducto"

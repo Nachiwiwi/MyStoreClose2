@@ -5,25 +5,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
-public class pantalla8 extends AppCompatActivity {
+public class AgregarProducto extends AppCompatActivity {
     EditText etNombre, etPrecio, etDescripcion;
 
     ImageButton botonVolverPantalla8_;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pantalla8);
+        setContentView(R.layout.activity_agregar_producto);
 
         botonVolverPantalla8_ = (ImageButton) findViewById(R.id.botonVolverPantalla8);
 
         botonVolverPantalla8_.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intento = new Intent(pantalla8.this, pantalla7_14_15_16.class);
+                Intent intento = new Intent(AgregarProducto.this, VerProducto.class);
                 startActivity(intento);
             }
         });

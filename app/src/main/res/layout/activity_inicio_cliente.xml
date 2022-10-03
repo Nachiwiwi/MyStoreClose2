@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#222831"
-    tools:context=".home_cliente">
+    tools:context=".InicioCliente">
 
     <Button
         android:id="@+id/buscarProductosButton"

@@ -7,23 +7,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
-public class pantalla13 extends AppCompatActivity {
+public class EncargosEmpresa extends AppCompatActivity {
 
-    private ImageButton botonVolverPantalla13_;
+    private ImageButton botonVolver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pantalla13);
+        setContentView(R.layout.activity_encargos_empresa);
 
-
-
-        botonVolverPantalla13_ = (ImageButton) findViewById(R.id.botonVolverPantalla13);
-
-        botonVolverPantalla13_.setOnClickListener(new View.OnClickListener() {
+        botonVolver = (ImageButton) findViewById(R.id.botonVolverPantalla12);
+        botonVolver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intento = new Intent(pantalla13.this, pantalla7_14_15_16.class);
+                Intent intento = new Intent(EncargosEmpresa.this, VerProducto.class);
                 startActivity(intento);
             }
         });

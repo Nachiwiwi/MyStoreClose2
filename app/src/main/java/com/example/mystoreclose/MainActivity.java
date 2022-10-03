@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         botonxdxd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent pantalla8 = new Intent(MainActivity.this, pantalla9_10.class );
+                Intent pantalla8 = new Intent(MainActivity.this, InicioEmpresa.class );
                 startActivity(pantalla8);
             }
         });
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         botonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent pantalla10 = new Intent(MainActivity.this, InicioSesionEmpresario.class );
+                Intent pantalla10 = new Intent(MainActivity.this, IniciarSesionEmpresa.class );
                 startActivity(pantalla10);
             }
         });
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         botonRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent pantalla9 = new Intent(MainActivity.this, RegistroMiniMarket.class );
+                Intent pantalla9 = new Intent(MainActivity.this, RegistroMinimarket.class );
                 startActivity(pantalla9);
             }
         });
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         invitado1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent pantalla11 = new Intent(MainActivity.this, home_cliente.class );
+                Intent pantalla11 = new Intent(MainActivity.this, InicioCliente.class );
                 startActivity(pantalla11);
             }
         });

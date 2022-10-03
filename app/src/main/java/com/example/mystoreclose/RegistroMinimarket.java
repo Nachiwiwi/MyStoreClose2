@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -14,11 +14,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import android.widget.ImageView;
+
 import java.util.HashMap;
 import java.util.Map;
 
-public class RegistroMiniMarket extends AppCompatActivity implements View.OnClickListener{
+public class RegistroMinimarket extends AppCompatActivity implements View.OnClickListener{
 
     EditText MKRut, MKNombreEmp, MKDireccion, MKNombreLoc, MKCorreo, MKcontrasenia, MKCContraseña;
     Button btnRegistrar;

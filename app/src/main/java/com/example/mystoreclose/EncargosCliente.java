@@ -3,13 +3,10 @@ package com.example.mystoreclose;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class lista_encargos_cliente extends AppCompatActivity {
+public class EncargosCliente extends AppCompatActivity {
     private ListView listadoEncargos;
     private TextView estadoEncargo;
     private String listadoEncargosIndexado[] = {"encargo1", "encargo2", "encargo3", "encargoN"};

@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
-public class pantalla7_14_15_16 extends AppCompatActivity {
+public class VerProducto extends AppCompatActivity {
 
     private Button botonAgregarProductos;
     private Button botonBuscarProducto;
@@ -18,14 +18,14 @@ public class pantalla7_14_15_16 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pantalla7_14_15_16);
+        setContentView(R.layout.activity_ver_producto);
 
         // Para acceder a la pantalla donde se agregan los productos
         botonAgregarProductos = (Button) findViewById(R.id.botonAgregarProducto7);
         botonAgregarProductos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intento = new Intent(pantalla7_14_15_16.this, pantalla8.class);
+                Intent intento = new Intent(VerProducto.this, AgregarProducto.class);
                 startActivity(intento);
             }
         });
@@ -35,7 +35,7 @@ public class pantalla7_14_15_16 extends AppCompatActivity {
         botonVolverPantalla7_.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intento = new Intent(pantalla7_14_15_16.this, MainActivity.class);
+                Intent intento = new Intent(VerProducto.this, MainActivity.class);
                 startActivity(intento);
             }
         });
@@ -46,7 +46,7 @@ public class pantalla7_14_15_16 extends AppCompatActivity {
         botonEncargosSolicitados.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intento = new Intent(pantalla7_14_15_16.this, pantalla12.class);
+                Intent intento = new Intent(VerProducto.this, EncargosEmpresa.class);
                 startActivity(intento);
             }
         });

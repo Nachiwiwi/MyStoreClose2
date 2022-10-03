@@ -5,7 +5,7 @@ public class Direccion {
     String numero;
     String latitud;
     String longitud;
-    
+
     public String getCalle() {
         return calle;
     }

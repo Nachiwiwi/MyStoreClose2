@@ -24,8 +24,11 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import modelo.EmpresaMinimarket;
 
 public class buscar_minimarket_cliente extends AppCompatActivity{
 
@@ -73,7 +76,7 @@ public class buscar_minimarket_cliente extends AppCompatActivity{
                         try {
 
                             System.out.println(response);
-                            /*
+
                             nombreEmpresa=response.getString("Nombre_empresa");
                             nombreMinimarket=response.getString("Nombre_local");
                             rut=response.getString("Rut_empresa");
@@ -82,7 +85,7 @@ public class buscar_minimarket_cliente extends AppCompatActivity{
 
                             empresaMinimarket = new EmpresaMinimarket(nombreEmpresa,nombreMinimarket,rut,direccion,correo);
                             arrayList.add(empresaMinimarket);
-                            */
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

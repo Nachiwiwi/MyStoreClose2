@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         botonRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent pantalla9 = new Intent(MainActivity.this, RegistroCliente.class );
+                Intent pantalla9 = new Intent(MainActivity.this, RegistroMiniMarket.class );
                 startActivity(pantalla9);
             }
         });
@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 
 
 

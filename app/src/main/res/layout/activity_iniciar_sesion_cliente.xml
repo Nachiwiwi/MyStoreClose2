@@ -11,7 +11,7 @@
         android:id="@+id/btnRegistrar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="200dp"
         android:backgroundTint="@color/colorBoton1"
         android:text="@string/iniciarSesion"
         android:textColor="#FFEEEEEE"
@@ -24,7 +24,7 @@
         android:id="@+id/MKCContraseña"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="24dp"
         android:background="#393E46"
         android:ems="10"
         android:hint="@string/contrasenia"
@@ -57,13 +57,27 @@
 
     <ImageView
         android:id="@+id/imageView5"
-        android:layout_width="233dp"
-        android:layout_height="245dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         app:layout_constraintBottom_toTopOf="@+id/etEmail"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.66"
+        app:layout_constraintVertical_bias="0.258"
         app:srcCompat="@drawable/logotallersw" />
+
+    <ImageView
+        android:id="@+id/imageView11"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:rotationY="180"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.04"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.022"
+        app:srcCompat="@drawable/flecha" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

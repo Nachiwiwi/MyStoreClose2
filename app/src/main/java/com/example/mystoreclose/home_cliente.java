@@ -25,7 +25,7 @@ public class home_cliente extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_cliente);
 
-        botonBuscarMinimarkets = (Button) findViewById(R.id.buscarMinimarketsButton);
+        botonBuscarMinimarkets = (Button) findViewById(R.id.buscarProductosButton);
         botonBuscarMinimarkets.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -34,7 +34,7 @@ public class home_cliente extends AppCompatActivity {
             }
         });
 
-        botonBuscarProductos = (Button) findViewById(R.id.buscarProductosButton);
+        botonBuscarProductos = (Button) findViewById(R.id.agregarProductosButton);
         botonBuscarProductos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

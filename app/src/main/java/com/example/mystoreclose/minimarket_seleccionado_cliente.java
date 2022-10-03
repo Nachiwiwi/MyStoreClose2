@@ -22,7 +22,7 @@ public class minimarket_seleccionado_cliente extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_minimarket_seleccionado_cliente);
-        listaProductos = (ListView)findViewById(R.id.lv1);
+        /*listaProductos = (ListView)findViewById(R.id.lv1);
         nombreMinimarket = (TextView)findViewById(R.id.textViewMinimarketSeleccionado);
         ArrayAdapter <String> adapter = new ArrayAdapter<String>(this, R.layout.modelo_list_view, listaProductosIndexado);
         listaProductos.setAdapter(adapter);
@@ -32,6 +32,6 @@ public class minimarket_seleccionado_cliente extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 nombreMinimarket.setText("El precio del producto " + listaProductos.getItemAtPosition(i) +" es " + precioProductosIndexado[i]);
             }
-        });
+        });*/
     }
 }

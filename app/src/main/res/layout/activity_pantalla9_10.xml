@@ -9,37 +9,94 @@
 
     <ListView
         android:id="@+id/listaDetallesProducto"
-        android:layout_width="302dp"
-        android:layout_height="438dp"
-        android:layout_marginTop="236dp"
+        android:layout_width="379dp"
+        android:layout_height="250dp"
+        android:layout_marginBottom="40dp"
         android:background="#FFFFFF"
         android:backgroundTint="#393E46"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/buscarProductosButton"
+        android:layout_width="170dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/colorBoton1"
+        android:minHeight="50dp"
+        android:text="@string/busProducto"
+        android:textColor="#EEEEEE"
+        android:textSize="12sp"
+        app:icon="@drawable/search"
+        app:iconSize="20dp"
+        app:iconTint="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/agregarProductosButton"
+        app:layout_constraintTop_toBottomOf="@+id/imageView14"
+        app:layout_constraintVertical_bias="0.014"
+        tools:ignore="TextContrastCheck,TextContrastCheck" />
+
+    <Button
+        android:id="@+id/agregarProductosButton"
+        android:layout_width="170dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="36dp"
+        android:backgroundTint="@color/colorBoton1"
+        android:onClick="abrirBuscarProducto"
+        android:text="@string/agregarProducto"
+        android:textColor="#EEEEEE"
+        android:textSize="12sp"
+        app:icon="@drawable/add"
+        app:iconSize="20dp"
+        app:iconTint="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView14"
+        app:layout_constraintVertical_bias="0.025"
+        tools:ignore="TextContrastCheck,TextContrastCheck" />
 
-    <Button
-        android:id="@+id/botonModificarProducto"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/fondo"
+        app:itemIconTint="@color/colorBoton2"
+        app:itemTextColor="#EEEEEE"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/barranav2">
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+    <ImageView
+        android:id="@+id/imageView14"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logotallersw" />
+
+    <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="42dp"
-        android:layout_marginEnd="26dp"
-        android:backgroundTint="@color/colorBoton1"
-        android:text="@string/modificarProducto"
-        android:textColor="#EEEEEE"
+        android:layout_marginBottom="32dp"
+        android:text="@string/misProd"
+        android:textColor="@color/letras"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/listaDetallesProducto"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/botonEliminarProducto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="26dp"
-        android:backgroundTint="@color/colorBoton1"
-        android:text="@string/eliminarProducto"
-        android:textColor="#EEEEEE"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/botonModificarProducto" />
 </androidx.constraintlayout.widget.ConstraintLayout>

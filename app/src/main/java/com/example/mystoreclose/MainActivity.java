@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         botonxdxd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent pantalla8 = new Intent(MainActivity.this, pantalla7_14_15_16.class );
+                Intent pantalla8 = new Intent(MainActivity.this, pantalla9_10.class );
                 startActivity(pantalla8);
             }
         });

@@ -24,8 +24,11 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import modelo.EmpresaMinimarket;
 
 public class buscar_minimarket_cliente extends AppCompatActivity{
 
@@ -47,7 +50,7 @@ public class buscar_minimarket_cliente extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buscar_minimarket_cliente);
         readerJSon();
-        listaMinimarkets = (ListView)findViewById(R.id.listViewListadoMinimarketsCercanos);
+        /*listaMinimarkets = (ListView)findViewById(R.id.listViewListadoMinimarketsCercanos);
         nombreMinimarket = (TextView)findViewById(R.id.textViewDatosMinimarket);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.modelo_list_view, listadoMInimarketsIndexado);
         listaMinimarkets.setAdapter(adapter);
@@ -57,7 +60,7 @@ public class buscar_minimarket_cliente extends AppCompatActivity{
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 nombreMinimarket.setText("La distancia entre usted y el " + listaMinimarkets.getItemAtPosition(i) +" es de " + ditanciaMinimarketUsuarioIndexado[i]);
             }
-        });
+        });*/
     }
 
     private void readerJSon() {
@@ -73,7 +76,7 @@ public class buscar_minimarket_cliente extends AppCompatActivity{
                         try {
 
                             System.out.println(response);
-                            /*
+
                             nombreEmpresa=response.getString("Nombre_empresa");
                             nombreMinimarket=response.getString("Nombre_local");
                             rut=response.getString("Rut_empresa");
@@ -82,7 +85,7 @@ public class buscar_minimarket_cliente extends AppCompatActivity{
 
                             empresaMinimarket = new EmpresaMinimarket(nombreEmpresa,nombreMinimarket,rut,direccion,correo);
                             arrayList.add(empresaMinimarket);
-                            */
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

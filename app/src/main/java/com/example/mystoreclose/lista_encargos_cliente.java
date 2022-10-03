@@ -19,7 +19,7 @@ public class lista_encargos_cliente extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_encargos_cliente);
-        listadoEncargos = (ListView)findViewById(R.id.listViewListadoEncargos);
+        /*listadoEncargos = (ListView)findViewById(R.id.listViewListadoEncargos);
         estadoEncargo = (TextView)findViewById(R.id.textViewEstadoEncargo);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.modelo_list_view, listadoEncargosIndexado);
         listadoEncargos.setAdapter(adapter);
@@ -29,6 +29,6 @@ public class lista_encargos_cliente extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 estadoEncargo.setText("El " + listadoEncargos.getItemAtPosition(i) +" esta " + ditanciaMinimarketUsuarioIndexado[i]);
             }
-        });
+        });*/
     }
 }

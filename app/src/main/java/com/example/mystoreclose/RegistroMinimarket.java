@@ -25,8 +25,8 @@ public class RegistroMinimarket extends AppCompatActivity implements View.OnClic
 
     RequestQueue requestQueue;
     //ip debe ser del pc (ipconfig en el cmd para ver la ip)/ la carpeta ubicada en el xampp (android en este caso)/ el archivo php (agregar_cliente.php)
-    private static final String URL1= "http://192.168.0.4/Android/agregar_minimarket.php";
-
+    //private static final String URL1= "http://192.168.0.4/Android/agregar_minimarket.php"; IpAndriu
+     private static final String URL1= "http://192.168.1.102/Android/agregar_minimarket.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -47,7 +47,7 @@ public class RegistroMinimarket extends AppCompatActivity implements View.OnClic
         MKcontrasenia=findViewById(R.id.etPassword);
         MKCContraseña=findViewById(R.id.MKCContraseña);
         //buttons
-        btnRegistrar=findViewById(R.id.btnRegistrar);
+        btnRegistrar=findViewById(R.id.btnIniciarSesionEmpresa);
 
     }
 
@@ -55,7 +55,7 @@ public class RegistroMinimarket extends AppCompatActivity implements View.OnClic
     public void onClick(View v){
         int id=v.getId();
 
-        if (id == R.id.btnRegistrar){
+        if (id == R.id.btnIniciarSesionEmpresa){
             String Rut= MKRut.getText().toString().trim();
             String NombreEmp=MKNombreEmp.getText().toString().trim();
             String Direccion=MKDireccion.getText().toString().trim();

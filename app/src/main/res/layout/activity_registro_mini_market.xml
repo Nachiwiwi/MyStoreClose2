@@ -27,7 +27,7 @@
         tools:ignore="TextContrastCheck" />
 
     <Button
-        android:id="@+id/btnRegistrar"
+        android:id="@+id/btnIniciarSesionEmpresa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
@@ -52,7 +52,7 @@
         android:textAlignment="center"
         android:textColor="@color/letras"
         android:textColorHint="@color/letras"
-        app:layout_constraintBottom_toTopOf="@+id/btnRegistrar"
+        app:layout_constraintBottom_toTopOf="@+id/btnIniciarSesionEmpresa"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"

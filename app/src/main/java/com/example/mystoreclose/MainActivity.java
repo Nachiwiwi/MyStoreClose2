@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         invitado1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent pantalla11 = new Intent(MainActivity.this, home_cliente.class );
+                Intent pantalla11 = new Intent(MainActivity.this, buscar_minimarket_cliente.class );
                 startActivity(pantalla11);
             }
         });

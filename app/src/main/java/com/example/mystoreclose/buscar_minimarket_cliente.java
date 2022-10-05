@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -21,6 +22,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -34,72 +36,61 @@ public class buscar_minimarket_cliente extends AppCompatActivity{
 
     public static ArrayList<EmpresaMinimarket> arrayList= new ArrayList<>();
     public EmpresaMinimarket empresaMinimarket;
+    ListView listViewListadoMinimarketsCercanos;
+    TextView textViewDatosMinimarket;
 
-    private TextView nombreMinimarket;
-    private ListView listaMinimarkets;
-
+    private RequestQueue queue;
     //los siguientes arreglos deben ser añadidos desde la base de datos en un futuro solo son ejemplos
 
-    private String listadoMInimarketsIndexado[] = {"minimarket1", "minimarket2", "minimarket3", "minimarketN"};
+    private String listadoMInimarketsIndexado[] ;
     private String ditanciaMinimarketUsuarioIndexado[] = {"distancia1" , "distancia2", "distancia3", "distanciaN"};
 
-    private static final String URL1= "http://192.168.0.3/Android/metodoGET.php";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buscar_minimarket_cliente);
-        readerJSon();
-        listaMinimarkets = (ListView)findViewById(R.id.listViewListadoMinimarketsCercanos);
-        nombreMinimarket = (TextView)findViewById(R.id.textViewDatosMinimarket);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.modelo_list_view, listadoMInimarketsIndexado);
-        listaMinimarkets.setAdapter(adapter);
 
-        listaMinimarkets.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                nombreMinimarket.setText("La distancia entre usted y el " + listaMinimarkets.getItemAtPosition(i) +" es de " + ditanciaMinimarketUsuarioIndexado[i]);
-            }
-        });
+        queue = Volley.newRequestQueue(this);
+
+        readerJSon();
+
+        Toast.makeText(buscar_minimarket_cliente.this, "fin:", Toast.LENGTH_SHORT).show();
+
     }
 
     private void readerJSon() {
-        JsonObjectRequest JsonObjectRequest = new JsonObjectRequest(
-                Request.Method.GET,
-                URL1,
-                null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        arrayList.clear();
-                        String nombreEmpresa,nombreMinimarket,rut,direccion,correo;
-                        try {
 
-                            System.out.println(response);
+        String URL1= "http://192.168.0.4/Android/metodoGET.php";
 
-                            nombreEmpresa=response.getString("Nombre_empresa");
-                            nombreMinimarket=response.getString("Nombre_local");
-                            rut=response.getString("Rut_empresa");
-                            direccion=response.getString("Direccion");
-                            correo=response.getString("MailDueño");
+        StringRequest request = new StringRequest(Request.Method.GET, URL1, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
 
-                            empresaMinimarket = new EmpresaMinimarket(nombreEmpresa,nombreMinimarket,rut,direccion,correo);
-                            arrayList.add(empresaMinimarket);
+                try {
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        System.out.println(response);
+                    JSONArray array = new JSONArray(response);
+                    for(int i = 0 ; i<array.length(); i++){
+                        JSONObject object = array.getJSONObject(i);
+                        String nombre = object.getString("Nombre");
+                        String latitud = object.getString("Latitud");
+                        Toast.makeText(buscar_minimarket_cliente.this, nombre, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(buscar_minimarket_cliente.this, latitud, Toast.LENGTH_SHORT).show();
                     }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                    }
+                }catch (JSONException e){
+                    Toast.makeText(buscar_minimarket_cliente.this, "2xd:", Toast.LENGTH_SHORT).show();
                 }
 
-        );
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(buscar_minimarket_cliente.this, error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
+        queue.add(request);
     }
 }

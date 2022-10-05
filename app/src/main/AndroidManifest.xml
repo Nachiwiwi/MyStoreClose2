@@ -1,14 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
-        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MyStoreClose">
+        android:theme="@style/Theme.MyStoreClose"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".PerfilEmpresa"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".PerfilCliente"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".RegistroCliente"
             android:exported="false">
@@ -17,91 +33,91 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".pantalla13"
+            android:name=".VistaEncargoEmpresa"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".lista_encargos_cliente"
+            android:name=".EncargosCliente"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".pantalla12"
+            android:name=".EncargosEmpresa"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".minimarket_seleccionado_cliente"
+            android:name=".VistaMinimarketCliente"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".pantalla11"
+            android:name=".ModificarProducto"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".buscar_producto_cliente"
+            android:name=".BuscarProductoCliente"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".pantalla9_10"
+            android:name=".InicioEmpresa"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".home_cliente"
+            android:name=".InicioCliente"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".pantalla8"
+            android:name=".AgregarProducto"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".pantalla7_14_15_16"
+            android:name=".VerProducto"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".buscar_minimarket_cliente"
+            android:name=".BuscarMinimarketCliente"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".RegistroMiniMarket"
+            android:name=".RegistroMinimarket"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".InicioSesionEmpresario"
+            android:name=".IniciarSesionEmpresa"
             android:exported="false" />
         <activity
             android:name=".IniciarSesionCliente"

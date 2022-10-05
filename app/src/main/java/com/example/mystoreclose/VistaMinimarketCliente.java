@@ -3,13 +3,10 @@ package com.example.mystoreclose;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class minimarket_seleccionado_cliente extends AppCompatActivity {
+public class VistaMinimarketCliente extends AppCompatActivity {
     private TextView nombreMinimarket;
     private ListView listaProductos;
 
@@ -21,8 +18,8 @@ public class minimarket_seleccionado_cliente extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_minimarket_seleccionado_cliente);
-        listaProductos = (ListView)findViewById(R.id.lv1);
+        setContentView(R.layout.activity_vista_minimarket_cliente);
+        /*listaProductos = (ListView)findViewById(R.id.lv1);
         nombreMinimarket = (TextView)findViewById(R.id.textViewMinimarketSeleccionado);
         ArrayAdapter <String> adapter = new ArrayAdapter<String>(this, R.layout.modelo_list_view, listaProductosIndexado);
         listaProductos.setAdapter(adapter);
@@ -32,6 +29,6 @@ public class minimarket_seleccionado_cliente extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 nombreMinimarket.setText("El precio del producto " + listaProductos.getItemAtPosition(i) +" es " + precioProductosIndexado[i]);
             }
-        });
+        });*/
     }
 }

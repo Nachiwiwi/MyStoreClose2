@@ -27,4 +27,9 @@
     <string name="inicio">Inicio</string>
     <string name="encargo">Pedidos</string>
     <string name="perfil">Perfil</string>
+    <string name="productos">Productos</string>
+    <string name="barrabusq">¿Qué estás buscando?</string>
+    <string name="misProd">Mis productos</string>
+    <string name="miPerfil">Mi perfil</string>
+    <string name="misEncargos">Mis encargos</string>
 </resources>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <item
+            android:id="@+id/navigation_producto"
+            android:title="@string/productos"
+            android:icon="@drawable/bag"/>
+
+        <item
+            android:id="@+id/navigation_pedido"
+            android:title="@string/encargo"
+            android:icon="@drawable/recibotroste"/>
+
+        <item
+            android:id="@+id/navigation_perfil"
+            android:title="@string/perfil"
+            android:icon="@drawable/person"/>
+
+    </menu>

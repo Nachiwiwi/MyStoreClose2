@@ -6,14 +6,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#222831"
-    tools:context=".home_cliente">
+    tools:context=".InicioCliente">
 
     <Button
-        android:id="@+id/buscarMinimarketsButton"
-        android:layout_width="180dp"
+        android:id="@+id/buscarProductosButton"
+        android:layout_width="170dp"
         android:layout_height="80dp"
-        android:layout_marginTop="216dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:backgroundTint="@color/colorBoton1"
         android:minHeight="50dp"
         android:text="@string/busProducto"
@@ -22,48 +23,53 @@
         app:icon="@drawable/bag"
         app:iconSize="20dp"
         app:iconTint="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/textView4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/searchView"
+        tools:ignore="TextContrastCheck,TextContrastCheck,TextContrastCheck" />
 
     <Button
-        android:id="@+id/buscarProductosButton"
-        android:layout_width="180dp"
+        android:id="@+id/agregarProductosButton"
+        android:layout_width="170dp"
         android:layout_height="80dp"
-        android:layout_marginTop="216dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
         android:backgroundTint="@color/colorBoton1"
-        android:onClick="abrirBuscarProducto"
         android:text="@string/busMinimarket"
         android:textColor="#EEEEEE"
         android:textSize="12sp"
         app:icon="@drawable/shop"
         app:iconSize="20dp"
         app:iconTint="@color/black"
-        app:layout_constraintEnd_toStartOf="@+id/buscarMinimarketsButton"
-        app:layout_constraintHorizontal_bias="0.842"
+        app:layout_constraintBottom_toTopOf="@+id/textView4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/searchView"
+        tools:ignore="TextContrastCheck,TextContrastCheck" />
 
     <ImageView
         android:id="@+id/imageView13"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginTop="40dp"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView1"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/searchView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="0.196"
         app:srcCompat="@drawable/logotallersw" />
 
     <ScrollView
         android:id="@+id/scrollView1"
-        android:layout_width="379dp"
+        android:layout_width="360dp"
         android:layout_height="150dp"
-        android:layout_marginBottom="272dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="136dp"
         android:background="@color/colorBoton2"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="SpeakableTextPresentCheck">
@@ -88,4 +94,30 @@
         app:menu="@menu/barranav">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="360dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="1dp"
+        android:background="@color/colorBoton1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView13"
+        app:menu="@menu/barrabusq" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="@string/ofertaDes"
+        android:textColor="@color/letras"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

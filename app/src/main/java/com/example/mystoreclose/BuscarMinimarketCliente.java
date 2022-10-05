@@ -46,6 +46,7 @@ public class BuscarMinimarketCliente extends AppCompatActivity{
         queue = Volley.newRequestQueue(this);
 
         readerJSon();
+
         mostrarMinimarkets();
     }
     public void mostrarMinimarkets(){
@@ -75,6 +76,7 @@ public class BuscarMinimarketCliente extends AppCompatActivity{
                         String latitud = object.getString("Latitud");
                         EmpresaMinimarket nuevaEmpresa = new EmpresaMinimarket(nombreEmpresa, nombreMinimarket, rutEmpresa, direccion, mailLocal);
                         listadoMinimarkets.add(nuevaEmpresa);
+
                     }
                     //RecyclerViewListadoMinimarketsCercanos.setAdapter(mAdapter);
                     //mAdapter = new RecyclerAdapter(buscarMinimarketClente.this,)

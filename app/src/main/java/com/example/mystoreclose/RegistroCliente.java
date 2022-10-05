@@ -2,13 +2,11 @@ package com.example.mystoreclose;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Button;
-import android.widget.Toast;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -47,14 +45,14 @@ public class RegistroCliente extends AppCompatActivity implements View.OnClickLi
         etPassword=findViewById(R.id.etPassword);
 
         //buttons
-        btnRegistrar=findViewById(R.id.btnRegistrar);
+        btnRegistrar=findViewById(R.id.btnIniciarSesionEmpresa);
     }
 
     @Override
     public void onClick(View v){
         int id=v.getId();
 
-        if (id == R.id.btnRegistrar){
+        if (id == R.id.btnIniciarSesionEmpresa){
             String name= etName.getText().toString().trim();
             String email=etEmail.getText().toString().trim();
             String password=etPassword.getText().toString().trim();

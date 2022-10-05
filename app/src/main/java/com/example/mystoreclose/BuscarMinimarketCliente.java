@@ -3,20 +3,27 @@ package com.example.mystoreclose;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import androidx.recyclerview.*;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import modelo.EmpresaMinimarket;
 
@@ -24,16 +31,11 @@ public class BuscarMinimarketCliente extends AppCompatActivity{
 
     public static ArrayList<EmpresaMinimarket> arrayList= new ArrayList<>();
     public EmpresaMinimarket empresaMinimarket;
-    ListView listViewListadoMinimarketsCercanos;
+    RecyclerView.LayoutManager RecyclerViewListadoMinimarketsCercanos;
+    RecyclerView.Adapter mAdapter;
     TextView textViewDatosMinimarket;
-
+    private ArrayList<EmpresaMinimarket> listadoMinimarkets;
     private RequestQueue queue;
-    //los siguientes arreglos deben ser añadidos desde la base de datos en un futuro solo son ejemplos
-
-    private String listadoMInimarketsIndexado[] ;
-    private String ditanciaMinimarketUsuarioIndexado[] = {"distancia1" , "distancia2", "distancia3", "distanciaN"};
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,11 +46,12 @@ public class BuscarMinimarketCliente extends AppCompatActivity{
         queue = Volley.newRequestQueue(this);
 
         readerJSon();
-
-        Toast.makeText(buscar_minimarket_cliente.this, "fin:", Toast.LENGTH_SHORT).show();
+        mostrarMinimarkets();
+    }
+    public void mostrarMinimarkets(){
+        //Toast.makeText(BuscarMinimarketCliente.this, listadoMinimarkets.get(1).getNombreMinimarket(), Toast.LENGTH_SHORT).show();
 
     }
-
     private void readerJSon() {
 
         String URL1= "http://192.168.0.4/Android/metodoGET.php";
@@ -58,24 +61,34 @@ public class BuscarMinimarketCliente extends AppCompatActivity{
             public void onResponse(String response) {
 
                 try {
-
                     JSONArray array = new JSONArray(response);
                     for(int i = 0 ; i<array.length(); i++){
                         JSONObject object = array.getJSONObject(i);
-                        String nombre = object.getString("Nombre");
+                        String idMinimarket = object.getString("IdMarket");
+                        String nombreEmpresa = object.getString("Nombre_empresa");
+                        String nombreMinimarket = object.getString("Nombre_local");
+                        String direccion = object.getString("Direccion");
+                        String rutEmpresa = object.getString("Rut_Empresa");
+                        String contraseñaDueño = object.getString("ContraseñaDueño");
+                        String mailLocal = object.getString("MailDueño");
+                        String longitud = object.getString("Longitud");
                         String latitud = object.getString("Latitud");
-                        Toast.makeText(buscar_minimarket_cliente.this, nombre, Toast.LENGTH_SHORT).show();
-                        Toast.makeText(buscar_minimarket_cliente.this, latitud, Toast.LENGTH_SHORT).show();
+                        EmpresaMinimarket nuevaEmpresa = new EmpresaMinimarket(nombreEmpresa, nombreMinimarket, rutEmpresa, direccion, mailLocal);
+                        listadoMinimarkets.add(nuevaEmpresa);
                     }
+                    //RecyclerViewListadoMinimarketsCercanos.setAdapter(mAdapter);
+                    //mAdapter = new RecyclerAdapter(buscarMinimarketClente.this,)
+                    //RecyclerViewListadoMinimarketsCercanos.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_activated_2,listadoMinimarkets ));
+
                 }catch (JSONException e){
-                    Toast.makeText(buscar_minimarket_cliente.this, "2xd:", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BuscarMinimarketCliente.this, "2xd:", Toast.LENGTH_SHORT).show();
                 }
 
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(buscar_minimarket_cliente.this, error.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(BuscarMinimarketCliente.this, error.toString(), Toast.LENGTH_SHORT).show();
             }
         });
 

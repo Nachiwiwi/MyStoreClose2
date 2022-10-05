@@ -67,7 +67,7 @@ public class InicioEmpresa extends AppCompatActivity implements Response.Listene
                 System.out.println(pupi.getString("Nombre"));
             }
 
-            //listaDeObjetos.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,array ));
+            listaDeObjetos.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,array ));
 
         }catch (JSONException e){
             Toast.makeText(InicioEmpresa.this, "Error:", Toast.LENGTH_SHORT).show();

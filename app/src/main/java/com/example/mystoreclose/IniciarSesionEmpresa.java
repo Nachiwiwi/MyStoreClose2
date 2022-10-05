@@ -35,14 +35,6 @@ public class IniciarSesionEmpresa extends AppCompatActivity {
             }
         });
 
-/*        a = (ImageButton) findViewById(R.id.imageButton);
-        a.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent pantallaa = new Intent(IniciarSesionEmpresa.this, MainActivity.class );
-                startActivity(pantallaa);
-            }
-        });*/
 
     }
 

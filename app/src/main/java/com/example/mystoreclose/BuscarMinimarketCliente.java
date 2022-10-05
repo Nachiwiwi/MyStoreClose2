@@ -8,9 +8,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,7 +48,7 @@ public class BuscarMinimarketCliente extends AppCompatActivity{
 
         readerJSon();
 
-        Toast.makeText(buscar_minimarket_cliente.this, "fin:", Toast.LENGTH_SHORT).show();
+        Toast.makeText(BuscarMinimarketCliente.this, "fin:", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -64,18 +67,18 @@ public class BuscarMinimarketCliente extends AppCompatActivity{
                         JSONObject object = array.getJSONObject(i);
                         String nombre = object.getString("Nombre");
                         String latitud = object.getString("Latitud");
-                        Toast.makeText(buscar_minimarket_cliente.this, nombre, Toast.LENGTH_SHORT).show();
-                        Toast.makeText(buscar_minimarket_cliente.this, latitud, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(BuscarMinimarketCliente.this, nombre, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(BuscarMinimarketCliente.this, latitud, Toast.LENGTH_SHORT).show();
                     }
                 }catch (JSONException e){
-                    Toast.makeText(buscar_minimarket_cliente.this, "2xd:", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BuscarMinimarketCliente.this, "2xd:", Toast.LENGTH_SHORT).show();
                 }
 
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(buscar_minimarket_cliente.this, error.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(BuscarMinimarketCliente.this, error.toString(), Toast.LENGTH_SHORT).show();
             }
         });
 

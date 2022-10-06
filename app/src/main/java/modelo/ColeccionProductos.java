@@ -31,4 +31,12 @@ public class ColeccionProductos {
     public Producto obtenerProducto(String idProducto){
         return this.productosMapa.get(idProducto);
     }
+
+    public int dimensionColeccion(){
+        return this.listadoProductos.size();
+    }
+
+    public Producto obtenerProducto(int index){
+        return this.listadoProductos.get(index);
+    }
 }

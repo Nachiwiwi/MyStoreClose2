@@ -12,13 +12,14 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import modelo.ColeccionProductos;
+
 
 public class RecyclerViewProductosFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private AdaptadorProductos adaptadorProductos;
-    private String[] data;
-    private int tamanioDatos = 10;
+    private ColeccionProductos data;
     private RecyclerView.LayoutManager layoutManager;
 
     // Tipo de layout que se va a mostrar por pantalla
@@ -30,12 +31,12 @@ public class RecyclerViewProductosFragment extends Fragment {
 
     // Constructor del Fragmento
     public RecyclerViewProductosFragment() {
+        this.data = new ColeccionProductos();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initDataset();
     }
 
     @Override
@@ -47,26 +48,16 @@ public class RecyclerViewProductosFragment extends Fragment {
         this.recyclerView = (RecyclerView) vista.findViewById(R.id.recyclerViewProductosEmpresa);
         this.layoutManager = new LinearLayoutManager(getActivity());
         // Se crea el adaptador
-        ArrayList<String> array = new ArrayList<>();
-        this.replace(array);
-        this.adaptadorProductos = new AdaptadorProductos(array);
+        this.adaptadorProductos = new AdaptadorProductos(this.data);
         this.recyclerView.setAdapter(this.adaptadorProductos);
         this.recyclerView.setLayoutManager(layoutManager);
-
+        this.recyclerView.scrollToPosition(0);
 
         return vista;
     }
 
-    private void initDataset(){
-        this.data = new String[this.tamanioDatos];
-        for (int i = 0; i < this.tamanioDatos; i++){
-            this.data[i] = "El elemento es: "+ i;
-        }
+    public void setColeccion(ColeccionProductos coleccion){
+        this.data = coleccion;
     }
 
-    private void replace(ArrayList arrayList){
-        for (int i = 0; i < this.tamanioDatos; i++){
-            arrayList.add(this.data[i]);
-        }
-    }
 }

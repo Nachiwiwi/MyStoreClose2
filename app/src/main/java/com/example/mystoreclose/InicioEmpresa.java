@@ -21,48 +21,43 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import modelo.ColeccionProductos;
+import modelo.Producto;
+
 public class InicioEmpresa extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener{
-    private RecyclerView listaDeObjetos;
-    private  String NombreP = "XXX";
     RequestQueue rQ;
     JsonRequest jsR;
-    ArrayList<String> array = new ArrayList<String>();
+    ColeccionProductos productos = new ColeccionProductos();
 
-    private String direccionProductos = "http://192.168.178.246/Android/getProductosMinimarket.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio_empresa);
-
-        array.add("Salsa de Tomate");
-        array.add("Carozzi");
-        array.add("Fideos");
-        array.add("Papas Fritas");
-        if (savedInstanceState == null) {
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            RecyclerViewProductosFragment fragment = new RecyclerViewProductosFragment();
-            transaction.replace(R.id.fragmentContentProductosEmpresa, fragment);
-            transaction.commit();
-        }
+        // Se obtienen los datos de la base de datos
 
         rQ = Volley.newRequestQueue(this);
+        this.obtenerProductosBD();
 
 
+        productos.agregarProducto(new Producto("Prueba 1","Precio1"));
+        productos.agregarProducto(new Producto("Prueba 2","Precio2"));
+        productos.agregarProducto(new Producto("Prueba 3","Precio3"));
 
-        //listaDeObjetos.
+        System.out.println("El tamaño de la coleccion es: "+productos.dimensionColeccion());
+        // Tuve que poner estas sentencias es el metodo onResponse porque me abría la página antes que leerme los datos de la Base de datos
 
-        inicializar();
+        /*if (savedInstanceState == null) {
 
-
-        //obtenerProductosBD();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            RecyclerViewProductosFragment fragment = new RecyclerViewProductosFragment();
+            fragment.setColeccion(this.productos);
+            transaction.replace(R.id.fragmentContentProductosEmpresa, fragment);
+            transaction.commit();
+        }*/
 
     }
 
-    private void inicializar(){
-        //listaDeObjetos = (ListView) findViewById(R.id.listaDetallesProducto);
-    }
 
     @Override
     public void onErrorResponse(VolleyError error) {
@@ -73,14 +68,23 @@ public class InicioEmpresa extends AppCompatActivity implements Response.Listene
     public void onResponse(JSONObject response) {
 
         try {
+            Producto p;
             JSONArray productosJSON = response.getJSONArray("Productos");
             for(int i = 0; i < productosJSON.length(); i++){
                 JSONObject pupi = productosJSON.getJSONObject(i);
-                array.add(new String(pupi.getString("Nombre")));
-                System.out.println(pupi.getString("Nombre"));
-            }
+                p = new Producto( new String(pupi.getString("Nombre")),
+                        new String(pupi.getString("PrecioUnitario")) );
+                this.productos.agregarProducto(p);
 
-            //listaDeObjetos.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,array ));
+                System.out.println("El nombre es: " + pupi.getString("Nombre")
+                + " El precio es: "+ pupi.getString("PrecioUnitario"));
+            }
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            RecyclerViewProductosFragment fragment = new RecyclerViewProductosFragment();
+            fragment.setColeccion(this.productos);
+            transaction.replace(R.id.fragmentContentProductosEmpresa, fragment);
+            transaction.commit();
+
 
         }catch (JSONException e){
             Toast.makeText(InicioEmpresa.this, "Error:", Toast.LENGTH_SHORT).show();

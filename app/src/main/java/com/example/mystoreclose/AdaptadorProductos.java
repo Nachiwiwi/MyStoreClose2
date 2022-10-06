@@ -11,10 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import modelo.ColeccionProductos;
+
 public class AdaptadorProductos extends RecyclerView.Adapter<AdaptadorProductos.ViewHolder>{
-    private ArrayList<String> NombresProductos;
-    public AdaptadorProductos(ArrayList<String> NombresProductos){
-        this.NombresProductos = NombresProductos;
+    private ColeccionProductos coleccionProductos;
+    public AdaptadorProductos(ColeccionProductos Productos){
+        this.coleccionProductos = Productos;
     }
     @NonNull
     // Se llama esta funcion cuando el recyclerView precise de una nueva vista para mostrar por pantalla
@@ -27,12 +29,13 @@ public class AdaptadorProductos extends RecyclerView.Adapter<AdaptadorProductos.
     @Override
     public void onBindViewHolder(@NonNull AdaptadorProductos.ViewHolder holder, int position) {
         //holder.bind(this.NombresProductos.get(position));
-        holder.getTextView().setText(this.NombresProductos.get(position));
+        holder.getTextView().setText("Nombre: "+this.coleccionProductos.obtenerProducto(position).getNombre()
+        + "\nPrecio: "+ this.coleccionProductos.obtenerProducto(position).getPrecio());
     }
     // Numero de elementos que tiene una lista
     @Override
     public int getItemCount() {
-        return this.NombresProductos.size();
+        return this.coleccionProductos.dimensionColeccion();
     }
 
     // clase ViewHolder

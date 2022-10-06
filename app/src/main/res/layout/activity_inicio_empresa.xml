@@ -11,8 +11,6 @@
         android:id="@+id/buscarProductosButton"
         android:layout_width="170dp"
         android:layout_height="80dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="16dp"
         android:backgroundTint="@color/colorBoton1"
         android:minHeight="50dp"
         android:text="@string/busProducto"
@@ -21,20 +19,18 @@
         app:icon="@drawable/search"
         app:iconSize="20dp"
         app:iconTint="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/agregarProductosButton"
-        app:layout_constraintTop_toBottomOf="@+id/imageView14"
-        app:layout_constraintVertical_bias="0.014"
+        app:layout_constraintHorizontal_bias="0.933"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.311"
         tools:ignore="TextContrastCheck,TextContrastCheck" />
 
     <Button
         android:id="@+id/agregarProductosButton"
         android:layout_width="170dp"
         android:layout_height="80dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="36dp"
         android:backgroundTint="@color/colorBoton1"
         android:text="@string/agregarProducto"
         android:textColor="#EEEEEE"
@@ -42,10 +38,12 @@
         app:icon="@drawable/add"
         app:iconSize="20dp"
         app:iconTint="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.082"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView14"
-        app:layout_constraintVertical_bias="0.025"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.311"
         tools:ignore="TextContrastCheck,TextContrastCheck" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -57,8 +55,6 @@
         app:itemTextColor="#EEEEEE"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/barranav2">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
@@ -67,11 +63,12 @@
         android:id="@+id/imageView14"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.053"
         app:srcCompat="@drawable/logotallersw" />
 
     <TextView
@@ -81,21 +78,23 @@
         android:text="@string/misProd"
         android:textColor="@color/letras"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintBottom_toBottomOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.476" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContentProductosEmpresa"
         android:name="com.example.mystoreclose.RecyclerViewProductosFragment"
-        android:layout_width="383dp"
-        android:layout_height="291dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        android:layout_width="366dp"
+        android:layout_height="238dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.856"
         tools:layout="@layout/fragment_recycler_view_productos" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,10 +1,10 @@
 package com.example.mystoreclose;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -25,6 +25,11 @@ import modelo.ColeccionProductos;
 import modelo.Producto;
 
 public class InicioEmpresa extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener{
+<<<<<<< HEAD
+=======
+    private ListView listaDeObjetos;
+    private  String NombreP = "XXX";
+>>>>>>> parent of d05771a (RecyclerView, Fragment, Inicio Empresa)
     RequestQueue rQ;
     JsonRequest jsR;
     ColeccionProductos productos = new ColeccionProductos();
@@ -34,6 +39,7 @@ public class InicioEmpresa extends AppCompatActivity implements Response.Listene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio_empresa);
+<<<<<<< HEAD
         // Se obtienen los datos de la base de datos
 
         rQ = Volley.newRequestQueue(this);
@@ -58,6 +64,23 @@ public class InicioEmpresa extends AppCompatActivity implements Response.Listene
 
     }
 
+=======
+        rQ = Volley.newRequestQueue(this);
+
+        inicializar();
+        array.add("Salsa de Tomate");
+        array.add("Carozzi");
+        array.add("Fideos");
+        array.add("Papas Fritas");
+
+        obtenerProductosBD();
+
+    }
+
+    private void inicializar(){
+        listaDeObjetos = (ListView) findViewById(R.id.listaDetallesProducto);
+    }
+>>>>>>> parent of d05771a (RecyclerView, Fragment, Inicio Empresa)
 
     @Override
     public void onErrorResponse(VolleyError error) {
@@ -85,6 +108,10 @@ public class InicioEmpresa extends AppCompatActivity implements Response.Listene
             transaction.replace(R.id.fragmentContentProductosEmpresa, fragment);
             transaction.commit();
 
+<<<<<<< HEAD
+=======
+            listaDeObjetos.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,array ));
+>>>>>>> parent of d05771a (RecyclerView, Fragment, Inicio Empresa)
 
         }catch (JSONException e){
             Toast.makeText(InicioEmpresa.this, "Error:", Toast.LENGTH_SHORT).show();

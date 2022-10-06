@@ -1,10 +1,10 @@
 package com.example.mystoreclose;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -22,7 +22,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class InicioEmpresa extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener{
-    private ListView listaDeObjetos;
+    private RecyclerView listaDeObjetos;
     private  String NombreP = "XXX";
     RequestQueue rQ;
     JsonRequest jsR;
@@ -35,20 +35,33 @@ public class InicioEmpresa extends AppCompatActivity implements Response.Listene
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio_empresa);
-        rQ = Volley.newRequestQueue(this);
 
-        inicializar();
         array.add("Salsa de Tomate");
         array.add("Carozzi");
         array.add("Fideos");
         array.add("Papas Fritas");
+        if (savedInstanceState == null) {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            RecyclerViewProductosFragment fragment = new RecyclerViewProductosFragment();
+            transaction.replace(R.id.fragmentContentProductosEmpresa, fragment);
+            transaction.commit();
+        }
 
-        obtenerProductosBD();
+        rQ = Volley.newRequestQueue(this);
+
+
+
+        //listaDeObjetos.
+
+        inicializar();
+
+
+        //obtenerProductosBD();
 
     }
 
     private void inicializar(){
-        listaDeObjetos = (ListView) findViewById(R.id.listaDetallesProducto);
+        //listaDeObjetos = (ListView) findViewById(R.id.listaDetallesProducto);
     }
 
     @Override
@@ -67,7 +80,7 @@ public class InicioEmpresa extends AppCompatActivity implements Response.Listene
                 System.out.println(pupi.getString("Nombre"));
             }
 
-            listaDeObjetos.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,array ));
+            //listaDeObjetos.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,array ));
 
         }catch (JSONException e){
             Toast.makeText(InicioEmpresa.this, "Error:", Toast.LENGTH_SHORT).show();

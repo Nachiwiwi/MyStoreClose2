@@ -7,17 +7,6 @@
     android:background="#222831"
     tools:context=".InicioEmpresa">
 
-    <ListView
-        android:id="@+id/listaDetallesProducto"
-        android:layout_width="379dp"
-        android:layout_height="250dp"
-        android:layout_marginBottom="40dp"
-        android:background="#FFFFFF"
-        android:backgroundTint="#393E46"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <Button
         android:id="@+id/buscarProductosButton"
         android:layout_width="170dp"
@@ -47,7 +36,6 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="36dp"
         android:backgroundTint="@color/colorBoton1"
-        android:onClick="abrirBuscarProducto"
         android:text="@string/agregarProducto"
         android:textColor="#EEEEEE"
         android:textSize="12sp"
@@ -90,13 +78,24 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
         android:text="@string/misProd"
         android:textColor="@color/letras"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/listaDetallesProducto"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContentProductosEmpresa"
+        android:name="com.example.mystoreclose.RecyclerViewProductosFragment"
+        android:layout_width="383dp"
+        android:layout_height="291dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        tools:layout="@layout/fragment_recycler_view_productos" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

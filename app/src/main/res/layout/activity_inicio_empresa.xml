@@ -92,6 +92,7 @@
         android:textColor="@color/letras"
         android:textSize="24sp"
 <<<<<<< HEAD
+<<<<<<< HEAD
         app:layout_constraintBottom_toBottomOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -110,6 +111,12 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.856"
         tools:layout="@layout/fragment_recycler_view_productos" />
+=======
+        app:layout_constraintBottom_toTopOf="@+id/listaDetallesProducto"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+>>>>>>> parent of d05771a (RecyclerView, Fragment, Inicio Empresa)
 =======
         app:layout_constraintBottom_toTopOf="@+id/listaDetallesProducto"
         app:layout_constraintEnd_toEndOf="parent"

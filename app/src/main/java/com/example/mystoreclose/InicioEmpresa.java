@@ -26,7 +26,10 @@ import modelo.Producto;
 
 public class InicioEmpresa extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener{
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of d05771a (RecyclerView, Fragment, Inicio Empresa)
     private ListView listaDeObjetos;
     private  String NombreP = "XXX";
 >>>>>>> parent of d05771a (RecyclerView, Fragment, Inicio Empresa)
@@ -39,6 +42,7 @@ public class InicioEmpresa extends AppCompatActivity implements Response.Listene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio_empresa);
+<<<<<<< HEAD
 <<<<<<< HEAD
         // Se obtienen los datos de la base de datos
 
@@ -67,6 +71,10 @@ public class InicioEmpresa extends AppCompatActivity implements Response.Listene
 =======
         rQ = Volley.newRequestQueue(this);
 
+=======
+        rQ = Volley.newRequestQueue(this);
+
+>>>>>>> parent of d05771a (RecyclerView, Fragment, Inicio Empresa)
         inicializar();
         array.add("Salsa de Tomate");
         array.add("Carozzi");
@@ -99,6 +107,7 @@ public class InicioEmpresa extends AppCompatActivity implements Response.Listene
                         new String(pupi.getString("PrecioUnitario")) );
                 this.productos.agregarProducto(p);
 
+<<<<<<< HEAD
                 System.out.println("El nombre es: " + pupi.getString("Nombre")
                 + " El precio es: "+ pupi.getString("PrecioUnitario"));
             }
@@ -109,6 +118,9 @@ public class InicioEmpresa extends AppCompatActivity implements Response.Listene
             transaction.commit();
 
 <<<<<<< HEAD
+=======
+            listaDeObjetos.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,array ));
+>>>>>>> parent of d05771a (RecyclerView, Fragment, Inicio Empresa)
 =======
             listaDeObjetos.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,array ));
 >>>>>>> parent of d05771a (RecyclerView, Fragment, Inicio Empresa)

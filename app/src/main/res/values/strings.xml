@@ -32,6 +32,4 @@
     <string name="misProd">Mis productos</string>
     <string name="miPerfil">Mi perfil</string>
     <string name="misEncargos">Mis encargos</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

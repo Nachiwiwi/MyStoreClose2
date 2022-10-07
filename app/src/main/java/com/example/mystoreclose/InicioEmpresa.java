@@ -1,14 +1,14 @@
 package com.example.mystoreclose;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -25,12 +25,13 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class InicioEmpresa extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener{
+public class InicioEmpresa extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener {
 
     //Botones
     Button botonAgregar;
     Button botonBuscar;
 
+    private ListView listaDeObjetos;
     private RecyclerView listaDeObjetos;
     private  String NombreP = "XXX";
     RequestQueue rQ;
@@ -43,6 +44,22 @@ public class InicioEmpresa extends AppCompatActivity implements Response.Listene
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio_empresa);
+
+        // Se obtienen los datos de la base de datos
+
+        rQ = Volley.newRequestQueue(this);
+        this.obtenerProductosBD();
+
+
+        productos.agregarProducto(new Producto("Prueba 1","Precio1"));
+        productos.agregarProducto(new Producto("Prueba 2","Precio2"));
+        productos.agregarProducto(new Producto("Prueba 3","Precio3"));
+
+        System.out.println("El tamaño de la coleccion es: "+productos.dimensionColeccion());
+        // Tuve que poner estas sentencias es el metodo onResponse porque me abría la página antes que leerme los datos de la Base de datos
+
+        /*if (savedInstanceState == null) {
+
 
         //Apretar botón agregar producto
         botonAgregar = (Button) findViewById(R.id.agregarProductosButton);
@@ -89,6 +106,12 @@ public class InicioEmpresa extends AppCompatActivity implements Response.Listene
         //listaDeObjetos = (ListView) findViewById(R.id.listaDetallesProducto);
     }
 
+
+    private void inicializar(){
+        listaDeObjetos = (ListView) findViewById(R.id.listaDetallesProducto);
+    }
+
+
     @Override
     public void onErrorResponse(VolleyError error) {
         Toast.makeText(InicioEmpresa.this, error.toString(),Toast.LENGTH_LONG).show();
@@ -104,6 +127,14 @@ public class InicioEmpresa extends AppCompatActivity implements Response.Listene
                 array.add(new String(pupi.getString("Nombre")));
                 System.out.println(pupi.getString("Nombre"));
             }
+
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            RecyclerViewProductosFragment fragment = new RecyclerViewProductosFragment();
+            fragment.setColeccion(this.productos);
+            transaction.replace(R.id.fragmentContentProductosEmpresa, fragment);
+            transaction.commit();
+            listaDeObjetos.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,array ));
+
 
             //listaDeObjetos.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,array ));
 

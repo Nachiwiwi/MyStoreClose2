@@ -31,7 +31,7 @@ public class RegistroMinimarket extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registro_mini_market);
+        setContentView(R.layout.activity_registro_minimarket);
         requestQueue = Volley.newRequestQueue(this);
         initUI();
         btnRegistrar.setOnClickListener(this);

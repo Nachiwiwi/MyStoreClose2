@@ -7,27 +7,77 @@
     android:background="#222831"
     tools:context=".EncargosEmpresa">
 
-    <ListView
-        android:id="@+id/listaCompradores"
-        android:layout_width="342dp"
-        android:layout_height="463dp"
-        android:layout_marginBottom="61dp"
-        android:background="@color/colorBoton2"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <ImageView
+        android:id="@+id/imageView16"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/botonVolverPantalla12" />
-
-    <ImageButton
-        android:id="@+id/botonVolverPantalla12"
-        android:layout_width="97dp"
-        android:layout_height="86dp"
-        android:layout_marginStart="39dp"
-        android:layout_marginTop="22dp"
-        android:layout_marginBottom="90dp"
-        android:contentDescription="Volver"
-        app:layout_constraintBottom_toTopOf="@+id/listaCompradores"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="?attr/actionModeCloseDrawable" />
+        app:srcCompat="@drawable/logotallersw" />
+
+    <ImageButton
+        android:id="@+id/volverInicio"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#00FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.044"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/flecha"
+        app:tint="#EEEEEE"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/fondo"
+        app:itemIconTint="@color/colorBoton2"
+        app:itemTextColor="#EEEEEE"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/barranav2">
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/nuevosEncargos"
+        android:layout_width="360dp"
+        android:layout_height="170dp"
+        android:layout_marginTop="32dp"
+        android:background="@color/colorBoton2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/encargos"
+        android:textColor="@color/letras"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView16" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/encargosAceptados"
+        android:layout_width="360dp"
+        android:layout_height="170dp"
+        android:layout_marginTop="32dp"
+        android:background="@color/colorBoton2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nuevosEncargos" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

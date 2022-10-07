@@ -10,47 +10,44 @@ import android.widget.ImageButton;
 
 public class VerProducto extends AppCompatActivity {
 
-    private Button botonAgregarProductos;
-    private Button botonBuscarProducto;
-    private Button botonEncargosSolicitados;
-    private ImageButton botonVolverPantalla7_;
+    //Botones
+    ImageButton botonAtras;
+    Button botonModificar;
+    Button botonEliminar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ver_producto);
 
-        // Para acceder a la pantalla donde se agregan los productos
-        botonAgregarProductos = (Button) findViewById(R.id.botonAgregarProducto7);
-        botonAgregarProductos.setOnClickListener(new View.OnClickListener() {
+        //Apretar flecha
+        botonAtras = (ImageButton) findViewById(R.id.volverInicio);
+        botonAtras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intento = new Intent(VerProducto.this, AgregarProducto.class);
-                startActivity(intento);
+                Intent volver = new Intent(VerProducto.this, InicioEmpresa.class);
+                startActivity(volver);
             }
         });
 
-        // Para volver a la pantalla anterior
-        botonVolverPantalla7_ = (ImageButton) findViewById(R.id.botonVolverPantalla7);
-        botonVolverPantalla7_.setOnClickListener(new View.OnClickListener() {
+        //Apretar botón modificar producto
+        botonModificar = (Button) findViewById(R.id.modificarProd1);
+        botonModificar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intento = new Intent(VerProducto.this, MainActivity.class);
-                startActivity(intento);
+                Intent modificar = new Intent(VerProducto.this, ModificarProducto.class);
+                startActivity(modificar);
             }
         });
 
-
-        // Para acceder a la pantalla donde se agregan los productos
-        botonEncargosSolicitados = (Button) findViewById(R.id.botonEncargosSol);
-        botonEncargosSolicitados.setOnClickListener(new View.OnClickListener() {
+        //Apretar botón eliminar producto
+        botonEliminar = (Button) findViewById(R.id.eliminarProd1);
+        botonEliminar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intento = new Intent(VerProducto.this, EncargosEmpresa.class);
+                Intent intento = new Intent(VerProducto.this, InicioEmpresa.class);
                 startActivity(intento);
             }
         });
-
     }
-
 }

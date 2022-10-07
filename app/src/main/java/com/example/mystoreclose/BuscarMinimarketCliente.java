@@ -2,8 +2,11 @@ package com.example.mystoreclose;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,8 +34,15 @@ import modelo.EmpresaMinimarket;
 
 public class BuscarMinimarketCliente extends AppCompatActivity{
 
+    //Botones
+    ImageButton botonAtras;
 
-    //public ArrayList<EmpresaMinimarket> listadoMinimarkets = new ArrayList<>();
+    public static ArrayList<EmpresaMinimarket> arrayList= new ArrayList<>();
+    public EmpresaMinimarket empresaMinimarket;
+    RecyclerView.LayoutManager RecyclerViewListadoMinimarketsCercanos;
+    RecyclerView.Adapter mAdapter;
+    TextView textViewDatosMinimarket;
+    private ArrayList<EmpresaMinimarket> listadoMinimarkets;
     private RequestQueue queue;
 
     @Override
@@ -41,7 +51,20 @@ public class BuscarMinimarketCliente extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buscar_minimarket_cliente);
 
-        this.queue = Volley.newRequestQueue(this);
+
+        //Apretar flecha
+        botonAtras = (ImageButton) findViewById(R.id.volverInicio);
+        botonAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent volver = new Intent(BuscarMinimarketCliente.this, InicioCliente.class);
+                startActivity(volver);
+            }
+        });
+
+
+        queue = Volley.newRequestQueue(this);
+
 
         readerJSon();
 

@@ -7,31 +7,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
-
-import com.android.volley.Cache;
-import com.android.volley.Network;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.BasicNetwork;
-import com.android.volley.toolbox.DiskBasedCache;
-import com.android.volley.toolbox.HurlStack;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.JsonRequest;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
     // Para comunicarse con la base de datos
-
-
-    Button botonxdxd;
+    Button botonEmpresa;
     Button botonLogin;
     Button botonRegistro;
     Button invitado1;
@@ -40,41 +19,47 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main);
         setContentView(R.layout.activity_main);
         // Fin prueba Base de Datos
         //obtenerProductosBD;
-        botonxdxd = (Button) findViewById(R.id.button);
-        botonxdxd.setOnClickListener(new View.OnClickListener() {
+
+        //Botón provisional
+        botonEmpresa = (Button) findViewById(R.id.button);
+        botonEmpresa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent pantalla8 = new Intent(MainActivity.this, InicioEmpresa.class );
-                startActivity(pantalla8);
+                Intent inicioEmp = new Intent(MainActivity.this, InicioEmpresa.class );
+                startActivity(inicioEmp);
             }
         });
+
+        //Apretar botón iniciar sesión
         botonLogin = (Button) findViewById(R.id.botonLogin1);
         botonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent pantalla10 = new Intent(MainActivity.this, IniciarSesionEmpresa.class );
-                startActivity(pantalla10);
+                Intent inicioSes = new Intent(MainActivity.this, IniciarSesionEmpresa.class );
+                startActivity(inicioSes);
             }
         });
+
+        //Apretar botón registrarse
         botonRegistro= (Button) findViewById(R.id.botonRegistrarse1);
         botonRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent pantalla9 = new Intent(MainActivity.this, RegistroMinimarket.class );
-                startActivity(pantalla9);
+                Intent registrarse = new Intent(MainActivity.this, RegistroMinimarket.class );
+                startActivity(registrarse);
             }
         });
-        invitado1= (Button) findViewById(R.id.button4);
+
+        //Apretar botón iniciar como invitado
+        invitado1= (Button) findViewById(R.id.sesionInv);
         invitado1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Intent pantalla11 = new Intent(MainActivity.this, BuscarMinimarketCliente.class );
-                startActivity(pantalla11);
+                Intent inicioCli = new Intent(MainActivity.this, InicioCliente.class );
+                startActivity(inicioCli);
             }
         });
     }

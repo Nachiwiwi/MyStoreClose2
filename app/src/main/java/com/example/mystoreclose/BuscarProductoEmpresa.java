@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
-public class EncargosEmpresa extends AppCompatActivity {
+public class BuscarProductoEmpresa extends AppCompatActivity {
 
     //Botones
     ImageButton botonAtras;
@@ -15,14 +15,14 @@ public class EncargosEmpresa extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_encargos_empresa);
+        setContentView(R.layout.activity_buscar_producto_empresa);
 
         //Apretar flecha
         botonAtras = (ImageButton) findViewById(R.id.volverInicio);
         botonAtras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent volver = new Intent(EncargosEmpresa.this, InicioEmpresa.class);
+                Intent volver = new Intent(BuscarProductoEmpresa.this, InicioEmpresa.class);
                 startActivity(volver);
             }
         });

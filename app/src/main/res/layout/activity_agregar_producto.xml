@@ -7,127 +7,81 @@
     android:background="#222831"
     tools:context=".AgregarProducto">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="147dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="78dp"
-        android:layout_marginBottom="12dp"
-        android:text="Formulario Nuevo Producto"
-        android:textAlignment="center"
-        android:textColor="#EEEEEE"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/textoPlanoNombreProducto"
+    <ImageView
+        android:id="@+id/imageView16"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/textoPlanoPrecioProducto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:background="@color/colorBoton1"
-        android:ems="10"
-        android:hint="Precio"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/textoPlanoDescripcionProducto"
-        app:layout_constraintStart_toStartOf="@+id/textoPlanoNombreProducto"
-        app:layout_constraintTop_toBottomOf="@+id/textoPlanoNombreProducto" />
-
-    <EditText
-        android:id="@+id/textoPlanoDescripcionProducto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:background="@color/colorBoton1"
-        android:ems="10"
-        android:hint="Descripción"
-        android:inputType="textPersonName"
-        android:minHeight="70dp"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/botonSubirImagen"
-        app:layout_constraintStart_toStartOf="@+id/textoPlanoPrecioProducto"
-        app:layout_constraintTop_toBottomOf="@+id/textoPlanoPrecioProducto" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logotallersw" />
 
     <ImageButton
-        android:id="@+id/botonSubirImagen"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="100dp"
-        android:layout_marginBottom="23dp"
-        android:contentDescription="Subir Imagen"
-        app:layout_constraintBottom_toTopOf="@+id/imageView3"
+        android:id="@+id/volverInicio"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#00FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textoSubirImagen"
-        app:layout_constraintTop_toBottomOf="@+id/textoPlanoDescripcionProducto"
-        app:srcCompat="@android:drawable/stat_sys_upload" />
+        app:layout_constraintHorizontal_bias="0.044"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/flecha"
+        app:tint="#EEEEEE"
+        tools:ignore="SpeakableTextPresentCheck" />
 
-    <EditText
-        android:id="@+id/textoPlanoNombreProducto"
-        android:layout_width="wrap_content"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:background="@color/colorBoton1"
-        android:backgroundTint="@color/colorBoton1"
-        android:ems="10"
-        android:hint="Nombre del producto"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/textoPlanoPrecioProducto"
+        android:background="@color/fondo"
+        app:itemIconTint="@color/colorBoton2"
+        app:itemTextColor="#EEEEEE"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/barranav2">
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/agregarProd"
+        android:layout_width="360dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="32dp"
+        android:background="@color/colorBoton2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    <Button
-        android:id="@+id/botonAgregarProducto"
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="30dp"
-        android:backgroundTint="@color/colorBoton2"
-        android:minHeight="48dp"
+        android:layout_marginTop="32dp"
         android:text="@string/agregarProducto"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/imageView3"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="205dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="28dp"
-        app:layout_constraintBottom_toTopOf="@+id/botonAgregarProducto"
+        android:textColor="@color/letras"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/botonSubirImagen"
-        app:srcCompat="@android:mipmap/sym_def_app_icon" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView16" />
 
-    <TextView
-        android:id="@+id/textoSubirImagen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="132dp"
-        android:layout_marginTop="23dp"
-        android:layout_marginEnd="15dp"
-        android:text="Subir Imagen"
-        android:textColor="#EEEEEE"
-        app:layout_constraintEnd_toStartOf="@+id/botonSubirImagen"
+    <Button
+        android:id="@+id/agregarProd2"
+        android:layout_width="170dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="@color/colorBoton1"
+        android:text="@string/agregarProducto"
+        android:textColor="@color/letras"
+        android:textSize="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/botonSubirImagen" />
+        app:layout_constraintTop_toBottomOf="@+id/agregarProd" />
 
-    <ImageButton
-        android:id="@+id/botonVolverPantalla8"
-        android:layout_width="84dp"
-        android:layout_height="67dp"
-        android:layout_marginEnd="38dp"
-        android:layout_marginBottom="100dp"
-        android:contentDescription="Volver"
-        app:layout_constraintBottom_toTopOf="@+id/textoPlanoNombreProducto"
-        app:layout_constraintEnd_toStartOf="@+id/textView"
-        app:srcCompat="?attr/actionModeCloseDrawable" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

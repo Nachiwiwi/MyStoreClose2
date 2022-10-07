@@ -2,7 +2,11 @@ package com.example.mystoreclose;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -21,18 +25,18 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class InicioEmpresa extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener{
-<<<<<<< HEAD
+public class InicioEmpresa extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener {
+
+    //Botones
+    Button botonAgregar;
+    Button botonBuscar;
 
     private ListView listaDeObjetos;
-=======
     private RecyclerView listaDeObjetos;
->>>>>>> parent of 40c97d7 (Se muestran productos por pantalla en inicio Empresa)
     private  String NombreP = "XXX";
     RequestQueue rQ;
     JsonRequest jsR;
     ArrayList<String> array = new ArrayList<String>();
-
     private String direccionProductos = "http://192.168.178.246/Android/getProductosMinimarket.php";
 
     @Override
@@ -40,7 +44,6 @@ public class InicioEmpresa extends AppCompatActivity implements Response.Listene
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio_empresa);
-<<<<<<< HEAD
 
         // Se obtienen los datos de la base de datos
 
@@ -56,8 +59,27 @@ public class InicioEmpresa extends AppCompatActivity implements Response.Listene
         // Tuve que poner estas sentencias es el metodo onResponse porque me abría la página antes que leerme los datos de la Base de datos
 
         /*if (savedInstanceState == null) {
-=======
->>>>>>> parent of 40c97d7 (Se muestran productos por pantalla en inicio Empresa)
+
+
+        //Apretar botón agregar producto
+        botonAgregar = (Button) findViewById(R.id.agregarProductosButton);
+        botonAgregar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent agregar = new Intent(InicioEmpresa.this, AgregarProducto.class);
+                startActivity(agregar);
+            }
+        });
+
+        //Apretar botón buscar producto
+        botonBuscar = (Button) findViewById(R.id.buscarProducto);
+        botonBuscar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent buscar = new Intent(InicioEmpresa.this, BuscarProductoEmpresa.class);
+                startActivity(buscar);
+            }
+        });
 
         array.add("Salsa de Tomate");
         array.add("Carozzi");
@@ -72,12 +94,9 @@ public class InicioEmpresa extends AppCompatActivity implements Response.Listene
 
         rQ = Volley.newRequestQueue(this);
 
-
-
         //listaDeObjetos.
 
         inicializar();
-
 
         //obtenerProductosBD();
 
@@ -108,17 +127,16 @@ public class InicioEmpresa extends AppCompatActivity implements Response.Listene
                 array.add(new String(pupi.getString("Nombre")));
                 System.out.println(pupi.getString("Nombre"));
             }
-<<<<<<< HEAD
+
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             RecyclerViewProductosFragment fragment = new RecyclerViewProductosFragment();
             fragment.setColeccion(this.productos);
             transaction.replace(R.id.fragmentContentProductosEmpresa, fragment);
             transaction.commit();
             listaDeObjetos.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,array ));
-=======
+
 
             //listaDeObjetos.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,array ));
->>>>>>> parent of 40c97d7 (Se muestran productos por pantalla en inicio Empresa)
 
         }catch (JSONException e){
             Toast.makeText(InicioEmpresa.this, "Error:", Toast.LENGTH_SHORT).show();

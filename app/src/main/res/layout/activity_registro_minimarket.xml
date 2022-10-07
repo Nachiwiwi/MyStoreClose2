@@ -11,7 +11,7 @@
         android:id="@+id/etEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="12dp"
         android:background="@color/colorBoton1"
         android:ems="10"
         android:hint="@string/correo"
@@ -20,30 +20,17 @@
         android:textAlignment="center"
         android:textColor="@color/letras"
         android:textColorHint="@color/letras"
-        app:layout_constraintBottom_toTopOf="@+id/etPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/MKNombreLoc"
         tools:ignore="TextContrastCheck" />
-
-    <Button
-        android:id="@+id/btnIniciarSesionEmpresa"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:backgroundTint="@color/colorBoton2"
-        android:text="@string/registrarse"
-        android:textColor="@color/letras"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="TextContrastCheck,TextContrastCheck" />
 
     <EditText
         android:id="@+id/MKCContraseña"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="12dp"
         android:background="@color/colorBoton1"
         android:ems="10"
         android:hint="@string/confContrasenia"
@@ -52,17 +39,16 @@
         android:textAlignment="center"
         android:textColor="@color/letras"
         android:textColorHint="@color/letras"
-        app:layout_constraintBottom_toTopOf="@+id/btnIniciarSesionEmpresa"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etPassword"
         tools:ignore="TextContrastCheck" />
 
     <EditText
         android:id="@+id/etName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="16dp"
         android:background="@color/colorBoton1"
         android:ems="10"
         android:hint="@string/rutEmpresa"
@@ -71,19 +57,17 @@
         android:textAlignment="center"
         android:textColor="@color/letras"
         android:textColorHint="@color/letras"
-        app:layout_constraintBottom_toTopOf="@+id/etNameUser"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintTop_toBottomOf="@+id/imageView6"
         tools:ignore="TextContrastCheck" />
 
     <EditText
         android:id="@+id/etNameUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="12dp"
         android:background="@color/colorBoton1"
         android:ems="10"
         android:hint="@string/empresaNombre"
@@ -92,17 +76,17 @@
         android:textAlignment="center"
         android:textColor="@color/letras"
         android:textColorHint="@color/letras"
-        app:layout_constraintBottom_toTopOf="@+id/MKDireccion"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etName"
         tools:ignore="TextContrastCheck" />
 
     <EditText
         android:id="@+id/MKDireccion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="12dp"
         android:background="@color/colorBoton1"
         android:ems="10"
         android:hint="@string/direccion"
@@ -111,17 +95,17 @@
         android:textAlignment="center"
         android:textColor="@color/letras"
         android:textColorHint="@color/letras"
-        app:layout_constraintBottom_toTopOf="@+id/MKNombreLoc"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etNameUser"
         tools:ignore="TextContrastCheck" />
 
     <EditText
         android:id="@+id/MKNombreLoc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="12dp"
         android:background="@color/colorBoton1"
         android:ems="10"
         android:hint="@string/localNombre"
@@ -130,17 +114,17 @@
         android:textAlignment="center"
         android:textColor="@color/letras"
         android:textColorHint="@color/letras"
-        app:layout_constraintBottom_toTopOf="@+id/etEmail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/MKDireccion"
         tools:ignore="TextContrastCheck" />
 
     <EditText
         android:id="@+id/etPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="12dp"
         android:background="@color/colorBoton1"
         android:ems="10"
         android:hint="@string/contrasenia"
@@ -149,36 +133,47 @@
         android:textAlignment="center"
         android:textColor="@color/letras"
         android:textColorHint="@color/letras"
-        app:layout_constraintBottom_toTopOf="@+id/MKCContraseña"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etEmail"
         tools:ignore="TextContrastCheck" />
 
     <ImageView
         android:id="@+id/imageView6"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        app:layout_constraintBottom_toTopOf="@+id/etName"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.537"
         app:srcCompat="@drawable/logotallersw" />
 
-    <ImageView
-        android:id="@+id/imageView10"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="8dp"
+    <ImageButton
+        android:id="@+id/volverInicio"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_marginTop="16dp"
-        android:rotationY="180"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:backgroundTint="#00FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.02"
+        app:layout_constraintHorizontal_bias="0.044"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/flecha" />
+        app:srcCompat="@drawable/flecha"
+        app:tint="#EEEEEE"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <Button
+        android:id="@+id/registroEmpr"
+        android:layout_width="170dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/colorBoton2"
+        android:text="@string/registrarse"
+        android:textColor="@color/letras"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/MKCContraseña" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

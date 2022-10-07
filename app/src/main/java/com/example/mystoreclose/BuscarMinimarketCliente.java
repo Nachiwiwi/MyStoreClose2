@@ -15,6 +15,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.*;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,12 +31,8 @@ import modelo.EmpresaMinimarket;
 
 public class BuscarMinimarketCliente extends AppCompatActivity{
 
-    public static ArrayList<EmpresaMinimarket> arrayList= new ArrayList<>();
-    public EmpresaMinimarket empresaMinimarket;
-    RecyclerView.LayoutManager RecyclerViewListadoMinimarketsCercanos;
-    RecyclerView.Adapter mAdapter;
-    TextView textViewDatosMinimarket;
-    private ArrayList<EmpresaMinimarket> listadoMinimarkets;
+
+    //public ArrayList<EmpresaMinimarket> listadoMinimarkets = new ArrayList<>();
     private RequestQueue queue;
 
     @Override
@@ -43,7 +41,7 @@ public class BuscarMinimarketCliente extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buscar_minimarket_cliente);
 
-        queue = Volley.newRequestQueue(this);
+        this.queue = Volley.newRequestQueue(this);
 
         readerJSon();
 
@@ -60,7 +58,7 @@ public class BuscarMinimarketCliente extends AppCompatActivity{
         StringRequest request = new StringRequest(Request.Method.GET, URL1, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-
+                ArrayList<EmpresaMinimarket> listadoMinimarkets = new ArrayList<>();
                 try {
                     JSONArray array = new JSONArray(response);
                     for(int i = 0 ; i<array.length(); i++){
@@ -69,7 +67,7 @@ public class BuscarMinimarketCliente extends AppCompatActivity{
                         String nombreEmpresa = object.getString("Nombre_empresa");
                         String nombreMinimarket = object.getString("Nombre_local");
                         String direccion = object.getString("Direccion");
-                        String rutEmpresa = object.getString("Rut_Empresa");
+                        String rutEmpresa = object.getString("Rut_empresa");
                         String contraseñaDueño = object.getString("ContraseñaDueño");
                         String mailLocal = object.getString("MailDueño");
                         String longitud = object.getString("Longitud");
@@ -78,10 +76,14 @@ public class BuscarMinimarketCliente extends AppCompatActivity{
                         listadoMinimarkets.add(nuevaEmpresa);
 
                     }
-                    //RecyclerViewListadoMinimarketsCercanos.setAdapter(mAdapter);
-                    //mAdapter = new RecyclerAdapter(buscarMinimarketClente.this,)
-                    //RecyclerViewListadoMinimarketsCercanos.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_activated_2,listadoMinimarkets ));
+                    Toast.makeText(BuscarMinimarketCliente.this, "e:", Toast.LENGTH_SHORT).show();
+                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                    Toast.makeText(BuscarMinimarketCliente.this, "e:", Toast.LENGTH_SHORT).show();
 
+                    RecyclerViewMinimarketFragment fragment = new RecyclerViewMinimarketFragment();
+                    fragment.setColeccion(listadoMinimarkets);
+                    transaction.replace(R.id.recycleViewBuscarMinimarket, fragment);
+                    transaction.commit();
                 }catch (JSONException e){
                     Toast.makeText(BuscarMinimarketCliente.this, "2xd:", Toast.LENGTH_SHORT).show();
                 }
@@ -94,6 +96,6 @@ public class BuscarMinimarketCliente extends AppCompatActivity{
             }
         });
 
-        queue.add(request);
+        this.queue.add(request);
     }
 }

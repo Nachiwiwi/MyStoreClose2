@@ -13,14 +13,7 @@ public class Producto {
         this.nombre = nombre;
         this.precio = precio;
         this.oferta = null;
-        this.id = "0";
-    }
-
-    public Producto(String nombre, String precio) {
-        this.nombre = nombre;
-        this.precio = precio;
-        this.oferta = null;
-        this.id = "0";
+        this.id = id;
     }
 
     public String getNombre() {

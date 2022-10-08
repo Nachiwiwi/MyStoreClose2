@@ -17,10 +17,10 @@ import modelo.Direccion;
 import modelo.EmpresaMinimarket;
 
 
-public class RecyclerViewProductosFragment extends Fragment {
+public class RecyclerViewBuscarProductosFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private AdaptadorProductos adaptadorProductos;
+    private AdaptadorBuscarProductos adaptadorProductos;
     private EmpresaMinimarket minimarket;
     private RecyclerView.LayoutManager layoutManager;
 
@@ -32,7 +32,7 @@ public class RecyclerViewProductosFragment extends Fragment {
     private LayoutManagerType layoutManagerTypeActual;
 
     // Constructor del Fragmento
-    public RecyclerViewProductosFragment() {
+    public RecyclerViewBuscarProductosFragment() {
         this.minimarket = new EmpresaMinimarket("","","",new Direccion(),"","","");
     }
 
@@ -45,12 +45,12 @@ public class RecyclerViewProductosFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         System.out.println("\nAAAAAAAAAAAAAAAAA\n");
-        View vista = inflater.inflate(R.layout.fragment_recycler_view_productos, container, false);
+        View vista = inflater.inflate(R.layout.fragment_recycler_view_buscar_productos, container, false);
         vista.setTag("pupi");
-        this.recyclerView = (RecyclerView) vista.findViewById(R.id.recyclerViewProductosEmpresa);
+        this.recyclerView = (RecyclerView) vista.findViewById(R.id.recyclerViewBuscarProductosEmpresa);
         this.layoutManager = new LinearLayoutManager(getActivity());
         // Se crea el adaptador
-        this.adaptadorProductos = new AdaptadorProductos(this.minimarket);
+        this.adaptadorProductos = new AdaptadorBuscarProductos(this.minimarket);
         this.recyclerView.setAdapter(this.adaptadorProductos);
         this.recyclerView.setLayoutManager(layoutManager);
         this.recyclerView.scrollToPosition(0);
@@ -60,6 +60,10 @@ public class RecyclerViewProductosFragment extends Fragment {
 
     public void setColeccion(EmpresaMinimarket minimarket){
         this.minimarket = minimarket;
+    }
+
+    public void actualizarBusqueda(String texto)  {
+        this.adaptadorProductos.filtrado(texto);
     }
 
 }

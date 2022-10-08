@@ -1,6 +1,8 @@
 package modelo;
 
-public class Oferta {
+import java.io.Serializable;
+
+public class Oferta implements Serializable {
 
 
     private String precioOferta;

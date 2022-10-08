@@ -105,7 +105,8 @@ public class BuscarMinimarketCliente extends AppCompatActivity{
 
                     RecyclerViewMinimarketFragment fragment = new RecyclerViewMinimarketFragment();
                     fragment.setColeccion(listadoMinimarkets);
-                    transaction.replace(R.id.recycleViewBuscarMinimarket, fragment);
+                    // Antes salia R.id.recycleViewBuscarMinimarket, pero no funcionaba
+                    transaction.replace(R.id.buscarMiniCli, fragment);
                     transaction.commit();
                 }catch (JSONException e){
                     Toast.makeText(BuscarMinimarketCliente.this, "2xd:", Toast.LENGTH_SHORT).show();

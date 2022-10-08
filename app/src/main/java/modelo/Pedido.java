@@ -1,16 +1,22 @@
 package modelo;
 
-public class Pedido {
-    private ColeccionProductos listaProductosDeseados;
-    private String id;
+import java.io.Serializable;
+
+public class Pedido implements Serializable {
+    private ColeccionProductos listaProductosDeseados; // guarda objetos de clase ProductoElegido
+    private int id;
     private String fechaLimite;
     private String fechaInicio;
 
-    public String getId() {
+    public Pedido(){
+        this.listaProductosDeseados = new ColeccionProductos();
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -30,5 +36,15 @@ public class Pedido {
         this.fechaInicio = fechaInicio;
     }
 
+    public ProductoElegido obtenerProducto(int id){
+        return (ProductoElegido) this.listaProductosDeseados.obtenerProducto(id);
+    }
 
+    public void agregarProducto(Producto producto){
+        this.listaProductosDeseados.agregarProducto(producto);
+    }
+
+    public void eliminarProducto(int id){
+        this.listaProductosDeseados.eliminarProducto(id);
+    }
 }

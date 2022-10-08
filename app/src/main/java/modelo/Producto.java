@@ -1,19 +1,28 @@
 package modelo;
 
+import java.io.Serializable;
+
 import modelo.Oferta;
 
-public class Producto {
+public class Producto implements Serializable {
 
     private String nombre;
     private String precio;
     private Oferta oferta;
-    private String id;
+    private int id;
 
     public Producto(String nombre, String precio, String oferta) {
         this.nombre = nombre;
         this.precio = precio;
         this.oferta = null;
-        this.id = id;
+        this.id = 0;
+    }
+
+    public Producto(String nombre, String precio) {
+        this.nombre = nombre;
+        this.precio = precio;
+        this.oferta = null;
+        this.id = 0;
     }
 
     public String getNombre() {
@@ -40,12 +49,17 @@ public class Producto {
         this.oferta = oferta;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
+    }
+
+    public boolean tieneOferta(){
+        if(this.oferta != null) return true;
+        return false;
     }
 
 
@@ -53,5 +67,4 @@ public class Producto {
 
 
 }
-
 

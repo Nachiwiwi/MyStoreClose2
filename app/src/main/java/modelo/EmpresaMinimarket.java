@@ -1,34 +1,29 @@
 package modelo;
 
-public class EmpresaMinimarket {
+import java.io.Serializable;
+
+// Al implementar la interfaz serializable le permite al objeto poder ser pasado a traves de parametro a otra ventana
+public class EmpresaMinimarket implements Serializable {
     private String nombreEmpresa;
     private String nombreMinimarket;
-    private String id;
     private Direccion direccion;
     private String rutEmpresa;
-    private String contraseña;
-    private String corrreo;
-    private String longitud;
-    private String latitud;
+    private ColeccionPedidos coleccionPedidos;
+    private ColeccionProductos coleccionProductos;
 
-    public EmpresaMinimarket(String nombreEmpresa, String nombreMinimarket, String id, Direccion direccion, String rutEmpresa, String contraseña, String corrreo, String longitud, String latitud) {
+    public EmpresaMinimarket(String nombreEmpresa, String nombreMinimarket, String id, Direccion direccion, String rutEmpresa, String contraseña, String corrreo) {
         this.nombreEmpresa = nombreEmpresa;
         this.nombreMinimarket = nombreMinimarket;
-        this.id = id;
         this.direccion = direccion;
         this.rutEmpresa = rutEmpresa;
-        this.contraseña = contraseña;
-        this.corrreo = corrreo;
-        this.longitud = longitud;
-        this.latitud = latitud;
+        this.coleccionPedidos = new ColeccionPedidos();
+        this.coleccionProductos = new ColeccionProductos();
     }
 
     public EmpresaMinimarket(String nombreEmpresa, String nombreMinimarket,String rutEmpresa,String direccion,String correo){
         this.nombreEmpresa = nombreEmpresa;
         this.nombreMinimarket = nombreMinimarket;
         this.rutEmpresa = rutEmpresa;
-        this.longitud = direccion; //cambiar
-        this.corrreo = corrreo;
     }
     public String getNombreEmpresa() {
         return nombreEmpresa;
@@ -46,14 +41,6 @@ public class EmpresaMinimarket {
         this.nombreMinimarket = nombreMinimarket;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getRutEmpresa() {
         return rutEmpresa;
     }
@@ -62,42 +49,67 @@ public class EmpresaMinimarket {
         this.rutEmpresa = rutEmpresa;
     }
 
-    public String getContraseña() {
-        return contraseña;
-    }
-
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
-    }
-
-    public String getCorrreo() {
-        return corrreo;
-    }
-
-    public void setCorrreo(String corrreo) {
-        this.corrreo = corrreo;
-    }
 
     public String getLongitud() {
-        return longitud;
+        return this.direccion.getLongitud();
     }
 
     public void setLongitud(String longitud) {
-        this.longitud = longitud;
+        this.direccion.setLongitud(longitud);
     }
 
     public String getLatitud() {
-        return latitud;
+        return this.direccion.getLatitud();
     }
 
     public void setLatitud(String latitud) {
-        this.latitud = latitud;
+        this.direccion.setLatitud(latitud);
     }
 
+    // metodos de la reglas del negocio
 
+    // Para productos
+    public void agregarProducto(Producto producto){
+        this.coleccionProductos.agregarProducto(producto);
+    }
 
+    public Producto obtenerProducto(int idProducto){
+        return this.coleccionProductos.obtenerProducto(idProducto);
+    }
 
+    public void eliminarProducto(int idProducto){
+        this.coleccionProductos.eliminarProducto(idProducto);
+    }
 
-    //private Direccion direccion;
+    public Producto obtenerProductoIndice(int index){
+        return this.coleccionProductos.obtenerProductoPorIndice(index);
+    }
+
+    public int obtenerCantidadDeProductos(){
+        return this.coleccionProductos.dimensionColeccion();
+    }
+
+    // Para pedidos
+
+    public void agregarPedido(Pedido pedido){
+        this.coleccionPedidos.agregarPedido(pedido);
+    }
+
+    public void eliminarPedido(int idP){
+        this.coleccionPedidos.eliminarPedido(idP);
+    }
+
+    public Pedido obtenerPedidoId(int idP){
+        return this.coleccionPedidos.obtenerPedido(idP);
+    }
+
+    public ProductoElegido obtenerProductoPedidoIndice(int idPedido,int indexProducto){
+        return (ProductoElegido) this.coleccionPedidos.obtenerPedidoIndice(idPedido,indexProducto);
+    }
+
+    public ColeccionProductos obtenerColeccion() {
+        return this.coleccionProductos;
+    }
+
 
 }

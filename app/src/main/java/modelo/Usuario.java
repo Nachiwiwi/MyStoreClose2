@@ -12,6 +12,7 @@ public abstract class Usuario {
     public void setClave(String clave) {
         this.clave = clave;
     }
+
     public String getClave(){
         return this.clave;
     }
@@ -19,6 +20,7 @@ public abstract class Usuario {
     public void setCorreo(String correo){
         this.correo = correo;
     }
+
     public String getCorreo(){
         return this.correo;
     }

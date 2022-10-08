@@ -10,16 +10,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import modelo.ColeccionProductos;
 import modelo.EmpresaMinimarket;
 
-public class AdaptadorProductos extends RecyclerView.Adapter<AdaptadorProductos.ViewHolder>{
+public class AdaptadorBuscarProductos extends RecyclerView.Adapter<AdaptadorBuscarProductos.ViewHolder>{
     private EmpresaMinimarket minimarket;
+    private ColeccionProductos productosMostrados;
 
-
-    public AdaptadorProductos(EmpresaMinimarket minimarket){
+    public AdaptadorBuscarProductos(EmpresaMinimarket minimarket) {
         this.minimarket = minimarket;
+        this.productosMostrados = minimarket.obtenerColeccion();
     }
     @NonNull
     // Se llama esta funcion cuando el recyclerView precise de una nueva vista para mostrar por pantalla
@@ -30,16 +32,16 @@ public class AdaptadorProductos extends RecyclerView.Adapter<AdaptadorProductos.
     }
     // Para actualizar datos de una vista
     @Override
-    public void onBindViewHolder(@NonNull AdaptadorProductos.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AdaptadorBuscarProductos.ViewHolder holder, int position) {
         //holder.bind(this.NombresProductos.get(position));
 
-        holder.getTextView().setText("Nombre: "+this.minimarket.obtenerProductoIndice(position).getNombre()
-                + "\nPrecio: "+ this.minimarket.obtenerProductoIndice(position).getPrecio());
+        holder.getTextView().setText("Nombre: "+this.productosMostrados.obtenerProductoPorIndice(position).getNombre()
+                + "\nPrecio: "+ this.productosMostrados.obtenerProductoPorIndice(position).getPrecio());
     }
     // Numero de elementos que tiene una lista
     @Override
     public int getItemCount() {
-        return this.minimarket.obtenerCantidadDeProductos();
+        return this.productosMostrados.dimensionColeccion();
     }
 
     // clase ViewHolder
@@ -64,4 +66,20 @@ public class AdaptadorProductos extends RecyclerView.Adapter<AdaptadorProductos.
         }
     }
 
+    public void filtrado(String textoEq) {
+        if(textoEq.length() == 0){
+            this.productosMostrados = minimarket.obtenerColeccion();
+        }else{
+
+            this.productosMostrados = new ColeccionProductos();
+
+            for (int i = 0; i< minimarket.obtenerCantidadDeProductos();i++){
+                if(minimarket.obtenerProductoIndice(i).getNombre().toLowerCase().contains(textoEq.toLowerCase())){
+                    this.productosMostrados.agregarProducto(this.minimarket.obtenerProductoIndice(i));
+                }
+            }
+
+        }
+        notifyDataSetChanged();
+    }
 }

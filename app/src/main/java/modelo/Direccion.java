@@ -1,10 +1,24 @@
 package modelo;
 
-public class Direccion {
+import java.io.Serializable;
+
+public class Direccion implements Serializable {
     String calle;
     String numero;
     String latitud;
     String longitud;
+
+    public Direccion(){
+
+    }
+
+    public Direccion(String calle, String numero, String latitud, String longitud){
+        this.calle = calle;
+        this.numero = numero;
+        this.latitud = latitud;
+        this.longitud = longitud;
+
+    }
 
     public String getCalle() {
         return calle;

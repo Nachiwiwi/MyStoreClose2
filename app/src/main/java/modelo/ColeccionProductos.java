@@ -1,11 +1,12 @@
 package modelo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class ColeccionProductos {
+public class ColeccionProductos implements Serializable {
     ArrayList<Producto> listadoProductos;
-    HashMap<String, Producto> productosMapa;
+    HashMap<Integer, Producto> productosMapa;
 
 
     public ColeccionProductos() {
@@ -18,7 +19,7 @@ public class ColeccionProductos {
         this.listadoProductos.add(producto);
     }
 
-    public void eliminarProducto(String idProducto){
+    public void eliminarProducto(int idProducto){
         this.productosMapa.remove(idProducto);
         for(int i= 0; i< this.listadoProductos.size();i++){
             if(this.listadoProductos.get(i).getNombre().equals(idProducto)){
@@ -28,7 +29,19 @@ public class ColeccionProductos {
         }
     }
 
-    public Producto obtenerProducto(String idProducto){
+    public Producto obtenerProducto(int idProducto){
         return this.productosMapa.get(idProducto);
+    }
+
+    public int dimensionColeccion(){
+        return this.listadoProductos.size();
+    }
+
+    public Producto obtenerProductoPorIndice(int index){
+        return this.listadoProductos.get(index);
+    }
+
+    public Object copiarColeccion() throws CloneNotSupportedException{
+        return super.clone();
     }
 }

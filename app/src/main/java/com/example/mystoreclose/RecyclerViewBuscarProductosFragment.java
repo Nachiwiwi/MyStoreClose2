@@ -33,7 +33,7 @@ public class RecyclerViewBuscarProductosFragment extends Fragment {
 
     // Constructor del Fragmento
     public RecyclerViewBuscarProductosFragment() {
-        this.minimarket = new EmpresaMinimarket("","","",new Direccion(),"","","");
+        this.minimarket = new EmpresaMinimarket(0,"","","","","","",0,0);
     }
 
     @Override

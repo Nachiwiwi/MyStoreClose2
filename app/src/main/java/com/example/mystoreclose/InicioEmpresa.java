@@ -30,7 +30,7 @@ import modelo.Producto;
 public class InicioEmpresa extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener, View.OnClickListener{
     private RequestQueue rQ;
     private JsonRequest jsR;
-    EmpresaMinimarket minimarket = new EmpresaMinimarket("Empresa1","Minimarket1","1",new Direccion("José Maria Caro","95","-33.0418","-71.6485"),"777","111","casabenja@gmail.com");
+    EmpresaMinimarket minimarket = new EmpresaMinimarket(0,"Empresa1","Minimarket1","1","777","111","casabenja@gmail.com",-33.0418,-71.6485);
     private Button botonAgregarProducto;
     private Button botonBuscarProductos;
 

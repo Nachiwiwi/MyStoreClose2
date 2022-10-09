@@ -3,54 +3,35 @@ package modelo;
 import java.io.Serializable;
 
 public class Direccion implements Serializable {
-    String calle;
-    String numero;
-    String latitud;
-    String longitud;
 
-    public Direccion(){
+    double latitud;
+    double longitud;
 
-    }
-
-    public Direccion(String calle, String numero, String latitud, String longitud){
-        this.calle = calle;
-        this.numero = numero;
+    public Direccion(double latitud, double longitud){
         this.latitud = latitud;
         this.longitud = longitud;
 
     }
 
-    public String getCalle() {
-        return calle;
-    }
 
-    public void setCalle(String calle) {
-        this.calle = calle;
-    }
-
-    public String getNumero() {
-        return numero;
-    }
-
-    public void setNumero(String numero) {
-        this.numero = numero;
-    }
-
-    public String getLatitud() {
+    public double getLatitud() {
         return latitud;
     }
 
-    public void setLatitud(String latitud) {
+    public void setLatitud(double latitud) {
         this.latitud = latitud;
     }
 
-    public String getLongitud() {
+    public double getLongitud() {
         return longitud;
     }
 
-    public void setLongitud(String longitud) {
+    public void setLongitud(double longitud) {
         this.longitud = longitud;
     }
 
 
+    public String getDistancia() {
+        return "123";
+    }
 }

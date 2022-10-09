@@ -7,8 +7,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
-public class BuscarProductoCliente extends AppCompatActivity {
+import java.util.ArrayList;
 
+import modelo.EmpresaMinimarket;
+import modelo.Producto;
+
+public class BuscarProductoCliente extends AppCompatActivity {
+    ArrayList<EmpresaMinimarket> listadoMinimarkets;
+    //ArrayList<Producto> listadoProductos;
     //Botones
     ImageButton botonAtras;
 
@@ -27,4 +33,5 @@ public class BuscarProductoCliente extends AppCompatActivity {
             }
         });
     }
+
 }

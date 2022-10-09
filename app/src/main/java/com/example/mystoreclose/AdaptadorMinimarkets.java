@@ -14,10 +14,12 @@ import java.util.ArrayList;
 import modelo.EmpresaMinimarket;
 
 public class AdaptadorMinimarkets extends RecyclerView.Adapter<AdaptadorMinimarkets.ViewHolder>{
-    private ArrayList<EmpresaMinimarket> NombresProductos = new ArrayList<>();
+    private ArrayList<EmpresaMinimarket> listadoMinimarkets = new ArrayList<>();
+
     public AdaptadorMinimarkets(ArrayList<EmpresaMinimarket> NombresProductos){
-        this.NombresProductos =new ArrayList<>(NombresProductos) ;
+        this.listadoMinimarkets =new ArrayList<>(NombresProductos) ;
     }
+
     @NonNull
     // Se llama esta funcion cuando el recyclerView precise de una nueva vista para mostrar por pantalla
     @Override
@@ -25,16 +27,18 @@ public class AdaptadorMinimarkets extends RecyclerView.Adapter<AdaptadorMinimark
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.formato_de_salida_productos, parent,false);
         return new ViewHolder(v);
     }
+
     // Para actualizar datos de una vista
     @Override
     public void onBindViewHolder(@NonNull AdaptadorMinimarkets.ViewHolder holder, int position) {
         //holder.bind(this.NombresProductos.get(position));
-        holder.getTextView().setText(this.NombresProductos.get(position).getNombreEmpresa());
+        holder.getTextView().setText("Nombre: "+this.listadoMinimarkets.get(position).getNombreEmpresa() + "\n" +"Distancia: "+ this.listadoMinimarkets.get(position).getDistanciaRespectoUsuario()+"m");
     }
+
     // Numero de elementos que tiene una lista
     @Override
     public int getItemCount() {
-        return this.NombresProductos.size();
+        return this.listadoMinimarkets.size();
     }
 
     // clase ViewHolder
@@ -58,5 +62,7 @@ public class AdaptadorMinimarkets extends RecyclerView.Adapter<AdaptadorMinimark
             return this.texto;
         }
     }
+
+
 }
 

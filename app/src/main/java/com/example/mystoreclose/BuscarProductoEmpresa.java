@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.SearchView;
 
+import java.io.Serializable;
+
 import modelo.ColeccionProductos;
 import modelo.EmpresaMinimarket;
 // Se implementa la interfaz "SearchView.OnQueryTextListener" para utilizar el SearchView y buscar objetos en tiempo real
@@ -19,6 +21,7 @@ public class BuscarProductoEmpresa extends AppCompatActivity implements SearchVi
     private EmpresaMinimarket minimarket= null;
     private SearchView buscarProducto;
     private RecyclerViewBuscarProductosFragment fragment;
+    private AdaptadorBuscarProductos adaptadorBP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +40,11 @@ public class BuscarProductoEmpresa extends AppCompatActivity implements SearchVi
 
         this.buscarProducto.setOnQueryTextListener(this);
 
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        fragment = new RecyclerViewBuscarProductosFragment();
-        fragment.setColeccion(this.minimarket);
-        transaction.replace(R.id.buscarProd, fragment);
-        transaction.commit();
+        try {
+            inicializarRecyclerView();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
 
 
     }
@@ -55,7 +58,7 @@ public class BuscarProductoEmpresa extends AppCompatActivity implements SearchVi
 
         if(bundle != null){
             this.minimarket = (EmpresaMinimarket) bundle.getSerializable("minimarket");
-            System.out.println(this.minimarket.getNombreEmpresa());
+            System.out.println("Buscar Producto, el nombre del minimarket es: "+ this.minimarket.getNombreEmpresa());
         }
     }
 
@@ -67,7 +70,41 @@ public class BuscarProductoEmpresa extends AppCompatActivity implements SearchVi
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        fragment.actualizarBusqueda(newText);
+        try {
+            fragment.actualizarBusqueda(newText);
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
         return false;
+    }
+
+    public void inicializarRecyclerView() throws CloneNotSupportedException {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        this.fragment = new RecyclerViewBuscarProductosFragment();
+        this.adaptadorBP = new AdaptadorBuscarProductos(this.minimarket);
+        this.fragment.setAdapter(this.adaptadorBP);
+        transaction.replace(R.id.buscarProd, fragment);
+        transaction.commit();
+
+        this.adaptadorBP.setItemListener(new AdaptadorBuscarProductos.ItemClickListener() {
+            @Override
+            public void verProducto(int idProducto)  {
+                verInformacionProducto(idProducto);
+            }
+        });
+
+    }
+    public void verInformacionProducto(int idProducto){
+        System.out.println("Dross Rotzank 777");
+        Intent ventanaBuscarProducto = new Intent(BuscarProductoEmpresa.this,VerProducto.class );
+        // Se pasa un objeto de clase EmpresaMinimarket para que sea manipulado por la ventana VerProducto
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("minimarket" , (Serializable) this.minimarket);
+        bundle.putInt("indice",this.minimarket.obtenerIndiceProducto(idProducto));
+        ventanaBuscarProducto.putExtras(bundle);
+        // Se abre la pestaña VerProducto
+        startActivity(ventanaBuscarProducto);
+        //System.out.println("El producto es: "+ this.minimarket.obtenerProductoIndice(posicion).getNombre());
     }
 }

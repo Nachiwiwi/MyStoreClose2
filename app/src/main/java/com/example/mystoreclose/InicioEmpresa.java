@@ -4,9 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -33,13 +36,21 @@ public class InicioEmpresa extends AppCompatActivity implements Response.Listene
     EmpresaMinimarket minimarket = new EmpresaMinimarket("Empresa1","Minimarket1","1",new Direccion("José Maria Caro","95","-33.0418","-71.6485"),"777","111","casabenja@gmail.com");
     private Button botonAgregarProducto;
     private Button botonBuscarProductos;
+    private ImageButton botonActualizar;
+    private ImageView botonVerProducto;
+    private RecyclerViewProductosFragment recyclerViewProductos;
+    private AdaptadorProductos adapterProductos;
+    private String idRelacion;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio_empresa);
+        this.inicializarRecyclerView();
         this.Inicializar();
+
+
         // Se obtienen los datos de la base de datos
 
         rQ = Volley.newRequestQueue(this);
@@ -48,15 +59,6 @@ public class InicioEmpresa extends AppCompatActivity implements Response.Listene
 
         System.out.println("El tamaño de la coleccion es: "+this.minimarket.obtenerCantidadDeProductos());
         // Tuve que poner estas sentencias es el metodo onResponse porque me abría la página antes que leerme los datos de la Base de datos
-
-        /*if (savedInstanceState == null) {
-
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            RecyclerViewProductosFragment fragment = new RecyclerViewProductosFragment();
-            fragment.setColeccion(this.productos);
-            transaction.replace(R.id.fragmentContentProductosEmpresa, fragment);
-            transaction.commit();
-        }*/
 
     }
 
@@ -75,18 +77,18 @@ public class InicioEmpresa extends AppCompatActivity implements Response.Listene
             for(int i = 0; i < productosJSON.length(); i++){
                 JSONObject pupi = productosJSON.getJSONObject(i);
                 p = new Producto( new String(pupi.getString("Nombre")),
-                        new String(pupi.getString("PrecioUnitario")) );
+                        new String(pupi.getString("PrecioUnitario")),
+                        Integer.parseInt(pupi.getString("IdProducto")),
+                        new String(pupi.getString("Descripcion")),
+                        Integer.parseInt(pupi.getString("IdRel")));
                 this.minimarket.agregarProducto(p);
+
+                this.idRelacion = new String(pupi.getString("IdRel"));
 
                 System.out.println("El nombre es: " + pupi.getString("Nombre")
                         + " El precio es: "+ pupi.getString("PrecioUnitario"));
             }
-
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            RecyclerViewProductosFragment fragment = new RecyclerViewProductosFragment();
-            fragment.setColeccion(this.minimarket);
-            transaction.replace(R.id.fragmentContentProductosEmpresa, fragment);
-            transaction.commit();
+            this.adapterProductos.notifyDataSetChanged();
 
 
         }catch (JSONException e){
@@ -103,36 +105,75 @@ public class InicioEmpresa extends AppCompatActivity implements Response.Listene
     private void Inicializar(){
         this.botonAgregarProducto = (Button) findViewById(R.id.agregarProductosButton);
         this.botonBuscarProductos = (Button) findViewById(R.id.buscarProductosButton);
+        this.botonVerProducto = (ImageView) findViewById(R.id.botonVerProducto);
+        this.botonActualizar = (ImageButton) findViewById(R.id.refreshButtonInicioEmpresa);
         botonBuscarProductos.setOnClickListener(this);
         botonAgregarProducto.setOnClickListener(this);
-        this.minimarket.agregarProducto(new Producto("Prueba 1","Precio1"));
-        this.minimarket.agregarProducto(new Producto("Prueba 2","Precio2"));
-        this.minimarket.agregarProducto(new Producto("Prueba 3","Precio3"));
+        botonActualizar.setOnClickListener(this);
+
     }
 
 
     @Override
     public void onClick(View v) {
         System.out.println("Botones");
+        Bundle bundle = new Bundle();
+
         switch (v.getId()){
             case (R.id.agregarProductosButton):
                 Intent ventanaAgregarProducto = new Intent(InicioEmpresa.this, AgregarProducto.class);
-                System.out.println("HoliA");
+                bundle.putSerializable("minimarket" , (Serializable) this.minimarket);
+                ventanaAgregarProducto.putExtras(bundle);
+
                 startActivity(ventanaAgregarProducto);
                 break;
 
             case (R.id.buscarProductosButton):
-                System.out.println("Holi");
                 Intent ventanaBuscarProducto = new Intent(InicioEmpresa.this,BuscarProductoEmpresa.class );
                 // Se pasa un objeto de clase EmpresaMinimarket para que sea manipulado por la ventana BuscarProductoEmpresa
 
-                Bundle bundle = new Bundle();
                 bundle.putSerializable("minimarket" , (Serializable) this.minimarket);
                 ventanaBuscarProducto.putExtras(bundle);
                 // Se abre la pestaña ventanaBuscarProducto
                 startActivity(ventanaBuscarProducto);
                 break;
+
+            case(R.id.refreshButtonInicioEmpresa):
+                this.minimarket.limpiarDatos();
+                this.obtenerProductosBD();
+
         }
+    }
+
+    public void inicializarRecyclerView(){
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        this.recyclerViewProductos = new RecyclerViewProductosFragment();
+        this.adapterProductos = new AdaptadorProductos(this.minimarket);
+        this.recyclerViewProductos.setAdapter(adapterProductos);
+
+        transaction.replace(R.id.fragmentContentProductosEmpresa, this.recyclerViewProductos);
+        transaction.commit();
+
+        this.adapterProductos.setItemListener(new AdaptadorProductos.ItemClickListener() {
+            @Override
+            public void verProducto(int posicion) {
+                verInformacionProducto(posicion);
+            }
+        });
+    }
+
+    public void verInformacionProducto(int posicion){
+        System.out.println("Dross Rotzank");
+        Intent ventanaBuscarProducto = new Intent(InicioEmpresa.this,VerProducto.class );
+        // Se pasa un objeto de clase EmpresaMinimarket para que sea manipulado por la ventana VerProducto
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("minimarket" , (Serializable) this.minimarket);
+        bundle.putInt("indice",posicion);
+        ventanaBuscarProducto.putExtras(bundle);
+        // Se abre la pestaña VerProducto
+        startActivity(ventanaBuscarProducto);
+        //System.out.println("El producto es: "+ this.minimarket.obtenerProductoIndice(posicion).getNombre());
     }
 }
 

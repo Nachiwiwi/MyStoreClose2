@@ -21,7 +21,7 @@ public class RecyclerViewProductosFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private AdaptadorProductos adaptadorProductos;
-    private EmpresaMinimarket minimarket;
+    //private EmpresaMinimarket minimarket;
     private RecyclerView.LayoutManager layoutManager;
 
     // Tipo de layout que se va a mostrar por pantalla
@@ -33,7 +33,7 @@ public class RecyclerViewProductosFragment extends Fragment {
 
     // Constructor del Fragmento
     public RecyclerViewProductosFragment() {
-        this.minimarket = new EmpresaMinimarket("","","",new Direccion(),"","","");
+        //this.minimarket = new EmpresaMinimarket("","","",new Direccion(),"","","");
     }
 
     @Override
@@ -46,11 +46,10 @@ public class RecyclerViewProductosFragment extends Fragment {
         // Inflate the layout for this fragment
         System.out.println("\nAAAAAAAAAAAAAAAAA\n");
         View vista = inflater.inflate(R.layout.fragment_recycler_view_productos, container, false);
-        vista.setTag("pupi");
         this.recyclerView = (RecyclerView) vista.findViewById(R.id.recyclerViewProductosEmpresa);
         this.layoutManager = new LinearLayoutManager(getActivity());
         // Se crea el adaptador
-        this.adaptadorProductos = new AdaptadorProductos(this.minimarket);
+        //this.adaptadorProductos = new AdaptadorProductos(this.minimarket);
         this.recyclerView.setAdapter(this.adaptadorProductos);
         this.recyclerView.setLayoutManager(layoutManager);
         this.recyclerView.scrollToPosition(0);
@@ -58,8 +57,11 @@ public class RecyclerViewProductosFragment extends Fragment {
         return vista;
     }
 
-    public void setColeccion(EmpresaMinimarket minimarket){
+    /*public void setColeccion(EmpresaMinimarket minimarket){
         this.minimarket = minimarket;
+    }*/
+    public void setAdapter(AdaptadorProductos adapter){
+        this.adaptadorProductos = adapter;
     }
 
 }

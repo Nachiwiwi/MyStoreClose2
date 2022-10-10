@@ -10,17 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
 
-import modelo.ColeccionProductos;
-import modelo.Direccion;
-import modelo.EmpresaMinimarket;
-
-
-public class RecyclerViewBuscarProductosFragment extends Fragment {
+public class RecyclerViewAgregarProductoFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private AdaptadorBuscarProductos adaptadorProductos;
+    private AdaptadorAgregarProductos adaptadorProductos;
     private RecyclerView.LayoutManager layoutManager;
 
     // Tipo de layout que se va a mostrar por pantalla
@@ -31,7 +25,7 @@ public class RecyclerViewBuscarProductosFragment extends Fragment {
     private LayoutManagerType layoutManagerTypeActual;
 
     // Constructor del Fragmento
-    public RecyclerViewBuscarProductosFragment() {
+    public RecyclerViewAgregarProductoFragment() {
     }
 
     @Override
@@ -43,9 +37,9 @@ public class RecyclerViewBuscarProductosFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         System.out.println("\nAAAAAAAAAAAAAAAAA\n");
-        View vista = inflater.inflate(R.layout.fragment_recycler_view_buscar_productos, container, false);
+        View vista = inflater.inflate(R.layout.fragment_recycler_view_agregar_producto, container, false);
         vista.setTag("pupi");
-        this.recyclerView = (RecyclerView) vista.findViewById(R.id.recyclerViewBuscarProductosEmpresa);
+        this.recyclerView = (RecyclerView) vista.findViewById(R.id.recyclerViewAgregarProducto);
         this.layoutManager = new LinearLayoutManager(getActivity());
         // Se crea el adaptador
         //this.adaptadorProductos = new AdaptadorBuscarProductos(this.minimarket);
@@ -56,15 +50,11 @@ public class RecyclerViewBuscarProductosFragment extends Fragment {
         return vista;
     }
 
-    /*public void setColeccion(EmpresaMinimarket minimarket){
-        this.minimarket = minimarket;
-    }*/
-
     public void actualizarBusqueda(String texto) throws CloneNotSupportedException {
         this.adaptadorProductos.filtrado(texto);
     }
 
-    public void setAdapter(AdaptadorBuscarProductos ad){
+    public void setAdapter(AdaptadorAgregarProductos ad){
         this.adaptadorProductos = ad;
     }
 

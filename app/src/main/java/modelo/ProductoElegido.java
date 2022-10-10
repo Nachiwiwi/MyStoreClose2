@@ -3,13 +3,10 @@ package modelo;
 public class ProductoElegido extends Producto{
     int cantidad;
 
-    public ProductoElegido(String nombre, String precio, String oferta) {
-        super(nombre, precio, oferta);
+    public ProductoElegido(String nombre, String precio, int id, String descripcion, int idRelacion) {
+        super(nombre, precio, id, descripcion, idRelacion);
     }
 
-    public ProductoElegido(String nombre, String precio) {
-        super(nombre, precio);
-    }
 
     public int getCantidad() {
         return cantidad;

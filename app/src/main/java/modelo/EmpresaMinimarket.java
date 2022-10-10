@@ -107,8 +107,16 @@ public class EmpresaMinimarket implements Serializable {
         return (ProductoElegido) this.coleccionPedidos.obtenerPedidoIndice(idPedido,indexProducto);
     }
 
-    public ColeccionProductos obtenerColeccion() {
-        return this.coleccionProductos;
+    public int obtenerIndiceProducto(int id){
+        return this.coleccionProductos.obtenerIndiceProducto(id);
+    }
+
+    public ColeccionProductos obtenerColeccion() throws CloneNotSupportedException {
+        return this.coleccionProductos.duplicarColeccion();
+    }
+
+    public void limpiarDatos(){
+        this.coleccionProductos.vaciarContenido();
     }
 
 

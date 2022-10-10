@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import modelo.ColeccionProductos;
 import modelo.EmpresaMinimarket;
 
-public class AdaptadorProductos extends RecyclerView.Adapter<AdaptadorProductos.ViewHolder>{
+public class AdaptadorVerProducto extends RecyclerView.Adapter<AdaptadorVerProducto.ViewHolder>{
 
     // metodos que debe tener la clase que utiliza el adapter
     public interface ItemClickListener{
@@ -34,7 +34,7 @@ public class AdaptadorProductos extends RecyclerView.Adapter<AdaptadorProductos.
         this.myListener = itemListener;
     }
 
-    public AdaptadorProductos(EmpresaMinimarket minimarket){
+    public AdaptadorVerProducto(EmpresaMinimarket minimarket){
         this.minimarket = minimarket;
     }
     @NonNull
@@ -46,7 +46,7 @@ public class AdaptadorProductos extends RecyclerView.Adapter<AdaptadorProductos.
     }
     // Para actualizar datos de una vista
     @Override
-    public void onBindViewHolder(@NonNull AdaptadorProductos.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AdaptadorVerProducto.ViewHolder holder, int position) {
         //holder.bind(this.NombresProductos.get(position));
 
         holder.getTextView().setText("Nombre: "+this.minimarket.obtenerProductoIndice(position).getNombre()

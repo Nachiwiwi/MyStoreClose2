@@ -17,10 +17,11 @@ import modelo.Direccion;
 import modelo.EmpresaMinimarket;
 
 
-public class RecyclerViewBuscarProductosFragment extends Fragment {
+public class RecyclerViewVerProductoFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private AdaptadorBuscarProductos adaptadorProductos;
+    private AdaptadorProductos adaptadorProductos;
+    //private EmpresaMinimarket minimarket;
     private RecyclerView.LayoutManager layoutManager;
 
     // Tipo de layout que se va a mostrar por pantalla
@@ -31,7 +32,8 @@ public class RecyclerViewBuscarProductosFragment extends Fragment {
     private LayoutManagerType layoutManagerTypeActual;
 
     // Constructor del Fragmento
-    public RecyclerViewBuscarProductosFragment() {
+    public RecyclerViewVerProductoFragment() {
+        //this.minimarket = new EmpresaMinimarket("","","",new Direccion(),"","","");
     }
 
     @Override
@@ -43,12 +45,11 @@ public class RecyclerViewBuscarProductosFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         System.out.println("\nAAAAAAAAAAAAAAAAA\n");
-        View vista = inflater.inflate(R.layout.fragment_recycler_view_buscar_productos, container, false);
-        vista.setTag("pupi");
-        this.recyclerView = (RecyclerView) vista.findViewById(R.id.recyclerViewBuscarProductosEmpresa);
+        View vista = inflater.inflate(R.layout.fragment_recycler_view_productos, container, false);
+        this.recyclerView = (RecyclerView) vista.findViewById(R.id.recyclerViewProductosEmpresa);
         this.layoutManager = new LinearLayoutManager(getActivity());
         // Se crea el adaptador
-        //this.adaptadorProductos = new AdaptadorBuscarProductos(this.minimarket);
+        //this.adaptadorProductos = new AdaptadorProductos(this.minimarket);
         this.recyclerView.setAdapter(this.adaptadorProductos);
         this.recyclerView.setLayoutManager(layoutManager);
         this.recyclerView.scrollToPosition(0);
@@ -59,13 +60,8 @@ public class RecyclerViewBuscarProductosFragment extends Fragment {
     /*public void setColeccion(EmpresaMinimarket minimarket){
         this.minimarket = minimarket;
     }*/
-
-    public void actualizarBusqueda(String texto) throws CloneNotSupportedException {
-        this.adaptadorProductos.filtrado(texto);
-    }
-
-    public void setAdapter(AdaptadorBuscarProductos ad){
-        this.adaptadorProductos = ad;
+    public void setAdapter(AdaptadorProductos adapter){
+        this.adaptadorProductos = adapter;
     }
 
 }

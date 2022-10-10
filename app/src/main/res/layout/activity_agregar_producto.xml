@@ -22,10 +22,11 @@
         android:id="@+id/volverInicio"
         android:layout_width="48dp"
         android:layout_height="48dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:backgroundTint="#00FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.044"
+        app:layout_constraintEnd_toStartOf="@+id/imageView16"
+        app:layout_constraintHorizontal_bias="0.227"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/flecha"
@@ -41,47 +42,88 @@
         app:itemTextColor="#EEEEEE"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/barranav2">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
-    <androidx.recyclerview.widget.RecyclerView
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/agregarProd"
-        android:layout_width="360dp"
-        android:layout_height="300dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="350dp"
+        android:layout_height="110dp"
+        android:layout_marginBottom="252dp"
         android:background="@color/colorBoton2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.49"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="@string/agregarProducto"
-        android:textColor="@color/letras"
-        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView16" />
+        app:layout_constraintTop_toBottomOf="@+id/searchViewAgregarProducto"
+        tools:layout="@layout/fragment_recycler_view_agregar_producto" />
 
     <Button
         android:id="@+id/agregarProd2"
         android:layout_width="170dp"
         android:layout_height="50dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="57dp"
+        android:layout_marginBottom="20dp"
         android:backgroundTint="@color/colorBoton1"
         android:text="@string/agregarProducto"
         android:textColor="@color/letras"
         android:textSize="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPrecioProducto" />
+
+    <EditText
+        android:id="@+id/editTextDescripcionProducto"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="180dp"
+        android:background="@color/colorBoton2"
+        android:hint="@string/descripcion"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/agregarProd" />
+
+    <EditText
+        android:id="@+id/editTextPrecioProducto"
+        android:layout_width="350dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="108dp"
+        android:background="@color/colorBoton2"
+        android:hint="@string/precio"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextDescripcionProducto" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="460dp"
+        android:text="@string/agregarProducto"
+        android:textColor="@color/letras"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView16"
+        app:layout_constraintVertical_bias="0.969" />
+
+    <SearchView
+        android:id="@+id/searchViewAgregarProducto"
+        android:layout_width="350dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginBottom="400dp"
+        android:background="@color/colorBoton1"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:menu="@menu/barrabusq" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

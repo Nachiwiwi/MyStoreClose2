@@ -79,7 +79,7 @@
         tools:ignore="SpeakableTextPresentCheck" />
 
 
-    <androidx.recyclerview.widget.RecyclerView
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/buscarMiniCli"
         android:layout_width="360dp"
         android:layout_height="150dp"
@@ -87,7 +87,8 @@
         android:background="@color/colorBoton2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mapView" />
+        app:layout_constraintTop_toBottomOf="@+id/mapView"
+        tools:layout="@layout/fragment_recycler_view_minimarkets"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

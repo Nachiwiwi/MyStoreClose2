@@ -4,27 +4,34 @@ import java.io.Serializable;
 
 // Al implementar la interfaz serializable le permite al objeto poder ser pasado a traves de parametro a otra ventana
 public class EmpresaMinimarket implements Serializable {
+    private int idMinimarket;
     private String nombreEmpresa;
     private String nombreMinimarket;
-    private Direccion direccion;
+    private String direccion;
     private String rutEmpresa;
+    private String claveAdministradorMinimarket;
+    private String mailAdministradorMinimarket;
+    private Direccion posicion;
     private ColeccionPedidos coleccionPedidos;
     private ColeccionProductos coleccionProductos;
 
-    public EmpresaMinimarket(String nombreEmpresa, String nombreMinimarket, String id, Direccion direccion, String rutEmpresa, String contraseña, String corrreo) {
+
+    private int distanciaRespectoUsuario;
+
+    public EmpresaMinimarket(int idMinimarket, String nombreEmpresa, String nombreMinimarket, String direccion, String rutEmpresa, String clave, String corrreo, double latitud, double longitud) {
+        this.idMinimarket = idMinimarket;
         this.nombreEmpresa = nombreEmpresa;
         this.nombreMinimarket = nombreMinimarket;
         this.direccion = direccion;
         this.rutEmpresa = rutEmpresa;
+        this.claveAdministradorMinimarket = clave;
+        this.mailAdministradorMinimarket = corrreo;
+        this.posicion = new Direccion(latitud, longitud);
         this.coleccionPedidos = new ColeccionPedidos();
         this.coleccionProductos = new ColeccionProductos();
     }
 
-    public EmpresaMinimarket(String nombreEmpresa, String nombreMinimarket,String rutEmpresa,String direccion,String correo){
-        this.nombreEmpresa = nombreEmpresa;
-        this.nombreMinimarket = nombreMinimarket;
-        this.rutEmpresa = rutEmpresa;
-    }
+
     public String getNombreEmpresa() {
         return nombreEmpresa;
     }
@@ -50,23 +57,22 @@ public class EmpresaMinimarket implements Serializable {
     }
 
 
-    public String getLongitud() {
-        return this.direccion.getLongitud();
-    }
 
-    public void setLongitud(String longitud) {
-        this.direccion.setLongitud(longitud);
-    }
-
-    public String getLatitud() {
-        return this.direccion.getLatitud();
-    }
-
-    public void setLatitud(String latitud) {
-        this.direccion.setLatitud(latitud);
-    }
 
     // metodos de la reglas del negocio
+
+    //distancia
+    public String getDistancia(){
+        return this.posicion.getDistancia();
+    }
+
+    public int getDistanciaRespectoUsuario() {
+        return distanciaRespectoUsuario;
+    }
+
+    public void setDistanciaRespectoUsuario(int distanciaRespectoUsuario) {
+        this.distanciaRespectoUsuario = distanciaRespectoUsuario;
+    }
 
     // Para productos
     public void agregarProducto(Producto producto){
@@ -119,5 +125,7 @@ public class EmpresaMinimarket implements Serializable {
         this.coleccionProductos.vaciarContenido();
     }
 
-
+    public Direccion getPosicion(){
+        return this.posicion;
+    }
 }

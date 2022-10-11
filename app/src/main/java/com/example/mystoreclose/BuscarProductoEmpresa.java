@@ -11,7 +11,6 @@ import android.widget.SearchView;
 
 import java.io.Serializable;
 
-import modelo.ColeccionProductos;
 import modelo.EmpresaMinimarket;
 // Se implementa la interfaz "SearchView.OnQueryTextListener" para utilizar el SearchView y buscar objetos en tiempo real
 public class BuscarProductoEmpresa extends AppCompatActivity implements SearchView.OnQueryTextListener{
@@ -51,7 +50,7 @@ public class BuscarProductoEmpresa extends AppCompatActivity implements SearchVi
 
     public void inicializar(){
 
-        this.buscarProducto = (SearchView) findViewById(R.id.searchView);
+        this.buscarProducto = (SearchView) findViewById(R.id.searchViewBuscarProductoCliente);
         this.botonAtras = (ImageButton) findViewById(R.id.volverInicio);
         // Objeto enviado a través de Bundle
         Bundle bundle = getIntent().getExtras();

@@ -118,7 +118,7 @@ public class BuscarMinimarketCliente extends AppCompatActivity{
                     listadoMinimarkets = ordenarListadoPorDistancia(clienteActual, listadoMinimarkets);
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-                    System.out.println("Latitud: " +clienteActual.getPosicionActual().getLatitud()+ "Longitud: "+ clienteActual.getPosicionActual().getLongitud());
+                    //System.out.println("Latitud: " +clienteActual.getPosicionActual().getLatitud()+ "Longitud: "+ clienteActual.getPosicionActual().getLongitud());
                     RecyclerViewMinimarketFragment fragment = new RecyclerViewMinimarketFragment();
                     fragment.setColeccion(listadoMinimarkets);
                     // Antes salia R.id.recycleViewBuscarMinimarket, pero no funcionaba

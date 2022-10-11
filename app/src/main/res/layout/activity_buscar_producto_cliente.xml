@@ -33,7 +33,7 @@
         tools:ignore="SpeakableTextPresentCheck" />
 
     <SearchView
-        android:id="@+id/searchView"
+        android:id="@+id/searchViewBuscarProductoCliente"
         android:layout_width="360dp"
         android:layout_height="40dp"
         android:layout_marginStart="1dp"
@@ -60,7 +60,7 @@
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
-    <androidx.recyclerview.widget.RecyclerView
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/buscarProdCli"
         android:layout_width="360dp"
         android:layout_height="350dp"
@@ -68,6 +68,9 @@
         android:background="@color/colorBoton2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView" />
+        app:layout_constraintTop_toBottomOf="@+id/searchViewBuscarProductoCliente"
+        android:name="com.example.mystoreclose.RecyclerViewBuscarProductosClienteFragment"
+        tools:layout="@layout/fragment_recycler_view_buscar_productos" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

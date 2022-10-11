@@ -97,7 +97,7 @@ public class InicioEmpresa extends AppCompatActivity implements Response.Listene
     }
 
     private void obtenerProductosBD(){
-        String dir = "http://192.168.1.102/Android/getPM.php";
+        String dir = "http://192.168.0.4/Android/getPM.php";
         jsR = new JsonObjectRequest(Request.Method.GET, dir, null, this,this);
         rQ.add(jsR);
     }

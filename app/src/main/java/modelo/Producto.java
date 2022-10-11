@@ -91,7 +91,7 @@ public class Producto implements Serializable {
 
     public String tiempoRestanteOferta(){
         if(tieneOferta()){
-            this.oferta.getTiempoRestante();
+            return this.oferta.getTiempoRestante();
         }
         return "";
     }

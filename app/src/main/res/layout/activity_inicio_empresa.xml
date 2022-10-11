@@ -103,6 +103,7 @@
         android:layout_width="60dp"
         android:layout_height="64dp"
         android:layout_marginTop="40dp"
+        android:background="@color/fondo"
         android:contentDescription="@string/productos"
         app:layout_constraintBottom_toTopOf="@+id/buscarProductosButton"
         app:layout_constraintEnd_toEndOf="parent"

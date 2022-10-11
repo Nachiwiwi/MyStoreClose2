@@ -17,11 +17,10 @@ import modelo.Direccion;
 import modelo.EmpresaMinimarket;
 
 
-public class RecyclerViewProductosFragment extends Fragment {
+public class RecyclerViewMinimarketsProductoSeleccionado extends Fragment {
 
     private RecyclerView recyclerView;
-    private AdaptadorProductos adaptadorProductos;
-    //private EmpresaMinimarket minimarket;
+    private AdaptadorMinimarketsProductoS adaptadorProductos;
     private RecyclerView.LayoutManager layoutManager;
 
     // Tipo de layout que se va a mostrar por pantalla
@@ -32,7 +31,7 @@ public class RecyclerViewProductosFragment extends Fragment {
     private LayoutManagerType layoutManagerTypeActual;
 
     // Constructor del Fragmento
-    public RecyclerViewProductosFragment() {
+    public RecyclerViewMinimarketsProductoSeleccionado() {
     }
 
     @Override
@@ -43,9 +42,8 @@ public class RecyclerViewProductosFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        System.out.println("\nAAAAAAAAAAAAAAAAA\n");
-        View vista = inflater.inflate(R.layout.fragment_recycler_view_productos, container, false);
-        this.recyclerView = (RecyclerView) vista.findViewById(R.id.recyclerViewProductosEmpresa);
+        View vista = inflater.inflate(R.layout.fragment_recycler_view_minimarkets_producto_seleccionado, container, false);
+        this.recyclerView = (RecyclerView) vista.findViewById(R.id.recyclerViewMinimarketsProducto);
         this.layoutManager = new LinearLayoutManager(getActivity());
         // Se crea el adaptador
         //this.adaptadorProductos = new AdaptadorProductos(this.minimarket);
@@ -56,10 +54,8 @@ public class RecyclerViewProductosFragment extends Fragment {
         return vista;
     }
 
-    /*public void setColeccion(EmpresaMinimarket minimarket){
-        this.minimarket = minimarket;
-    }*/
-    public void setAdapter(AdaptadorProductos adapter){
+
+    public void setAdapter(AdaptadorMinimarketsProductoS adapter){
         this.adaptadorProductos = adapter;
     }
 

@@ -74,7 +74,8 @@ public class MainActivity extends AppCompatActivity {
         invitado1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent inicioCli = new Intent(MainActivity.this, InicioCliente.class );
+                //Intent inicioCli = new Intent(MainActivity.this, InicioCliente.class );
+                Intent inicioCli = new Intent(MainActivity.this, MostrarMinimarketsConProductoSeleccionado.class );
                 startActivity(inicioCli);
             }
         });

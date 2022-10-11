@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 // Al implementar la interfaz serializable le permite al objeto poder ser pasado a traves de parametro a otra ventana
 public class EmpresaMinimarket implements Serializable {
+
     private int idMinimarket;
     private String nombreEmpresa;
     private String nombreMinimarket;
@@ -14,9 +15,8 @@ public class EmpresaMinimarket implements Serializable {
     private Direccion posicion;
     private ColeccionPedidos coleccionPedidos;
     private ColeccionProductos coleccionProductos;
-
-
     private int distanciaRespectoUsuario;
+
 
     public EmpresaMinimarket(int idMinimarket, String nombreEmpresa, String nombreMinimarket, String direccion, String rutEmpresa, String clave, String corrreo, double latitud, double longitud) {
         this.idMinimarket = idMinimarket;
@@ -31,6 +31,15 @@ public class EmpresaMinimarket implements Serializable {
         this.coleccionProductos = new ColeccionProductos();
     }
 
+    public String getDireccion() {return this.direccion;}
+
+    public void setDireccion(String direccion) {this.direccion = direccion;}
+
+    public int getIdMinimarket() {return idMinimarket;}
+
+    public void setIdMinimarket(int idMinimarket) {
+        this.idMinimarket = idMinimarket;
+    }
 
     public String getNombreEmpresa() {
         return nombreEmpresa;
@@ -44,9 +53,7 @@ public class EmpresaMinimarket implements Serializable {
         return nombreMinimarket;
     }
 
-    public void setNombreMinimarket(String nombreMinimarket) {
-        this.nombreMinimarket = nombreMinimarket;
-    }
+    public void setNombreMinimarket(String nombreMinimarket) {this.nombreMinimarket = nombreMinimarket;}
 
     public String getRutEmpresa() {
         return rutEmpresa;

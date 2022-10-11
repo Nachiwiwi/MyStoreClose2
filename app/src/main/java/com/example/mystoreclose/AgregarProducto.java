@@ -67,7 +67,7 @@ public class AgregarProducto extends AppCompatActivity implements SearchView.OnQ
     
     public void inicializar(){
         this.coleccionProductos = new ColeccionProductos();
-        this.url = "http://192.168.1.102/Android/getProductos.php";
+        this.url = "http://10.8.226.141/Android/getProductos.php";
         this.buscarProducto = (SearchView) findViewById(R.id.searchViewAgregarProducto);
         this.botonAtras = (ImageButton) findViewById(R.id.volverInicio);
         this.botonAgregar = (Button) findViewById(R.id.agregarProd2);
@@ -81,7 +81,8 @@ public class AgregarProducto extends AppCompatActivity implements SearchView.OnQ
 
         if(bundle != null){
             this.empresaMinimarket = (EmpresaMinimarket) bundle.getSerializable("minimarket");
-            System.out.println("Agregar P, El nombre de la empresa es: " + this.empresaMinimarket.getNombreEmpresa());
+            System.out.println("Agregar P, El nombre de la empresa es: " + this.empresaMinimarket.getNombreEmpresa()
+            +" y su id es: "+this.empresaMinimarket.getIdMinimarket());
         }
     }
 
@@ -184,13 +185,14 @@ public class AgregarProducto extends AppCompatActivity implements SearchView.OnQ
 
     public void agregarProductoBD(){
 
-        int idEmpresa = 3;
+
+        int idEmpresa = this.empresaMinimarket.getIdMinimarket();
         int idP = this.idProducto;
         String descripcion = this.etDescripcion.getText().toString();
         String precio = this.etPrecio.getText().toString();
         String imagen = "Imagen Producto "+ this.coleccionProductos.obtenerProducto(idP);
 
-        String dir = "http://192.168.1.102/Android/post_relmarkprod.php";//?PrecioUnitario="+precio+"&Descripcion="+descripcion+"&IdMarket="+idEmpresa+ "&Imagen=imagen del producto&IdProducto="+idProducto;
+        String dir = "http://10.8.226.141/Android/post_relmarkprod.php";//?PrecioUnitario="+precio+"&Descripcion="+descripcion+"&IdMarket="+idEmpresa+ "&Imagen=imagen del producto&IdProducto="+idProducto;
 
         StringRequest stringRequest =new StringRequest(
                 Request.Method.POST,

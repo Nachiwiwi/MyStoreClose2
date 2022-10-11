@@ -25,15 +25,20 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import modelo.Direccion;
 import modelo.EmpresaMinimarket;
+import modelo.Oferta;
 import modelo.Producto;
 
 public class InicioEmpresa extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener, View.OnClickListener{
     private RequestQueue rQ;
     private JsonRequest jsR;
-    EmpresaMinimarket minimarket = new EmpresaMinimarket(0,"Empresa1","Minimarket1","1","777","111","casabenja@gmail.com",-33.0418,-71.6485);
+    EmpresaMinimarket minimarket;// = new EmpresaMinimarket(0,"Empresa","Minimarket1","1","777","111","casabenja@gmail.com",-33.0418,-71.6485);
     private Button botonAgregarProducto;
     private Button botonBuscarProductos;
     private ImageButton botonActualizar;
@@ -41,20 +46,23 @@ public class InicioEmpresa extends AppCompatActivity implements Response.Listene
     private RecyclerViewProductosFragment recyclerViewProductos;
     private AdaptadorProductos adapterProductos;
     private String idRelacion;
+    private String nombreEmpresa;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio_empresa);
-        this.inicializarRecyclerView();
         this.Inicializar();
+        this.inicializarRecyclerView();
+
 
 
         // Se obtienen los datos de la base de datos
 
         rQ = Volley.newRequestQueue(this);
         this.obtenerProductosBD();
+        this.obtenerOfertas();
 
 
         System.out.println("El tamaño de la coleccion es: "+this.minimarket.obtenerCantidadDeProductos());
@@ -65,7 +73,7 @@ public class InicioEmpresa extends AppCompatActivity implements Response.Listene
 
     @Override
     public void onErrorResponse(VolleyError error) {
-        Toast.makeText(InicioEmpresa.this, error.toString(),Toast.LENGTH_LONG).show();
+        Toast.makeText(InicioEmpresa.this, error.toString()+ "Error QLO ",Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -87,6 +95,7 @@ public class InicioEmpresa extends AppCompatActivity implements Response.Listene
 
                 System.out.println("El nombre es: " + pupi.getString("Nombre")
                         + " El precio es: "+ pupi.getString("PrecioUnitario"));
+                //System.out.println(pupi.getString("Nombre"));
             }
             this.adapterProductos.notifyDataSetChanged();
 
@@ -97,7 +106,7 @@ public class InicioEmpresa extends AppCompatActivity implements Response.Listene
     }
 
     private void obtenerProductosBD(){
-        String dir = "http://192.168.1.102/Android/getPM.php";
+        String dir = "http://192.168.178.246/Android/getPM.php?Nombre_empresa="+this.nombreEmpresa;
         jsR = new JsonObjectRequest(Request.Method.GET, dir, null, this,this);
         rQ.add(jsR);
     }
@@ -110,6 +119,8 @@ public class InicioEmpresa extends AppCompatActivity implements Response.Listene
         botonBuscarProductos.setOnClickListener(this);
         botonAgregarProducto.setOnClickListener(this);
         botonActualizar.setOnClickListener(this);
+        this.nombreEmpresa = "COFFE MASTER";
+        this.minimarket = new EmpresaMinimarket(1,this.nombreEmpresa,"COFFE MASTER","Pedro infante con Villa Marina","","","",10,10);
 
     }
 
@@ -141,6 +152,7 @@ public class InicioEmpresa extends AppCompatActivity implements Response.Listene
             case(R.id.refreshButtonInicioEmpresa):
                 this.minimarket.limpiarDatos();
                 this.obtenerProductosBD();
+                this.obtenerOfertas();
 
         }
     }
@@ -174,6 +186,54 @@ public class InicioEmpresa extends AppCompatActivity implements Response.Listene
         // Se abre la pestaña VerProducto
         startActivity(ventanaBuscarProducto);
         //System.out.println("El producto es: "+ this.minimarket.obtenerProductoIndice(posicion).getNombre());
+    }
+
+    public void obtenerOfertas(){
+        String dir = "http://192.168.1.102/Android/getProdConOff.php?Nombre_empresa="+this.nombreEmpresa;
+
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendar = Calendar.getInstance();
+
+        jsR = new JsonObjectRequest(Request.Method.GET, dir, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Oferta off;
+                try {
+                    JSONArray ofertasJSON = response.getJSONArray("Ofertas");
+                    for (int i = 0; i < ofertasJSON.length(); i++){
+                        JSONObject current = ofertasJSON.getJSONObject(i);
+                        Calendar dataFinal = Calendar.getInstance( );
+                        dataFinal.setTime(formato.parse(new String(current.getString("FechaTermino"))));
+                        int resta = dataFinal.get(Calendar.DAY_OF_YEAR) - calendar.get(Calendar.DAY_OF_YEAR);
+
+                        off = new Oferta(new String(current.getString("PrecioOferta")),String.valueOf(resta), new String(current.getString("IdOferta")) );
+
+                        asignarOferta(Integer.parseInt(new String(current.getString("IdProducto"))),off);
+                        System.out.println("La resta es:"+ resta + " "+current.getString("FechaInicio")+ " "+ current.getString("FechaTermino") );
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("Problema con getProdConOff.php");
+                //Toast.makeText(InicioEmpresa.this, error.toString()+" se vienen cositas", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    //new JsonObjectRequest(Request.Method.GET, dir, null, this,this)
+
+        rQ.add(jsR);
+
+    }
+    public void asignarOferta(int idP, Oferta oferta){
+        if(this.minimarket.obtenerProducto(idP) != null) {
+            this.minimarket.obtenerProducto(idP).setOferta(oferta);
+        }
     }
 }
 

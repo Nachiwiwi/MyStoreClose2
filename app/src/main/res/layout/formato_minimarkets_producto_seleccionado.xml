@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:gravity="center_vertical">
+
+    <TextView
+        android:id="@+id/descripcionMinimarket"
+        android:layout_width="242dp"
+        android:layout_height="75dp"
+        android:layout_gravity="center|left"
+        android:layout_marginLeft="15dp"
+        android:textColor="#EEEEEE" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="55dp"
+        android:layout_height="43dp"
+        android:layout_gravity="center|right"
+        android:layout_marginRight="10dp"
+        android:background="@color/colorBoton1"
+        app:srcCompat="@drawable/shop" />
+</FrameLayout>

@@ -37,16 +37,19 @@ public class VerProducto extends AppCompatActivity implements View.OnClickListen
     private Producto producto;
     private RequestQueue rQ;
     //Botones
-    ImageButton botonAtras;
-    Button botonModificar;
-    Button botonEliminar;
+    private ImageButton botonAtras;
+    private Button botonModificar;
+    private Button botonEliminar;
     // Edit Text
-    EditText precio;
-    EditText precioOferta;
-    EditText duracionOferta;
-    EditText descripcion;
+    private EditText precio;
+    private EditText precioOferta;
+    private EditText duracionOferta;
+    private EditText descripcion;
     // label
-    TextView nombreProducto;
+    private TextView nombreProducto;
+    // fechas
+    private SimpleDateFormat formato;
+    private Calendar calendar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +76,9 @@ public class VerProducto extends AppCompatActivity implements View.OnClickListen
         descripcion = findViewById(R.id.editTextDescripcionProductoVer);
         // label
         nombreProducto = findViewById(R.id.labelNombreProducto);
+        // fecha
+        this.formato = new SimpleDateFormat("yyyy-MM-dd");
+        this.calendar = Calendar.getInstance();
         // DB
         this.rQ = Volley.newRequestQueue(this);
 
@@ -93,42 +99,54 @@ public class VerProducto extends AppCompatActivity implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()){
             case (R.id.eliminarProd1):
-                Intent intento = new Intent(VerProducto.this, InicioEmpresa.class);
-                startActivity(intento);
+
+                if(this.producto.tieneOferta()){
+                    this.eliminarOferta();
+                }
+                eliminarProductoEmpresa();
+
                 break;
             case(R.id.volverInicio):
-                Intent volver = new Intent(VerProducto.this, InicioEmpresa.class);
-                startActivity(volver);
                 break;
             case(R.id.modificarProd1):
                 System.out.println("Modificar Producto");
-                if(revisarCeldas()){
-                    System.out.println("Dentro");
-                    modificarRelProductoEmpresa();
-                    if(!this.duracionOferta.getText().toString().equals("") && !this.precioOferta.getText().toString().equals("")){
 
+                if(revisarCeldas()){
+
+                    String precioOfertaF = this.precioOferta.getText().toString();
+                    String tiempoDeLaOferta = this.duracionOferta.getText().toString();
+
+                    modificarElProductoEmpresa();
+
+                    // Si el producto tiene oferta y las casillas de precioOferta y duracionOferta están marcadas,
+                    // Se modifica el producto y luego las caracteristicas de la oferta
+                    if(producto.tieneOferta() && !tiempoDeLaOferta.equals("") && !precioOfertaF.equals("")){
+                        modificarOferta();
                     }
-                    Intent modificar = new Intent(VerProducto.this, ModificarProducto.class);
-                    startActivity(modificar);
+
+                    // Si el producto tiene oferta y las casillas de precioOferta y duracionOferta no están marcadas,
+                    // Se modifica el producto y se elimina la oferta la oferta
+
+                    if(producto.tieneOferta() && tiempoDeLaOferta.equals("") && precioOfertaF.equals("")){
+                        eliminarOferta();
+                    }
+
+                    // Si el producto no tiene oferta y las casillas de precioOferta y duracionOferta están marcadas,
+                    // se crea una oferta
+                    if(!producto.tieneOferta() && !tiempoDeLaOferta.equals("") && !precioOfertaF.equals("")){
+                        crearOferta();
+                    }
+
                 }
 
                 break;
         }
+        onBackPressed();
     }
 
     public boolean revisarCeldas(){
         Pattern patPrecios = Pattern.compile(".*[a-zA-Z].*");
         Matcher mat = patPrecios.matcher(this.precio.getText().toString());
-
-        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-        Calendar calendar = Calendar.getInstance();
-
-        Date dateObj = calendar.getTime();
-        String formattedDate = formato.format(dateObj);
-        calendar.add(Calendar.DAY_OF_YEAR,30);
-        System.out.println(formattedDate+ " "+  formato.format(calendar.getTime()));
-
-        //System.out.println("La duracion es: |"+this.duracionOferta.getText().toString().equals("")+"|");
 
         if(mat.matches()){
             Toast.makeText(VerProducto.this, "Ingresaste letras en el precio",Toast.LENGTH_LONG ).show();
@@ -153,51 +171,220 @@ public class VerProducto extends AppCompatActivity implements View.OnClickListen
             return false;
         }
 
+
+        if(this.precioOferta.getText().toString().equals("") && !this.duracionOferta.getText().toString().equals("")){
+            Toast.makeText(VerProducto.this, "La oferta de tu producto tiene duración pero no precio",Toast.LENGTH_LONG ).show();
+            return false;
+        }
+
+        if(!this.precioOferta.getText().toString().equals("") && this.duracionOferta.getText().toString().equals("")){
+            Toast.makeText(VerProducto.this, "La oferta de tu producto tiene precio pero no duración",Toast.LENGTH_LONG ).show();
+            return false;
+        }
+
         return true;
     }
 
-    public void modificarRelProductoEmpresa(){
 
-            //**********
-            String idRelacion = String.valueOf(this.producto.getIdRelacion());
-            String precioUnitario = this.precio.getText().toString();
-            String descripcion = this.descripcion.getText().toString();
-            String imagen = "Imagen Producto "+ this.producto.getNombre();
-
-            String dir = "http://192.168.1.102/Android/putRelmarkprod.php";//?PrecioUnitario="+precio+"&Descripcion="+descripcion+"&IdMarket="+idEmpresa+ "&Imagen=imagen del producto&IdProducto="+idProducto;
-
-            StringRequest stringRequest =new StringRequest(
-                    Request.Method.POST,
-                    dir,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            //Toast.makeText(context: MainActivity.this, text: "Correct", Toast.LENGTH_SHORT).show();
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(VerProducto.this,error.toString(), Toast.LENGTH_LONG);
-                        }
-                    }
-            ){
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    Map<String, String> params = new HashMap<>();
-                    params.put("IdRel",idRelacion);
-                    params.put("PrecioUnitario",precioUnitario);
-                    params.put("Descripcion",descripcion);
-                    params.put("Imagen", imagen);
-                    return params;
-
-                }
-            };
-
-            this.rQ.add(stringRequest);
-    }
 
     public void modificarOferta(){
+        String idRelacion = String.valueOf(this.producto.getIdRelacion());
+        String precioOferta = this.precioOferta.getText().toString();
+        int duracion =  Integer.parseInt(this.duracionOferta.getText().toString());
 
+        Calendar dataFinal = Calendar.getInstance( );
+        dataFinal.add(Calendar.DAY_OF_YEAR,duracion);
+
+        String fechaTerminal = this.formato.format(dataFinal.getTime());
+        String fechaInicial = this.formato.format(this.calendar.getTime());
+
+        //System.out.println( this.formato.format(this.calendar.getTime())+ " "+ this.formato.format(dataFinal.getTime()));
+
+        String dir = "http://192.168.1.102/Android/putModificarOff.php";
+
+        StringRequest stringRequest =new StringRequest(
+                Request.Method.POST,
+                dir,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        //Toast.makeText(context: MainActivity.this, text: "Correct", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(VerProducto.this,error.toString(), Toast.LENGTH_LONG);
+                    }
+                }
+        ){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("IdRel",idRelacion);
+                params.put("PrecioOferta",precioOferta);
+                params.put("FechaInicio",fechaInicial);
+                params.put("FechaTermino",fechaTerminal);
+                return params;
+
+            }
+        };
+
+        this.rQ.add(stringRequest);
+
+    }
+
+    public void eliminarOferta(){
+        String idRelacion = String.valueOf(this.producto.getIdRelacion());
+
+        String dir = "http://192.168.1.102/Android/deleteOferta.php";
+
+        StringRequest stringRequest =new StringRequest(
+                Request.Method.POST,
+                dir,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        //Toast.makeText(context: MainActivity.this, text: "Correct", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(VerProducto.this,error.toString(), Toast.LENGTH_LONG);
+                    }
+                }
+        ){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("IdRel",idRelacion);
+                return params;
+
+            }
+        };
+        this.rQ.add(stringRequest);
+
+    }
+
+    public void crearOferta(){
+        String idRelacion = String.valueOf(this.producto.getIdRelacion());
+        String precioOferta = this.precioOferta.getText().toString();
+        int duracion =  Integer.parseInt(this.duracionOferta.getText().toString());
+
+        Calendar dataFinal = Calendar.getInstance( );
+        dataFinal.add(Calendar.DAY_OF_YEAR,duracion);
+
+        String fechaTerminal = this.formato.format(dataFinal.getTime());
+        String fechaInicial = this.formato.format(this.calendar.getTime());
+
+        //System.out.println( this.formato.format(this.calendar.getTime())+ " "+ this.formato.format(dataFinal.getTime()));
+
+        String dir = "http://192.168.1.102/Android/postOferta.php";
+
+        StringRequest stringRequest =new StringRequest(
+                Request.Method.POST,
+                dir,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        //Toast.makeText(context: MainActivity.this, text: "Correct", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(VerProducto.this,error.toString(), Toast.LENGTH_LONG);
+                    }
+                }
+        ){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("IdRel",idRelacion);
+                params.put("PrecioOferta",precioOferta);
+                params.put("FechaInicio",fechaInicial);
+                params.put("FechaTermino",fechaTerminal);
+                return params;
+
+            }
+        };
+
+        this.rQ.add(stringRequest);
+
+    }
+
+    public void eliminarProductoEmpresa(){
+        String idRelacion = String.valueOf(this.producto.getIdRelacion());
+
+        String dir = "http://192.168.1.102/Android/deleteRelmarkprod.php";//?PrecioUnitario="+precio+"&Descripcion="+descripcion+"&IdMarket="+idEmpresa+ "&Imagen=imagen del producto&IdProducto="+idProducto;
+
+        StringRequest stringRequest =new StringRequest(
+                Request.Method.POST,
+                dir,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        //Toast.makeText(context: MainActivity.this, text: "Correct", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(VerProducto.this,error.toString(), Toast.LENGTH_LONG);
+                    }
+                }
+        ){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("IdRel",idRelacion);
+                return params;
+
+            }
+        };
+
+        this.rQ.add(stringRequest);
+    }
+
+    public void modificarElProductoEmpresa(){
+
+        //**********
+        String idRelacion = String.valueOf(this.producto.getIdRelacion());
+        String precioUnitario = this.precio.getText().toString();
+        String descripcion = this.descripcion.getText().toString();
+        String imagen = "Imagen Producto "+ this.producto.getNombre();
+
+        String dir = "http://192.168.1.102/Android/putRelmarkprod.php";//?PrecioUnitario="+precio+"&Descripcion="+descripcion+"&IdMarket="+idEmpresa+ "&Imagen=imagen del producto&IdProducto="+idProducto;
+
+        StringRequest stringRequest =new StringRequest(
+                Request.Method.POST,
+                dir,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        //Toast.makeText(context: MainActivity.this, text: "Correct", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(VerProducto.this,error.toString(), Toast.LENGTH_LONG);
+                    }
+                }
+        ){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("IdRel",idRelacion);
+                params.put("PrecioUnitario",precioUnitario);
+                params.put("Descripcion",descripcion);
+                params.put("Imagen", imagen);
+                return params;
+
+            }
+        };
+
+        this.rQ.add(stringRequest);
     }
 }

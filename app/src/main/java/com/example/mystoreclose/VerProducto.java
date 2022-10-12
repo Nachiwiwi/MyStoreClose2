@@ -200,7 +200,7 @@ public class VerProducto extends AppCompatActivity implements View.OnClickListen
 
         //System.out.println( this.formato.format(this.calendar.getTime())+ " "+ this.formato.format(dataFinal.getTime()));
 
-        String dir = "http://192.168.1.102/Android/putModificarOff.php";
+        String dir = "http://192.168.178.246/Android/putModificarOff.php";
 
         StringRequest stringRequest =new StringRequest(
                 Request.Method.POST,
@@ -237,7 +237,7 @@ public class VerProducto extends AppCompatActivity implements View.OnClickListen
     public void eliminarOferta(){
         String idRelacion = String.valueOf(this.producto.getIdRelacion());
 
-        String dir = "http://192.168.1.102/Android/deleteOferta.php";
+        String dir = "http://192.168.178.246/Android/deleteOferta.php";
 
         StringRequest stringRequest =new StringRequest(
                 Request.Method.POST,
@@ -280,7 +280,7 @@ public class VerProducto extends AppCompatActivity implements View.OnClickListen
 
         //System.out.println( this.formato.format(this.calendar.getTime())+ " "+ this.formato.format(dataFinal.getTime()));
 
-        String dir = "http://192.168.1.102/Android/postOferta.php";
+        String dir = "http://192.168.178.246/Android/postOferta.php";
 
         StringRequest stringRequest =new StringRequest(
                 Request.Method.POST,
@@ -317,7 +317,7 @@ public class VerProducto extends AppCompatActivity implements View.OnClickListen
     public void eliminarProductoEmpresa(){
         String idRelacion = String.valueOf(this.producto.getIdRelacion());
 
-        String dir = "http://192.168.1.102/Android/deleteRelmarkprod.php";//?PrecioUnitario="+precio+"&Descripcion="+descripcion+"&IdMarket="+idEmpresa+ "&Imagen=imagen del producto&IdProducto="+idProducto;
+        String dir = "http://192.168.178.246/Android/deleteRelmarkprod.php";//?PrecioUnitario="+precio+"&Descripcion="+descripcion+"&IdMarket="+idEmpresa+ "&Imagen=imagen del producto&IdProducto="+idProducto;
 
         StringRequest stringRequest =new StringRequest(
                 Request.Method.POST,
@@ -355,7 +355,7 @@ public class VerProducto extends AppCompatActivity implements View.OnClickListen
         String descripcion = this.descripcion.getText().toString();
         String imagen = "Imagen Producto "+ this.producto.getNombre();
 
-        String dir = "http://192.168.1.102/Android/putRelmarkprod.php";//?PrecioUnitario="+precio+"&Descripcion="+descripcion+"&IdMarket="+idEmpresa+ "&Imagen=imagen del producto&IdProducto="+idProducto;
+        String dir = "http://192.168.178.246/Android/putRelmarkprod.php";//?PrecioUnitario="+precio+"&Descripcion="+descripcion+"&IdMarket="+idEmpresa+ "&Imagen=imagen del producto&IdProducto="+idProducto;
 
         StringRequest stringRequest =new StringRequest(
                 Request.Method.POST,

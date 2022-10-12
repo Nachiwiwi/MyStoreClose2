@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -25,9 +26,12 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import modelo.EmpresaMinimarket;
 import modelo.Oferta;
+import modelo.Producto;
 
 public class MostrarMinimarketsConProductoSeleccionado extends AppCompatActivity implements View.OnClickListener, Response.Listener<JSONObject>, Response.ErrorListener{
     private ArrayList<EmpresaMinimarket> minimarkets = new ArrayList<>();
@@ -46,6 +50,8 @@ public class MostrarMinimarketsConProductoSeleccionado extends AppCompatActivity
     private Button cancelarFiltro;
     private EditText filtroPrecioMinimo;
     private EditText filtroPrecioMaximo;
+    private int minimo = -1;
+    private int maximo = -1;
 
 
     @Override
@@ -66,7 +72,7 @@ public class MostrarMinimarketsConProductoSeleccionado extends AppCompatActivity
         if (bundle != null){
             this.idProducto = bundle.getString("idProducto");
         }
-        this.idProducto="7";
+        //this.idProducto="7";
     }
 
     public void inicializarRecyclerView(){
@@ -77,10 +83,11 @@ public class MostrarMinimarketsConProductoSeleccionado extends AppCompatActivity
 
         transaction.replace(R.id.fragmentContentMinimarketProducto, this.recyclerView);
         transaction.commit();
+
     }
 
     public void obtenerMinimarketsConProducto(){
-        String url = "http://10.8.226.141/Android/getMinimarketsPorProducto.php?IdProducto="+this.idProducto;
+        String url = "http://192.168.178.246/Android/getMinimarketsPorProducto.php?IdProducto="+this.idProducto;
 
         jsR = new JsonObjectRequest(Request.Method.GET, url, null, this,this);
         this.adapter.notifyDataSetChanged();
@@ -115,7 +122,9 @@ public class MostrarMinimarketsConProductoSeleccionado extends AppCompatActivity
                 break;
 
             case (R.id.botonFiltrar):
-                dialog.dismiss();
+                if (verificarTextosPrecio()) {
+                    dialog.dismiss();
+                }
                 break;
 
             case (R.id.botonCancelarFiltro):
@@ -125,20 +134,38 @@ public class MostrarMinimarketsConProductoSeleccionado extends AppCompatActivity
         }
     }
 
-    public void agregarMinimarket(int idMinimarket,String nombreEmpresa,String nombreMinimarket,String direccion,String rutEmpresa,String ClaveAdminE,String mailAdmMin,double latitud,double longitud){
-        System.out.println("Chiaaaa");
-        EmpresaMinimarket e = new EmpresaMinimarket(idMinimarket,nombreEmpresa,nombreMinimarket,
-                direccion,rutEmpresa,ClaveAdminE,mailAdmMin, latitud,longitud);
+    public boolean verificarTextosPrecio(){
 
-        this.minimarkets.add(e);
+        Pattern patPrecios = Pattern.compile(".*[a-zA-Z].*");
+        Matcher mat = patPrecios.matcher(this.filtroPrecioMinimo.getText().toString());
 
-        System.out.println(idMinimarket+ " "+ nombreEmpresa+ " "+ nombreMinimarket
-                +" "+direccion+ " "+ rutEmpresa+" "+latitud+ " "+longitud);
+        if(mat.matches()){
+            Toast.makeText(MostrarMinimarketsConProductoSeleccionado.this, "Ingresaste letras en el precio Mínimo",Toast.LENGTH_LONG ).show();
+            this.minimo = -1;
+            return false;
+        }
+        else
+        {
+            this.minimo = Integer.parseInt(this.filtroPrecioMinimo.getText().toString());
+        }
+
+        mat = patPrecios.matcher(this.filtroPrecioMaximo.getText().toString());
+        if(mat.matches()){
+            Toast.makeText(MostrarMinimarketsConProductoSeleccionado.this, "Ingresaste letras en el precio Máximo",Toast.LENGTH_LONG ).show();
+            this.maximo = -1;
+            return false;
+        }else
+        {
+            this.maximo = Integer.parseInt(this.filtroPrecioMaximo.getText().toString());
+        }
+
+        return true;
+
     }
 
     @Override
     public void onErrorResponse(VolleyError error) {
-
+        System.out.println(error.toString());
     }
 
     @Override
@@ -152,6 +179,11 @@ public class MostrarMinimarketsConProductoSeleccionado extends AppCompatActivity
         String mailAdmMin;
         double latitud;
         double longitud;
+
+        String nombreProducto;
+        int idRelacion;
+        String precio;
+        String descripcion;
 
         try {
             JSONArray ofertasJSON = response.getJSONArray("Minimarkets");
@@ -168,8 +200,17 @@ public class MostrarMinimarketsConProductoSeleccionado extends AppCompatActivity
                 latitud = Double.valueOf(current.getString("Latitud"));
                 longitud = Double.valueOf(current.getString("Longitud"));
 
+                nombreProducto = new String(current.getString("Nombre"));
+                idRelacion = Integer.parseInt(current.getString("IdRel"));
+                precio = new String(current.getString("PrecioUnitario"));
+                descripcion = new String(current.getString("Descripcion"));
+
+                Producto p = new Producto(nombreProducto,precio,Integer.parseInt(this.idProducto),descripcion,idRelacion);
+
                 EmpresaMinimarket e = new EmpresaMinimarket(idMinimarket,nombreEmpresa,nombreMinimarket,
                         direccion,rutEmpresa,ClaveAdminE,mailAdmMin, latitud,longitud);
+
+                e.agregarProducto(p);
 
                 this.minimarkets.add(e);
                 //agregarMinimarket(idMinimarket,nombreEmpresa,nombreMinimarket,direccion,rutEmpresa,ClaveAdminE,mailAdmMin,latitud,longitud);
@@ -179,5 +220,6 @@ public class MostrarMinimarketsConProductoSeleccionado extends AppCompatActivity
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        this.adapter.notifyDataSetChanged();
     }
 }

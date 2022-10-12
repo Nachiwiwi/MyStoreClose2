@@ -1,9 +1,11 @@
 package com.example.mystoreclose;
 
+import android.content.ClipData;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,11 +17,22 @@ import modelo.EmpresaMinimarket;
 import modelo.Producto;
 
 public class AdaptadorBuscarProductosCliente extends RecyclerView.Adapter<AdaptadorBuscarProductosCliente.ViewHolder>{
-    private ArrayList<Producto> listadoProductos = new ArrayList<>();
-    private ArrayList<Producto> listadoProductosFiltrados = new ArrayList<>();
+    private ArrayList<Producto> listadoProductos ;
+    private ArrayList<Producto> listadoProductosFiltrados ;
+    private ItemClickListener clickListener;
+
+    public interface ItemClickListener{
+        void verProducto(int posicion);
+    }
+
+    public void setItemListener(ItemClickListener itemListener){
+        this.clickListener = itemListener;
+    }
+
     public AdaptadorBuscarProductosCliente(ArrayList<Producto> NombresProductos){
-        this.listadoProductos = new ArrayList<>(NombresProductos) ;
+        this.listadoProductos = NombresProductos ;
         this.listadoProductosFiltrados = new ArrayList<>(NombresProductos) ;
+
     }
 
     @NonNull
@@ -27,7 +40,7 @@ public class AdaptadorBuscarProductosCliente extends RecyclerView.Adapter<Adapta
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.formato_de_salida_productos, parent,false);
-        return new ViewHolder(v);
+        return new ViewHolder(v,this.clickListener,this.listadoProductosFiltrados);
     }
 
     // Para actualizar datos de una vista
@@ -44,9 +57,10 @@ public class AdaptadorBuscarProductosCliente extends RecyclerView.Adapter<Adapta
     }
 
     public void filtrado(String texto) {
+        this.listadoProductosFiltrados = new ArrayList(this.listadoProductos);
         if(texto.length() == 0){
             //mostrar todo
-            this.listadoProductosFiltrados = new ArrayList<>(listadoProductos);
+            this.listadoProductosFiltrados = new ArrayList<>(this.listadoProductos);
         }else{
             //vaciar la lista de los productos
             this.listadoProductosFiltrados = new ArrayList<>();
@@ -65,10 +79,13 @@ public class AdaptadorBuscarProductosCliente extends RecyclerView.Adapter<Adapta
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView texto;
+        private ImageView botonVer;
 
-        public ViewHolder(View v) {
+        public ViewHolder(View v, ItemClickListener listener, ArrayList<Producto> coleccion) {
             super(v);
             texto = v.findViewById(R.id.textoNombre);
+            botonVer = v.findViewById(R.id.botonVerProducto);
+
 
             // Realiza una accion cuando se seleccione un elemento
             v.setOnClickListener(new View.OnClickListener() {
@@ -77,6 +94,21 @@ public class AdaptadorBuscarProductosCliente extends RecyclerView.Adapter<Adapta
                     Log.d("Adapter Productos", "Element " + " clicked.");
                 }
             });
+
+            this.botonVer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if(listener != null){
+                        int posicion = getBindingAdapterPosition();
+                        //System.out.println("La posicion es: "+posicion+ " El producto es: "+
+                        //       coleccionProductos.obtenerProductoPorIndice(posicion).getNombre()+ " y el tamaño es: " + coleccionProductos.dimensionColeccion());
+                        listener.verProducto(coleccion.get(posicion).getId());
+                    }
+                }
+            });
+
+
         }
         public TextView getTextView(){
             return this.texto;

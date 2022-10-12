@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -24,29 +25,28 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import modelo.Cliente;
 import modelo.EmpresaMinimarket;
 import modelo.Producto;
 
-public class BuscarProductoCliente extends AppCompatActivity implements SearchView.OnQueryTextListener {
-    //ArrayList<EmpresaMinimarket> listadoMinimarkets;
+public class BuscarProductoCliente extends AppCompatActivity implements SearchView.OnQueryTextListener, Response.Listener<JSONObject>, Response.ErrorListener {
+
     private JsonRequest request;
     private RequestQueue queue;
-    ArrayList<Producto> listadoProductos = new ArrayList<>();
+    ArrayList<Producto> listadoProductos ;
     SearchView barraBusqueda;
-    RecyclerViewBuscarProductosClienteFragment fragment = new RecyclerViewBuscarProductosClienteFragment();
+    RecyclerViewBuscarProductosClienteFragment fragment;
+    AdaptadorBuscarProductosCliente adapter ;
     ImageButton botonAtras;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buscar_producto_cliente);
-        barraBusqueda = (SearchView) findViewById(R.id.searchViewBuscarProductoCliente);
-        barraBusqueda.setOnQueryTextListener(this);
-        queue = Volley.newRequestQueue(this);
-        cargarProductosBaseDatos();
+        this.listadoProductos = new ArrayList<>();
         //Apretar flecha
         botonAtras = (ImageButton) findViewById(R.id.volverInicio);
         botonAtras.setOnClickListener(new View.OnClickListener() {
@@ -56,48 +56,46 @@ public class BuscarProductoCliente extends AppCompatActivity implements SearchVi
                 startActivity(volver);
             }
         });
+
+        barraBusqueda = (SearchView) findViewById(R.id.searchViewBuscarProductoCliente);
+        barraBusqueda.setOnQueryTextListener(this);
+
+        queue = Volley.newRequestQueue(this);
+
+        cargarProductosBaseDatos();
+
+
+    }
+
+    public void inicializarRecyclerView(){
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        this.fragment = new RecyclerViewBuscarProductosClienteFragment();
+        this.adapter = new AdaptadorBuscarProductosCliente(this.listadoProductos);
+        this.fragment.setAdapter(this.adapter);
+        transaction.replace(R.id.buscarProdCli, this.fragment);
+        transaction.commit();
+
+        this.adapter.setItemListener(new AdaptadorBuscarProductosCliente.ItemClickListener() {
+            @Override
+            public void verProducto(int posicion) {
+                verInformacionProducto(posicion);
+            }
+        });
+    }
+
+    public void verInformacionProducto(int posicion){
+        Intent ventanaBuscarProducto = new Intent(BuscarProductoCliente.this,MostrarMinimarketsConProductoSeleccionado.class );
+        Bundle bundle = new Bundle();
+        bundle.putString("idProducto", String.valueOf(posicion));
+        ventanaBuscarProducto.putExtras(bundle);
+        startActivity(ventanaBuscarProducto);
+
     }
 
     private void cargarProductosBaseDatos() {
 
-        String URL1= "http://192.168.0.4/Android/Producto_Lista.php?";
-        StringRequest request = new StringRequest(Request.Method.GET, URL1, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-
-                try {
-                    JSONArray array = new JSONArray(response);
-                    for(int i = 0 ; i<array.length(); i++){
-                        JSONObject object = array.getJSONObject(i);
-                        int idProducto = object.getInt("IdProducto");
-                        String nombre = object.getString("Nombre");
-                        //System.out.println("Nombre: "+Nombre);
-                        Producto producto = new Producto(nombre, idProducto);
-                        listadoProductos.add(producto);
-                    }
-                    System.out.println("xdddd");
-                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                    System.out.println("a");
-
-                    System.out.println("d");
-                    fragment.setColeccion(listadoProductos);
-                    System.out.println("xdddd");
-                    transaction.replace(R.id.buscarProdCli, fragment);
-                    System.out.println("xdddd");
-                    transaction.commit();
-
-                }catch (JSONException e){
-                    Toast.makeText(BuscarProductoCliente.this, "2xd:", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(BuscarProductoCliente.this, error.toString(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
+        String URL1= "http://192.168.178.246/Android/Producto_Lista.php";
+        this.request = new JsonObjectRequest(Request.Method.GET, URL1, null,this,this);
         this.queue.add(request);
     }
 
@@ -115,5 +113,36 @@ public class BuscarProductoCliente extends AppCompatActivity implements SearchVi
             e.printStackTrace();
         }
         return false;
+    }
+
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        Toast.makeText(BuscarProductoCliente.this, error.toString(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onResponse(JSONObject response) {
+
+        try {
+            JSONArray array = response.getJSONArray("productos");
+            for(int i = 0 ; i<array.length(); i++){
+                JSONObject object = array.getJSONObject(i);
+                int idProducto = Integer.parseInt(object.getString("IdProducto"));
+                String nombre = new String(object.getString("Nombre"));
+                //System.out.println("Nombre: "+Nombre);
+                Producto producto = new Producto(nombre, idProducto);
+                this.listadoProductos.add(producto);
+
+            }
+            System.out.println(this.listadoProductos.size());
+            System.out.println("xdddd");
+
+
+            inicializarRecyclerView();
+        }catch (JSONException e){
+            Toast.makeText(BuscarProductoCliente.this, e.toString(), Toast.LENGTH_SHORT).show();
+        }
+
+
     }
 }

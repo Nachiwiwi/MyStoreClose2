@@ -21,7 +21,6 @@ import modelo.Producto;
 public class RecyclerViewBuscarProductosClienteFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private ArrayList<Producto> listadoProductosAplicacion;
     private AdaptadorBuscarProductosCliente adaptadorProductos;
     private RecyclerView.LayoutManager layoutManager;
 
@@ -34,7 +33,6 @@ public class RecyclerViewBuscarProductosClienteFragment extends Fragment {
 
     // Constructor del Fragmento
     public RecyclerViewBuscarProductosClienteFragment() {
-        this.listadoProductosAplicacion = new ArrayList<>();
     }
 
     @Override
@@ -46,12 +44,11 @@ public class RecyclerViewBuscarProductosClienteFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View vista = inflater.inflate(R.layout.fragment_recycler_view_buscar_productos_cliente, container, false);
-        vista.setTag("pupi");
         this.recyclerView = (RecyclerView) vista.findViewById(R.id.recyclerViewBuscarProductosCliente);
         this.layoutManager = new LinearLayoutManager(getActivity());
         // Se crea el adaptador
         //this.adaptadorProductos = new AdaptadorBuscarProductos(this.minimarket);
-        this.adaptadorProductos = new AdaptadorBuscarProductosCliente(this.listadoProductosAplicacion);
+        //this.adaptadorProductos = new AdaptadorBuscarProductosCliente(this.listadoProductosAplicacion);
         this.recyclerView.setAdapter(this.adaptadorProductos);
         this.recyclerView.setLayoutManager(layoutManager);
         this.recyclerView.scrollToPosition(0);
@@ -59,9 +56,6 @@ public class RecyclerViewBuscarProductosClienteFragment extends Fragment {
         return vista;
     }
 
-    /*public void setColeccion(EmpresaMinimarket minimarket){
-        this.minimarket = minimarket;
-    }*/
 
     public void actualizarBusqueda(String texto) throws CloneNotSupportedException {
         this.adaptadorProductos.filtrado(texto);
@@ -71,7 +65,4 @@ public class RecyclerViewBuscarProductosClienteFragment extends Fragment {
         this.adaptadorProductos = ad;
     }
 
-    public void setColeccion(ArrayList<Producto> coleccion) {
-        this.listadoProductosAplicacion = coleccion;
-    }
 }

@@ -16,7 +16,7 @@ import com.android.volley.toolbox.StringRequest;
 public class IniciarSesionEmpresa extends AppCompatActivity {
     //ImageButton a;
     Button botonInicioSesion;
-    private static final String URL1= "http://192.168.1.102/Android/agregar_minimarket.php"; // Ip benya
+    private static final String URL1= "http://192.168.178.246/Android/agregar_minimarket.php"; // Ip benya
 
 
     @Override

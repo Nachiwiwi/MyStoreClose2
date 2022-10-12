@@ -2,15 +2,15 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="110dp"
     android:layout_marginLeft="5dp"
     android:layout_marginRight="5dp"
     android:gravity="center_vertical">
 
     <TextView
         android:id="@+id/descripcionMinimarket"
-        android:layout_width="242dp"
-        android:layout_height="75dp"
+        android:layout_width="267dp"
+        android:layout_height="99dp"
         android:layout_gravity="center|left"
         android:layout_marginLeft="15dp"
         android:textColor="#EEEEEE" />

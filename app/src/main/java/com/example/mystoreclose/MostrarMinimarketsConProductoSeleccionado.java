@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -52,6 +53,9 @@ public class MostrarMinimarketsConProductoSeleccionado extends AppCompatActivity
     private EditText filtroPrecioMaximo;
     private int minimo = -1;
     private int maximo = -1;
+    private Button botonEncargos;
+    private Button botonPerfil;
+    private Button botonInicio;
 
 
     @Override
@@ -61,6 +65,31 @@ public class MostrarMinimarketsConProductoSeleccionado extends AppCompatActivity
         inicializar();
         inicializarRecyclerView();
         obtenerMinimarketsConProducto();
+
+        botonEncargos = (Button) findViewById(R.id.encargos1);
+        botonEncargos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent volver = new Intent(MostrarMinimarketsConProductoSeleccionado.this, EncargosCliente.class);
+                startActivity(volver);
+            }
+        });
+        botonPerfil = (Button) findViewById(R.id.perfil);
+        botonPerfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent volver = new Intent(MostrarMinimarketsConProductoSeleccionado.this, PerfilCliente.class);
+                startActivity(volver);
+            }
+        });
+        botonInicio = (Button) findViewById(R.id.productos);
+        botonInicio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent volver = new Intent(MostrarMinimarketsConProductoSeleccionado.this, InicioCliente.class);
+                startActivity(volver);
+            }
+        });
     }
 
     public void inicializar(){
@@ -87,7 +116,7 @@ public class MostrarMinimarketsConProductoSeleccionado extends AppCompatActivity
     }
 
     public void obtenerMinimarketsConProducto(){
-        String url = "http://192.168.178.246/Android/getMinimarketsPorProducto.php?IdProducto="+this.idProducto;
+        String url = "http://192.168.0.4/Android/getMinimarketsPorProducto.php?IdProducto="+this.idProducto;
 
         jsR = new JsonObjectRequest(Request.Method.GET, url, null, this,this);
         this.adapter.notifyDataSetChanged();

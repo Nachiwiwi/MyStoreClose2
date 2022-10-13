@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -48,6 +49,9 @@ public class BuscarMinimarketCliente extends AppCompatActivity{
     private ArrayList<EmpresaMinimarket> listadoMinimarkets;
     private RequestQueue queue;
     private Cliente clienteActual;
+    private Button botonEncargos;
+    private Button botonPerfil;
+    private Button botonInicio;
    // private EmpresaMinimarket arrayMinimarkets[] = new EmpresaMinimarket[listadoMinimarkets.size()];
 
     @Override
@@ -68,6 +72,31 @@ public class BuscarMinimarketCliente extends AppCompatActivity{
                 startActivity(volver);
             }
         });
+        botonEncargos = (Button) findViewById(R.id.encargos1);
+        botonEncargos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent volver = new Intent(BuscarMinimarketCliente.this, EncargosCliente.class);
+                startActivity(volver);
+            }
+        });
+        botonPerfil = (Button) findViewById(R.id.perfil);
+        botonPerfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent volver = new Intent(BuscarMinimarketCliente.this, PerfilCliente.class);
+                startActivity(volver);
+            }
+        });
+        botonInicio = (Button) findViewById(R.id.productos);
+        botonInicio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent volver = new Intent(BuscarMinimarketCliente.this, InicioCliente.class);
+                startActivity(volver);
+            }
+        });
+
 
 
         queue = Volley.newRequestQueue(this);
@@ -82,7 +111,7 @@ public class BuscarMinimarketCliente extends AppCompatActivity{
         Bundle bundle = getIntent().getExtras();
         if(bundle != null){
             this.clienteActual = (Cliente) bundle.getSerializable("cliente");
-            System.out.println(this.clienteActual.getNombre());
+//            System.out.println(this.clienteActual.getNombre());
         }
     }
 
@@ -92,7 +121,7 @@ public class BuscarMinimarketCliente extends AppCompatActivity{
     }
     private void readerJSon() {
 
-        String URL1= "http://192.168.178.246/Android/metodoGET.php?";
+        String URL1= "http://192.168.0.4/Android/metodoGET.php?";
         StringRequest request = new StringRequest(Request.Method.GET, URL1, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

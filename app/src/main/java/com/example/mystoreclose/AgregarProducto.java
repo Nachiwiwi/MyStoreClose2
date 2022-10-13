@@ -38,11 +38,14 @@ public class AgregarProducto extends AppCompatActivity implements SearchView.OnQ
     //Botones
     private ImageButton botonAtras;
     private Button botonAgregar;
-
+    private Button botonEncargos;
+    private Button botonPerfil;
+    private Button botonInicio;
     // Conexion con la base de datos
     private RequestQueue rQ;
     private JsonRequest jsR;
     private String url;
+
     // reglas del negocio
     private SearchView buscarProducto;
     private RecyclerViewAgregarProductoFragment fragment;
@@ -59,7 +62,14 @@ public class AgregarProducto extends AppCompatActivity implements SearchView.OnQ
         setContentView(R.layout.activity_agregar_producto);
         inicializar();
         inicializarRecyclerView();
+        botonEncargos = (Button) findViewById(R.id.encargos1);
+        botonEncargos.setOnClickListener(this);
 
+        botonPerfil = (Button) findViewById(R.id.perfil);
+        botonPerfil.setOnClickListener(this);
+
+        botonInicio = (Button) findViewById(R.id.productos);
+        botonInicio.setOnClickListener(this);
         this.rQ = Volley.newRequestQueue(this);
         inicializarBaseDeDatos();
 
@@ -181,6 +191,17 @@ public class AgregarProducto extends AppCompatActivity implements SearchView.OnQ
                 }
                 startActivity(agregar);
                 break;
+            case (R.id.encargos1):
+                Intent ventanaEncargos = new Intent(AgregarProducto.this, EncargosEmpresa.class);
+                startActivity(ventanaEncargos);
+                break;
+            case (R.id.perfil):
+                Intent ventanaPerfil = new Intent(AgregarProducto.this, PerfilEmpresa.class);
+                startActivity(ventanaPerfil);
+                break;
+            case (R.id.productos):
+                Intent ventanaInicio = new Intent(AgregarProducto.this, InicioEmpresa.class);
+                startActivity(ventanaInicio);
         }
     }
 
@@ -193,7 +214,7 @@ public class AgregarProducto extends AppCompatActivity implements SearchView.OnQ
         String precio = this.etPrecio.getText().toString();
         String imagen = "Imagen Producto "+ this.coleccionProductos.obtenerProducto(idP);
 
-        String dir = "http://192.168.178.246/Android/post_relmarkprod.php";//?PrecioUnitario="+precio+"&Descripcion="+descripcion+"&IdMarket="+idEmpresa+ "&Imagen=imagen del producto&IdProducto="+idProducto;
+        String dir = "http://192.168.0.4/Android/post_relmarkprod.php";//?PrecioUnitario="+precio+"&Descripcion="+descripcion+"&IdMarket="+idEmpresa+ "&Imagen=imagen del producto&IdProducto="+idProducto;
 
         StringRequest stringRequest =new StringRequest(
                 Request.Method.POST,

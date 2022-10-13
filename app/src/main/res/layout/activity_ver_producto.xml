@@ -18,30 +18,53 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logotallersw" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/fondo"
-        app:itemIconTint="@color/colorBoton2"
-        app:itemTextColor="#EEEEEE"
+    <Button
+        android:id="@+id/productos"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="8dp"
+        android:backgroundTint="@color/colorBoton1"
+        android:text="@string/productos"
+        android:textColor="@color/letras"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/barranav2">
+        app:layout_constraintStart_toStartOf="parent" />
 
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
+    <Button
+        android:id="@+id/encargos1"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginEnd="49dp"
+        android:backgroundTint="@color/colorBoton2"
+        android:text="@string/encargo"
+        android:textColor="@color/letras"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/perfil"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toEndOf="@+id/productos" />
 
+    <Button
+        android:id="@+id/perfil"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="@color/colorBoton2"
+        android:text="@string/perfil"
+        android:textColor="@color/letras"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
     <ImageButton
         android:id="@+id/volverInicio"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="#00FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.025"
         app:srcCompat="@drawable/flecha"
         app:tint="#EEEEEE"
         tools:ignore="SpeakableTextPresentCheck" />
@@ -50,191 +73,156 @@
         android:id="@+id/labelNombreProducto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="Nombre Producto"
         android:textColor="@color/letras"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView16"
-        app:layout_constraintVertical_bias="0.041" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView16" />
 
     <Button
         android:id="@+id/eliminarProd1"
         android:layout_width="170dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="11dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
         android:backgroundTint="@color/colorBoton1"
         android:text="@string/eliminarProducto"
         android:textColor="@color/letras"
         android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.933"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <Button
         android:id="@+id/modificarProd1"
         android:layout_width="170dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="11dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
         android:backgroundTint="@color/colorBoton1"
         android:text="@string/modificarProducto"
         android:textColor="@color/letras"
         android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
-        app:layout_constraintEnd_toStartOf="@+id/eliminarProd1"
-        app:layout_constraintHorizontal_bias="0.517"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <TextView
         android:id="@+id/textViewVerProductoImagen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="44dp"
         android:text="@string/imagen"
         android:textColor="#EEEEEE"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
-        app:layout_constraintEnd_toStartOf="@+id/imageView"
-        app:layout_constraintHorizontal_bias="0.285"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.774" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewVerProductoDescripcion" />
 
     <EditText
         android:id="@+id/editTextPrecioProductoVer"
         android:layout_width="200dp"
         android:layout_height="48dp"
-        android:layout_marginTop="236dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
         android:ems="10"
         android:hint="@string/precio"
         android:inputType="textPersonName"
         android:textColor="@color/colorBoton1"
-        app:layout_constraintBottom_toTopOf="@+id/editTextPrecioOfertaProductoVer"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.928"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/labelNombreProducto" />
 
     <TextView
         android:id="@+id/textViewVerProductoPrecio"
         android:layout_width="83dp"
         android:layout_height="20dp"
-        android:layout_marginTop="244dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
         android:text="@string/precio"
         android:textColor="#EEEEEE"
-        app:layout_constraintBottom_toTopOf="@+id/textViewVerProductoPrecioOferta"
-        app:layout_constraintEnd_toStartOf="@+id/editTextPrecioProductoVer"
-        app:layout_constraintHorizontal_bias="0.345"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/labelNombreProducto" />
 
     <TextView
         android:id="@+id/textViewVerProductoPrecioOferta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="300dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="44dp"
         android:text="@string/precioOferta"
         android:textColor="#EEEEEE"
-        app:layout_constraintBottom_toTopOf="@+id/textViewVerProductoDuracionOF"
-        app:layout_constraintEnd_toStartOf="@+id/editTextPrecioOfertaProductoVer"
-        app:layout_constraintHorizontal_bias="0.345"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewVerProductoPrecio" />
 
     <EditText
         android:id="@+id/editTextDurOfertaProductoVer"
         android:layout_width="200dp"
         android:layout_height="48dp"
-        android:layout_marginTop="344dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
         android:ems="10"
         android:hint="@string/duracionoferta"
         android:inputType="textPersonName"
         android:textColor="@color/colorBoton1"
-        app:layout_constraintBottom_toTopOf="@+id/editTextDescripcionProductoVer"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.928"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextPrecioOfertaProductoVer" />
 
     <EditText
         android:id="@+id/editTextPrecioOfertaProductoVer"
         android:layout_width="200dp"
         android:layout_height="48dp"
-        android:layout_marginTop="288dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
         android:ems="10"
         android:hint="@string/precioOferta"
         android:inputType="textPersonName"
         android:textColor="@color/colorBoton1"
-        app:layout_constraintBottom_toTopOf="@+id/editTextDurOfertaProductoVer"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.928"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextPrecioProductoVer" />
 
     <TextView
         android:id="@+id/textViewVerProductoDuracionOF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="356dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="44dp"
         android:text="@string/duracionoferta"
         android:textColor="#EEEEEE"
-        app:layout_constraintBottom_toTopOf="@+id/textViewVerProductoDescripcion"
-        app:layout_constraintEnd_toStartOf="@+id/editTextDurOfertaProductoVer"
-        app:layout_constraintHorizontal_bias="0.575"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewVerProductoPrecioOferta" />
 
     <TextView
         android:id="@+id/textViewVerProductoDescripcion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="412dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="44dp"
         android:text="@string/descripcion"
         android:textColor="#EEEEEE"
-        app:layout_constraintBottom_toTopOf="@+id/textViewVerProductoImagen"
-        app:layout_constraintEnd_toStartOf="@+id/editTextDescripcionProductoVer"
-        app:layout_constraintHorizontal_bias="0.319"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewVerProductoDuracionOF" />
 
     <EditText
         android:id="@+id/editTextDescripcionProductoVer"
         android:layout_width="200dp"
         android:layout_height="48dp"
-        android:layout_marginTop="400dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
         android:ems="10"
         android:hint="@string/descripcion"
         android:inputType="textPersonName"
         android:textColor="@color/colorBoton1"
-        app:layout_constraintBottom_toTopOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.928"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextDurOfertaProductoVer" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="93dp"
         android:layout_height="70dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="128dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.814"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.839"
+        app:layout_constraintTop_toBottomOf="@+id/editTextDescripcionProductoVer"
         app:srcCompat="@drawable/logotallersw" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

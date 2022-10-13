@@ -17,22 +17,44 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logotallersw" />
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/fondo"
-        app:itemIconTint="@color/colorBoton2"
-        app:itemTextColor="#EEEEEE"
+    <Button
+        android:id="@+id/productos"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="8dp"
+        android:backgroundTint="@color/colorBoton2"
+        android:text="@string/productos"
+        android:textColor="@color/letras"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/barranav2">
+        app:layout_constraintStart_toStartOf="parent" />
 
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
+    <Button
+        android:id="@+id/encargos1"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginEnd="49dp"
+        android:backgroundTint="@color/colorBoton2"
+        android:text="@string/encargo"
+        android:textColor="@color/letras"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/perfil"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toEndOf="@+id/productos" />
 
+    <Button
+        android:id="@+id/perfil"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="@color/colorBoton1"
+        android:text="@string/perfil"
+        android:textColor="@color/letras"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
     <ImageButton
         android:id="@+id/volverInicio"
         android:layout_width="48dp"

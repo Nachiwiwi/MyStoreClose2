@@ -47,6 +47,8 @@ public class InicioCliente extends AppCompatActivity implements Response.Listene
     Button botonBuscarMinimarkets;
     private JsonRequest jsR;
     private RequestQueue rQ;
+    private Button botonEncargos;
+    private Button botonPerfil;
     Button botonBuscarProductos;
 
     TextView prueba;
@@ -71,9 +73,12 @@ public class InicioCliente extends AppCompatActivity implements Response.Listene
         botonBuscarProductos = (Button) findViewById(R.id.buscarProducto);
         botonBuscarProductos.setOnClickListener(this);
 
-        //Funcionamiento barra navegación
-        BottomNavigationView barraNav = findViewById(R.id.bottomNavigationView);
-        //barraNav.setOnNavigationItemSelectedListener(navListener);
+        //Barra navegacion
+        botonEncargos = (Button) findViewById(R.id.encargos1);
+        botonEncargos.setOnClickListener(this);
+
+        botonPerfil = (Button) findViewById(R.id.perfil);
+        botonPerfil.setOnClickListener(this);
     }
 
 
@@ -128,7 +133,14 @@ public class InicioCliente extends AppCompatActivity implements Response.Listene
                 ventanaBuscarProducto.putExtras(bundleProductos);
                 // Se abre la pestaña ventanaBuscarProducto
                 startActivity(ventanaBuscarProducto);
-
+                break;
+            case (R.id.encargos1):
+                Intent ventanaEncargos = new Intent(InicioCliente.this, EncargosCliente.class);
+                startActivity(ventanaEncargos);
+                break;
+            case (R.id.perfil):
+                Intent ventanaPerfil = new Intent(InicioCliente.this, PerfilCliente.class);
+                startActivity(ventanaPerfil);
         }
 
 
@@ -165,7 +177,7 @@ public class InicioCliente extends AppCompatActivity implements Response.Listene
     }
 
     private void obtenerUsuarioActual(){
-        String dir = "http://192.168.178.246/Android/perfil_usuario.php?Nombre_Usuario=matichief117";
+        String dir = "http://192.168.0.4/Android/perfil_usuario.php?Nombre_Usuario=matichief117";
 
         jsR = new JsonObjectRequest(Request.Method.GET, dir, null, this,this);
         rQ.add(jsR);

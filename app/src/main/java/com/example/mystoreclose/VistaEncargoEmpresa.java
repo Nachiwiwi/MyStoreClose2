@@ -14,7 +14,9 @@ public class VistaEncargoEmpresa extends AppCompatActivity {
     ImageButton botonAtras;
     Button botonAceptar;
     Button botonRechazar;
-
+    private Button botonEncargos;
+    private Button botonPerfil;
+    private Button botonInicio;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +49,30 @@ public class VistaEncargoEmpresa extends AppCompatActivity {
             public void onClick(View view) {
                 Intent rechazar = new Intent(VistaEncargoEmpresa.this, EncargosEmpresa.class);
                 startActivity(rechazar);
+            }
+        });
+        botonEncargos = (Button) findViewById(R.id.encargos1);
+        botonEncargos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent volver = new Intent(VistaEncargoEmpresa.this, EncargosEmpresa.class);
+                startActivity(volver);
+            }
+        });
+        botonPerfil = (Button) findViewById(R.id.perfil);
+        botonPerfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent volver = new Intent(VistaEncargoEmpresa.this, PerfilEmpresa.class);
+                startActivity(volver);
+            }
+        });
+        botonInicio = (Button) findViewById(R.id.productos);
+        botonInicio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent volver = new Intent(VistaEncargoEmpresa.this, InicioEmpresa.class);
+                startActivity(volver);
             }
         });
     }

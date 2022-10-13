@@ -50,12 +50,37 @@ public class VerProducto extends AppCompatActivity implements View.OnClickListen
     // fechas
     private SimpleDateFormat formato;
     private Calendar calendar;
-
+    private Button botonEncargos;
+    private Button botonPerfil;
+    private Button botonInicio;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ver_producto);
-
+        botonEncargos = (Button) findViewById(R.id.encargos1);
+        botonEncargos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent volver = new Intent(VerProducto.this, EncargosEmpresa.class);
+                startActivity(volver);
+            }
+        });
+        botonPerfil = (Button) findViewById(R.id.perfil);
+        botonPerfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent volver = new Intent(VerProducto.this, PerfilEmpresa.class);
+                startActivity(volver);
+            }
+        });
+        botonInicio = (Button) findViewById(R.id.productos);
+        botonInicio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent volver = new Intent(VerProducto.this, InicioEmpresa.class);
+                startActivity(volver);
+            }
+        });
         inicializar();
 
     }
@@ -200,7 +225,7 @@ public class VerProducto extends AppCompatActivity implements View.OnClickListen
 
         //System.out.println( this.formato.format(this.calendar.getTime())+ " "+ this.formato.format(dataFinal.getTime()));
 
-        String dir = "http://192.168.178.246/Android/putModificarOff.php";
+        String dir = "http://192.168.0.4/Android/putModificarOff.php";
 
         StringRequest stringRequest =new StringRequest(
                 Request.Method.POST,
@@ -237,7 +262,7 @@ public class VerProducto extends AppCompatActivity implements View.OnClickListen
     public void eliminarOferta(){
         String idRelacion = String.valueOf(this.producto.getIdRelacion());
 
-        String dir = "http://192.168.178.246/Android/deleteOferta.php";
+        String dir = "http://192.168.0.4/Android/deleteOferta.php";
 
         StringRequest stringRequest =new StringRequest(
                 Request.Method.POST,
@@ -280,7 +305,7 @@ public class VerProducto extends AppCompatActivity implements View.OnClickListen
 
         //System.out.println( this.formato.format(this.calendar.getTime())+ " "+ this.formato.format(dataFinal.getTime()));
 
-        String dir = "http://192.168.178.246/Android/postOferta.php";
+        String dir = "http://192.168.0.4/Android/postOferta.php";
 
         StringRequest stringRequest =new StringRequest(
                 Request.Method.POST,
@@ -317,7 +342,7 @@ public class VerProducto extends AppCompatActivity implements View.OnClickListen
     public void eliminarProductoEmpresa(){
         String idRelacion = String.valueOf(this.producto.getIdRelacion());
 
-        String dir = "http://192.168.178.246/Android/deleteRelmarkprod.php";//?PrecioUnitario="+precio+"&Descripcion="+descripcion+"&IdMarket="+idEmpresa+ "&Imagen=imagen del producto&IdProducto="+idProducto;
+        String dir = "http://192.168.0.4/Android/deleteRelmarkprod.php";//?PrecioUnitario="+precio+"&Descripcion="+descripcion+"&IdMarket="+idEmpresa+ "&Imagen=imagen del producto&IdProducto="+idProducto;
 
         StringRequest stringRequest =new StringRequest(
                 Request.Method.POST,
@@ -355,7 +380,7 @@ public class VerProducto extends AppCompatActivity implements View.OnClickListen
         String descripcion = this.descripcion.getText().toString();
         String imagen = "Imagen Producto "+ this.producto.getNombre();
 
-        String dir = "http://192.168.178.246/Android/putRelmarkprod.php";//?PrecioUnitario="+precio+"&Descripcion="+descripcion+"&IdMarket="+idEmpresa+ "&Imagen=imagen del producto&IdProducto="+idProducto;
+        String dir = "http://192.168.0.4/Android/putRelmarkprod.php";//?PrecioUnitario="+precio+"&Descripcion="+descripcion+"&IdMarket="+idEmpresa+ "&Imagen=imagen del producto&IdProducto="+idProducto;
 
         StringRequest stringRequest =new StringRequest(
                 Request.Method.POST,

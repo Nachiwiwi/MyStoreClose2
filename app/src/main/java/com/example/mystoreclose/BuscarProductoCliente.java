@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -41,7 +42,9 @@ public class BuscarProductoCliente extends AppCompatActivity implements SearchVi
     RecyclerViewBuscarProductosClienteFragment fragment;
     AdaptadorBuscarProductosCliente adapter ;
     ImageButton botonAtras;
-
+    private Button botonEncargos;
+    private Button botonPerfil;
+    private Button botonInicio;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +59,31 @@ public class BuscarProductoCliente extends AppCompatActivity implements SearchVi
                 startActivity(volver);
             }
         });
+        botonEncargos = (Button) findViewById(R.id.encargos1);
+        botonEncargos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent volver = new Intent(BuscarProductoCliente.this, EncargosCliente.class);
+                startActivity(volver);
+            }
+        });
+        botonPerfil = (Button) findViewById(R.id.perfil);
+        botonPerfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent volver = new Intent(BuscarProductoCliente.this, PerfilCliente.class);
+                startActivity(volver);
+            }
+        });
+        botonInicio = (Button) findViewById(R.id.productos);
+        botonInicio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent volver = new Intent(BuscarProductoCliente.this, InicioCliente.class);
+                startActivity(volver);
+            }
+        });
+
 
         barraBusqueda = (SearchView) findViewById(R.id.searchViewBuscarProductoCliente);
         barraBusqueda.setOnQueryTextListener(this);
@@ -94,7 +122,7 @@ public class BuscarProductoCliente extends AppCompatActivity implements SearchVi
 
     private void cargarProductosBaseDatos() {
 
-        String URL1= "http://192.168.178.246/Android/Producto_Lista.php";
+        String URL1= "http://192.168.0.4/Android/Producto_Lista.php";
         this.request = new JsonObjectRequest(Request.Method.GET, URL1, null,this,this);
         this.queue.add(request);
     }

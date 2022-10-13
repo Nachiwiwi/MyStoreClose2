@@ -43,6 +43,8 @@ public class InicioEmpresa extends AppCompatActivity implements Response.Listene
     private Button botonBuscarProductos;
     private ImageButton botonActualizar;
     private ImageView botonVerProducto;
+    private Button botonEncargos;
+    private Button botonPerfil;
     private RecyclerViewProductosFragment recyclerViewProductos;
     private AdaptadorProductos adapterProductos;
     private String idRelacion;
@@ -56,6 +58,11 @@ public class InicioEmpresa extends AppCompatActivity implements Response.Listene
         this.Inicializar();
         this.inicializarRecyclerView();
 
+        botonEncargos = (Button) findViewById(R.id.encargos1);
+        botonEncargos.setOnClickListener(this);
+
+        botonPerfil = (Button) findViewById(R.id.perfil);
+        botonPerfil.setOnClickListener(this);
 
 
         // Se obtienen los datos de la base de datos
@@ -106,7 +113,7 @@ public class InicioEmpresa extends AppCompatActivity implements Response.Listene
     }
 
     private void obtenerProductosBD(){
-        String dir = "http://192.168.178.246/Android/getPM.php?Nombre_empresa="+this.minimarket.getNombreEmpresa();
+        String dir = "http://192.168.0.4/Android/getPM.php?Nombre_empresa="+this.minimarket.getNombreEmpresa();
         jsR = new JsonObjectRequest(Request.Method.GET, dir, null, this,this);
         rQ.add(jsR);
     }
@@ -153,7 +160,14 @@ public class InicioEmpresa extends AppCompatActivity implements Response.Listene
                 this.minimarket.limpiarDatos();
                 this.obtenerProductosBD();
                 this.obtenerOfertas();
-
+                break;
+            case (R.id.encargos1):
+                Intent ventanaEncargos = new Intent(InicioEmpresa.this, EncargosEmpresa.class);
+                startActivity(ventanaEncargos);
+                break;
+            case (R.id.perfil):
+                Intent ventanaPerfil = new Intent(InicioEmpresa.this, PerfilEmpresa.class);
+                startActivity(ventanaPerfil);
         }
     }
 

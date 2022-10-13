@@ -18,6 +18,9 @@ public class VistaMinimarketCliente extends AppCompatActivity {
 
     private TextView nombreMinimarket;
     private ListView listaProductos;
+    private Button botonEncargos;
+    private Button botonPerfil;
+    private Button botonInicio;
 
     //los siguientes arreglos deben ser añadidos desde la base de datos en un futuro solo son ejemplos
 
@@ -48,7 +51,30 @@ public class VistaMinimarketCliente extends AppCompatActivity {
                 startActivity(confirmar);
             }
         });
-
+        botonEncargos = (Button) findViewById(R.id.encargos1);
+        botonEncargos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent volver = new Intent(VistaMinimarketCliente.this, EncargosCliente.class);
+                startActivity(volver);
+            }
+        });
+        botonPerfil = (Button) findViewById(R.id.perfil);
+        botonPerfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent volver = new Intent(VistaMinimarketCliente.this, PerfilCliente.class);
+                startActivity(volver);
+            }
+        });
+        botonInicio = (Button) findViewById(R.id.productos);
+        botonInicio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent volver = new Intent(VistaMinimarketCliente.this, InicioCliente.class);
+                startActivity(volver);
+            }
+        });
 
         /*listaProductos = (ListView)findViewById(R.id.lv1);
         nombreMinimarket = (TextView)findViewById(R.id.textViewMinimarketSeleccionado);

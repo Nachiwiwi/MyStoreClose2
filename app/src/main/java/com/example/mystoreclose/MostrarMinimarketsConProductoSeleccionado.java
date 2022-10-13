@@ -123,6 +123,9 @@ public class MostrarMinimarketsConProductoSeleccionado extends AppCompatActivity
 
             case (R.id.botonFiltrar):
                 if (verificarTextosPrecio()) {
+                    this.adapter.setPrecioMinimo(this.minimo);
+                    this.adapter.setPrecioMaximo(this.maximo);
+                    this.adapter.filtrado();
                     dialog.dismiss();
                 }
                 break;
@@ -146,7 +149,13 @@ public class MostrarMinimarketsConProductoSeleccionado extends AppCompatActivity
         }
         else
         {
-            this.minimo = Integer.parseInt(this.filtroPrecioMinimo.getText().toString());
+            if(!this.filtroPrecioMinimo.getText().toString().equals("")){
+                this.minimo = Integer.parseInt(this.filtroPrecioMinimo.getText().toString());
+            }
+            else {
+                this.minimo = -1;
+            }
+
         }
 
         mat = patPrecios.matcher(this.filtroPrecioMaximo.getText().toString());
@@ -156,9 +165,13 @@ public class MostrarMinimarketsConProductoSeleccionado extends AppCompatActivity
             return false;
         }else
         {
-            this.maximo = Integer.parseInt(this.filtroPrecioMaximo.getText().toString());
+            if(!this.filtroPrecioMaximo.getText().toString().equals("")){
+                this.maximo = Integer.parseInt(this.filtroPrecioMaximo.getText().toString());
+            }
+            else {
+                this.maximo = -1;
+            }
         }
-
         return true;
 
     }

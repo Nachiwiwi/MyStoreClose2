@@ -17,6 +17,7 @@ import modelo.EmpresaMinimarket;
 public class AdaptadorMinimarketsProductoS extends RecyclerView.Adapter<AdaptadorMinimarketsProductoS.ViewHolder> {
 
     private ArrayList<EmpresaMinimarket> minimarkets;
+    private ArrayList<EmpresaMinimarket> mostrarMinimarkets;
     private int idProducto;
     private int precioMinimo;
     private int precioMaximo;
@@ -24,6 +25,9 @@ public class AdaptadorMinimarketsProductoS extends RecyclerView.Adapter<Adaptado
 
     public AdaptadorMinimarketsProductoS(ArrayList minimarkets, int idProducto){
         this.minimarkets = minimarkets;
+        this.mostrarMinimarkets = new ArrayList<>(this.minimarkets);
+        precioMinimo = -1;
+        precioMaximo = -1;
         this.idProducto = idProducto;
     }
 
@@ -39,59 +43,22 @@ public class AdaptadorMinimarketsProductoS extends RecyclerView.Adapter<Adaptado
     @Override
     public void onBindViewHolder(@NonNull AdaptadorMinimarketsProductoS.ViewHolder holder, int position) {
 
-        String nombre = minimarkets.get(position).getNombreEmpresa();
-        String distancia = minimarkets.get(position).getDistancia();
-        String direccion = minimarkets.get(position).getDireccion();
-        String precio = minimarkets.get(position).obtenerProducto(this.idProducto).getPrecio();
-
+        String nombre = this.mostrarMinimarkets.get(position).getNombreEmpresa();
+        String distancia = this.mostrarMinimarkets.get(position).getDistancia();
+        String direccion = this.mostrarMinimarkets.get(position).getDireccion();
+        String precio = this.mostrarMinimarkets.get(position).obtenerProducto(this.idProducto).getPrecio();
 
         holder.getTextView().setText("Nombre del minimarket: " + nombre
                         + "\nDistancia: " + distancia
                         + "\nDireccion: " + direccion
                         + "\nPrecio del Producto: " + precio);
 
-        /*
-
-        if (this.precioMinimo == -1 && this.precioMaximo == -1) {
-            holder.getTextView().setText("Nombre del minimarket: " + nombre
-                    + "\nDistancia: " + distancia
-                    + "\nDireccion: " + direccion
-                    + "\nPrecio del Producto: " + precio);
-        }
-
-        if (this.precioMinimo == -1 && this.precioMaximo != -1){
-            if (this.precioMaximo >= Integer.parseInt(precio) ){
-                holder.getTextView().setText("Nombre del minimarket: " + nombre
-                        + "\nDistancia: " + distancia
-                        + "\nDireccion: " + direccion
-                        + "\nPrecio del Producto: " + precio);
-            }
-        }
-
-        if (this.precioMinimo != -1 && this.precioMaximo != -1){
-            if (this.precioMinimo <= Integer.parseInt(precio)  && this.precioMaximo >= Integer.parseInt(precio) ){
-                holder.getTextView().setText("Nombre del minimarket: " + nombre
-                        + "\nDistancia: " + distancia
-                        + "\nDireccion: " + direccion
-                        + "\nPrecio del Producto: " + precio);
-            }
-        }
-
-        if (this.precioMinimo != -1 && this.precioMaximo == -1){
-            if (this.precioMinimo <= Integer.parseInt(precio) ){
-                holder.getTextView().setText("Nombre del minimarket: " + nombre
-                        + "\nDistancia: " + distancia
-                        + "\nDireccion: " + direccion
-                        + "\nPrecio del Producto: " + precio);
-            }
-        }*/
-
 
     }
 
     @Override
     public int getItemCount() {
-        return this.minimarkets.size();
+        return this.mostrarMinimarkets.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -113,6 +80,50 @@ public class AdaptadorMinimarketsProductoS extends RecyclerView.Adapter<Adaptado
         public TextView getTextView(){
             return this.texto;
         }
+    }
+
+    public void filtrado(){
+        int precio;
+
+        this.mostrarMinimarkets = new ArrayList<>();
+
+        if (this.precioMinimo == -1 && this.precioMaximo == -1) {
+            this.mostrarMinimarkets = new ArrayList<>(this.minimarkets);
+
+        }
+
+        if (this.precioMinimo == -1 && this.precioMaximo != -1){
+            this.mostrarMinimarkets = new ArrayList<>();
+            for (int i = 0; i < this.minimarkets.size(); i++){
+                precio = Integer.parseInt(this.minimarkets.get(i).obtenerProducto(this.idProducto).getPrecio());
+                if (this.precioMaximo >= precio ){
+                    this.mostrarMinimarkets.add(this.minimarkets.get(i));
+                }
+            }
+
+        }
+
+        if (this.precioMinimo != -1 && this.precioMaximo != -1){
+            for (int i = 0; i < this.minimarkets.size(); i++){
+                precio = Integer.parseInt(this.minimarkets.get(i).obtenerProducto(this.idProducto).getPrecio());
+                if (this.precioMinimo <= precio  && this.precioMaximo >= precio ){
+                    this.mostrarMinimarkets.add(this.minimarkets.get(i));
+                }
+            }
+
+        }
+
+        if (this.precioMinimo != -1 && this.precioMaximo == -1){
+            for (int i = 0; i < this.minimarkets.size(); i++){
+                precio = Integer.parseInt(this.minimarkets.get(i).obtenerProducto(this.idProducto).getPrecio());
+                if (this.precioMinimo <= precio ){
+                    this.mostrarMinimarkets.add(this.minimarkets.get(i));
+                }
+            }
+
+        }
+
+        this.notifyDataSetChanged();
     }
 
     public void setPrecioMaximo(int precioMaximo) {

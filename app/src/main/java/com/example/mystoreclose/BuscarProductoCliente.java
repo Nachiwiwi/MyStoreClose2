@@ -61,7 +61,7 @@ public class BuscarProductoCliente extends AppCompatActivity implements SearchVi
         barraBusqueda.setOnQueryTextListener(this);
 
         queue = Volley.newRequestQueue(this);
-
+        inicializarRecyclerView();
         cargarProductosBaseDatos();
 
 

@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         botonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent inicioSes = new Intent(MainActivity.this, IniciarSesionEmpresa.class );
+                Intent inicioSes = new Intent(MainActivity.this, IniciarSesionMinimarketVentana.class );
                 startActivity(inicioSes);
             }
         });

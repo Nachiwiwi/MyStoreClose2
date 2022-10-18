@@ -341,7 +341,7 @@ public class VerProducto extends AppCompatActivity implements View.OnClickListen
 
     public void eliminarProductoEmpresa(){
         String idRelacion = String.valueOf(this.producto.getIdRelacion());
-
+        //url original 192.168.0.4
         String dir = "http://192.168.0.4/Android/deleteRelmarkprod.php";//?PrecioUnitario="+precio+"&Descripcion="+descripcion+"&IdMarket="+idEmpresa+ "&Imagen=imagen del producto&IdProducto="+idProducto;
 
         StringRequest stringRequest =new StringRequest(
@@ -379,7 +379,7 @@ public class VerProducto extends AppCompatActivity implements View.OnClickListen
         String precioUnitario = this.precio.getText().toString();
         String descripcion = this.descripcion.getText().toString();
         String imagen = "Imagen Producto "+ this.producto.getNombre();
-
+        //url original 192.168.0.4
         String dir = "http://192.168.0.4/Android/putRelmarkprod.php";//?PrecioUnitario="+precio+"&Descripcion="+descripcion+"&IdMarket="+idEmpresa+ "&Imagen=imagen del producto&IdProducto="+idProducto;
 
         StringRequest stringRequest =new StringRequest(

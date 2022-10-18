@@ -16,6 +16,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyStoreClose">
         <activity
+            android:name=".IniciarSesionClienteVentana"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".IniciarSesionMinimarketVentana"
             android:exported="false">
             <meta-data

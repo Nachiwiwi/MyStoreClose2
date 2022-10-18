@@ -26,7 +26,8 @@ public class RegistroMinimarket extends AppCompatActivity implements View.OnClic
     RequestQueue requestQueue;
     //ip debe ser del pc (ipconfig en el cmd para ver la ip)/ la carpeta ubicada en el xampp (android en este caso)/ el archivo php (agregar_cliente.php)
     //private static final String URL1= "http://192.168.0.4/Android/agregar_minimarket.php"; IpAndriu
-     private static final String URL1= "http://192.168.178.246/Android/agregar_minimarket.php";
+    //url original 192.168.0.4
+     private static final String URL1= "http://192.168.56.1/Android/agregar_minimarket.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 

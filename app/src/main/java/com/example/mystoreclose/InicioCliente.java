@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -55,6 +56,7 @@ public class InicioCliente extends AppCompatActivity implements Response.Listene
     private Cliente cliente; //= new Cliente();
     //Barra navegación
     BottomNavigationView botonNav;
+    private SharedPreferences preference;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -63,8 +65,8 @@ public class InicioCliente extends AppCompatActivity implements Response.Listene
         setContentView(R.layout.activity_inicio_cliente);
         prueba = (TextView) findViewById(R.id.textView4);
         rQ = Volley.newRequestQueue(this);
-
-        obtenerUsuarioActual();
+        preference = getSharedPreferences("preference",MODE_PRIVATE);
+        obtenerUsuarioActual(preference);
         //Apretar botón buscar minimarket
         botonBuscarMinimarkets = (Button) findViewById(R.id.buscarMini);
         botonBuscarMinimarkets.setOnClickListener(this);
@@ -176,8 +178,16 @@ public class InicioCliente extends AppCompatActivity implements Response.Listene
         }
     }
 
-    private void obtenerUsuarioActual(){
-        String dir = "http://192.168.0.4/Android/perfil_usuario.php?Nombre_Usuario=matichief117";
+    private void obtenerUsuarioActual(SharedPreferences preference){
+        String Nombre_Usuario = preference.getString("Nombre_Usuario",null);
+        String dir;
+        if(Nombre_Usuario == null){
+            //url original 192.168.0.4
+            dir = "http://192.168.56.1/Android/perfil_usuario.php?Nombre_Usuario=matichief117";
+        }else{
+            //url original 192.168.0.4
+            dir = "http://192.168.56.1/Android/perfil_usuario.php?Nombre_Usuario="+Nombre_Usuario;
+        }
 
         jsR = new JsonObjectRequest(Request.Method.GET, dir, null, this,this);
         rQ.add(jsR);

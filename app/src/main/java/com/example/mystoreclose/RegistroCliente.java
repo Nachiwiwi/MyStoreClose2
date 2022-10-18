@@ -25,7 +25,8 @@ public class RegistroCliente extends AppCompatActivity implements View.OnClickLi
 
     RequestQueue requestQueue;
     //ip debe ser del pc (ipconfig en el cmd para ver la ip)/ la carpeta ubicada en el xampp (android en este caso)/ el archivo php (agregar_cliente.php)
-    private static final String URL1= "http://192.168.178.246/Android/agregar_minimarket.php";
+    //ip original 192.168.178.246
+    private static final String URL1= "http://192.168.56.1/Android/agregar_minimarket.php";
 
 
     @Override

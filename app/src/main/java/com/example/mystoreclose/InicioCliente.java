@@ -177,7 +177,7 @@ public class InicioCliente extends AppCompatActivity implements Response.Listene
     }
 
     private void obtenerUsuarioActual(){
-        String dir = "http://192.168.0.4/Android/perfil_usuario.php?Nombre_Usuario=matichief117";
+        String dir = "http://192.168.1.102/Android/perfil_usuario.php?Nombre_Usuario=matichief117";
 
         jsR = new JsonObjectRequest(Request.Method.GET, dir, null, this,this);
         rQ.add(jsR);

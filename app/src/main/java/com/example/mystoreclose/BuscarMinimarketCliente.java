@@ -121,7 +121,7 @@ public class BuscarMinimarketCliente extends AppCompatActivity{
     }
     private void readerJSon() {
 
-        String URL1= "http://192.168.0.4/Android/metodoGET.php?";
+        String URL1= "http://192.168.1.102/Android/metodoGET.php?";
         StringRequest request = new StringRequest(Request.Method.GET, URL1, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

@@ -19,11 +19,9 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
     // Para comunicarse con la base de datos
-    Button botonEmpresa;
     Button botonLogin;
     Button botonRegistro;
     Button invitado1;
-    String NombreP = "XXX";
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,15 +37,7 @@ public class MainActivity extends AppCompatActivity {
                 ActivityCompat.requestPermissions(this,new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, 1);
             }
         }
-        //Botón provisional
-        botonEmpresa = (Button) findViewById(R.id.button);
-        botonEmpresa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent inicioEmp = new Intent(MainActivity.this, InicioEmpresa.class );
-                startActivity(inicioEmp);
-            }
-        });
+
 
         //Apretar botón iniciar sesión
         botonLogin = (Button) findViewById(R.id.botonLogin1);

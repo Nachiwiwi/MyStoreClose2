@@ -116,7 +116,7 @@ public class MostrarMinimarketsConProductoSeleccionado extends AppCompatActivity
     }
 
     public void obtenerMinimarketsConProducto(){
-        String url = "http://192.168.0.4/Android/getMinimarketsPorProducto.php?IdProducto="+this.idProducto;
+        String url = "http://192.168.1.102/Android/getMinimarketsPorProducto.php?IdProducto="+this.idProducto;
 
         jsR = new JsonObjectRequest(Request.Method.GET, url, null, this,this);
         this.adapter.notifyDataSetChanged();
@@ -259,6 +259,7 @@ public class MostrarMinimarketsConProductoSeleccionado extends AppCompatActivity
                 //System.out.println(idMinimarket+ " "+ nombreEmpresa+ " "+ nombreMinimarket
                 //+" "+direccion+ " "+ rutEmpresa+" "+latitud+ " "+longitud);
             }
+            this.adapter.filtrado();
         } catch (JSONException e) {
             e.printStackTrace();
         }

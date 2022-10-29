@@ -80,7 +80,7 @@ public class InicioEmpresa extends AppCompatActivity implements Response.Listene
 
     @Override
     public void onErrorResponse(VolleyError error) {
-        Toast.makeText(InicioEmpresa.this, error.toString()+ "Error QLO ",Toast.LENGTH_LONG).show();
+        Toast.makeText(InicioEmpresa.this, error.toString(),Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -113,7 +113,7 @@ public class InicioEmpresa extends AppCompatActivity implements Response.Listene
     }
 
     private void obtenerProductosBD(){
-        String dir = "http://192.168.0.4/Android/getPM.php?Nombre_empresa="+this.minimarket.getNombreEmpresa();
+        String dir = "http://192.168.1.102/Android/getPM.php?Nombre_empresa="+this.minimarket.getNombreEmpresa();
         jsR = new JsonObjectRequest(Request.Method.GET, dir, null, this,this);
         rQ.add(jsR);
     }
@@ -203,7 +203,7 @@ public class InicioEmpresa extends AppCompatActivity implements Response.Listene
     }
 
     public void obtenerOfertas(){
-        String dir = "http://192.168.178.246/Android/getProdConOff.php?Nombre_empresa="+this.nombreEmpresa;
+        String dir = "http://192.168.1.102/Android/getProdConOff.php?Nombre_empresa="+this.nombreEmpresa;
 
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
         Calendar calendar = Calendar.getInstance();

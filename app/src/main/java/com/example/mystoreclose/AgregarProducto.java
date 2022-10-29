@@ -77,7 +77,7 @@ public class AgregarProducto extends AppCompatActivity implements SearchView.OnQ
     
     public void inicializar(){
         this.coleccionProductos = new ColeccionProductos();
-        this.url = "http://192.168.178.246/Android/getProductos.php";
+        this.url = "http://192.168.0.3/Android/getProductos.php";
         this.buscarProducto = (SearchView) findViewById(R.id.searchViewAgregarProducto);
         this.botonAtras = (ImageButton) findViewById(R.id.volverInicio);
         this.botonAgregar = (Button) findViewById(R.id.agregarProd2);
@@ -154,7 +154,7 @@ public class AgregarProducto extends AppCompatActivity implements SearchView.OnQ
                 System.out.println("El nombre es: " + p.getNombre()+ " id: "+p.getId());
             }
 
-
+        onQueryTextChange("");
 
         }catch (JSONException e){
             Toast.makeText(AgregarProducto.this, e.toString(), Toast.LENGTH_SHORT).show();
@@ -214,7 +214,7 @@ public class AgregarProducto extends AppCompatActivity implements SearchView.OnQ
         String precio = this.etPrecio.getText().toString();
         String imagen = "Imagen Producto "+ this.coleccionProductos.obtenerProducto(idP);
 
-        String dir = "http://192.168.0.4/Android/post_relmarkprod.php";//?PrecioUnitario="+precio+"&Descripcion="+descripcion+"&IdMarket="+idEmpresa+ "&Imagen=imagen del producto&IdProducto="+idProducto;
+        String dir = "http://192.168.0.3/Android/post_relmarkprod.php";//?PrecioUnitario="+precio+"&Descripcion="+descripcion+"&IdMarket="+idEmpresa+ "&Imagen=imagen del producto&IdProducto="+idProducto;
 
         StringRequest stringRequest =new StringRequest(
                 Request.Method.POST,

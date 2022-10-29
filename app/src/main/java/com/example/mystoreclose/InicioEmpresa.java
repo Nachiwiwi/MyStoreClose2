@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
@@ -49,15 +50,15 @@ public class InicioEmpresa extends AppCompatActivity implements Response.Listene
     private AdaptadorProductos adapterProductos;
     private String idRelacion;
     private String nombreEmpresa;
-
+    private SharedPreferences preference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio_empresa);
-        this.Inicializar();
+        preference = getSharedPreferences("preference",MODE_PRIVATE);
+        this.Inicializar(preference);
         this.inicializarRecyclerView();
-
         botonEncargos = (Button) findViewById(R.id.encargos1);
         botonEncargos.setOnClickListener(this);
 
@@ -118,7 +119,7 @@ public class InicioEmpresa extends AppCompatActivity implements Response.Listene
         rQ.add(jsR);
     }
 
-    private void Inicializar(){
+    private void Inicializar(SharedPreferences preference){
         this.botonAgregarProducto = (Button) findViewById(R.id.agregarProductosButton);
         this.botonBuscarProductos = (Button) findViewById(R.id.buscarProductosButton);
         this.botonVerProducto = (ImageView) findViewById(R.id.botonVerProducto);
@@ -126,9 +127,26 @@ public class InicioEmpresa extends AppCompatActivity implements Response.Listene
         botonBuscarProductos.setOnClickListener(this);
         botonAgregarProducto.setOnClickListener(this);
         botonActualizar.setOnClickListener(this);
+        //acceder a los datos guardados en el inicio secion
+        String Nombre_empresa = preference.getString("Nombre_empresa",null);
+        String Nombre_local = preference.getString("Nombre_local",null);
+        //String Nombredueño = preference.getString("Nombredueño",null);
+        String MailDueño = preference.getString("MailDueño",null);
+        String Direccion = preference.getString("Direccion",null);
+        String Rut_empresa = preference.getString("Rut_empresa",null);
+        int IdMarket = preference.getInt("IdMarket",0);
+        //double Latitud = preference.getFloat("IdMarket",0);
+        //double Longitud = preference.getFloat("IdMarket",0);
+
+        //prueba para guardar datos
+        this.nombreEmpresa = Nombre_empresa;
+        this.minimarket = new EmpresaMinimarket(IdMarket,this.nombreEmpresa,Nombre_local,Direccion,Rut_empresa,"",MailDueño,10,10);
+
+        //original
+        /*
         this.nombreEmpresa = "COFFE MASTER";
         this.minimarket = new EmpresaMinimarket(1,this.nombreEmpresa,"COFFE MASTER","Pedro infante con Villa Marina","","","",10,10);
-
+        */
     }
 
 

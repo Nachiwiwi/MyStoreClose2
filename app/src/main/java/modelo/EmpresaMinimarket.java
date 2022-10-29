@@ -49,7 +49,7 @@ public class EmpresaMinimarket implements Serializable {
         this.nombreEmpresa = nombreEmpresa;
     }
 
-    public String getNombreMinimarket() {
+    public String getNombreMinimarket(String nombre_local) {
         return nombreMinimarket;
     }
 

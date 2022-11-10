@@ -111,7 +111,8 @@ public class IniciarSesionEmpresa extends Fragment implements Response.Listener<
 
     private void iniciarsesion() {
         //acceder al php (API) para el inicio sesion, al igual que llamar el metodo que se utilizara(GET).
-        String url = "http://192.168.1.102/Android/iniciar_sesion_enpresa_v2.php?Rut_empresa=" + etuser.getText().toString()+"&ContraseñaDueño=" + etpwd.getText().toString();
+
+        String url = "http://192.168.1.102/Android/iniciar_sesion_empresa.php?Rut_empresa=" + etuser.getText().toString()+"&ContraseñaDueño=" + etpwd.getText().toString();
         jrq = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         rq.add(jrq);
     }

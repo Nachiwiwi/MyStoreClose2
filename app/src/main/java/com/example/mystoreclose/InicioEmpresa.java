@@ -3,10 +3,13 @@ package com.example.mystoreclose;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.Image;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.text.format.Formatter;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -31,12 +34,13 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import modelo.ConectorBD;
 import modelo.Direccion;
 import modelo.EmpresaMinimarket;
 import modelo.Oferta;
 import modelo.Producto;
 
-public class InicioEmpresa extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener, View.OnClickListener{
+public class InicioEmpresa extends AppCompatActivity implements View.OnClickListener{
     private RequestQueue rQ;
     private JsonRequest jsR;
     EmpresaMinimarket minimarket;// = new EmpresaMinimarket(0,"Empresa","Minimarket1","1","777","111","casabenja@gmail.com",-33.0418,-71.6485);
@@ -51,6 +55,7 @@ public class InicioEmpresa extends AppCompatActivity implements Response.Listene
     private String idRelacion;
     private String nombreEmpresa;
     private SharedPreferences preference;
+    private ConectorBD bd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +71,7 @@ public class InicioEmpresa extends AppCompatActivity implements Response.Listene
         botonPerfil.setOnClickListener(this);
 
 
+
         // Se obtienen los datos de la base de datos
 
         rQ = Volley.newRequestQueue(this);
@@ -78,45 +84,12 @@ public class InicioEmpresa extends AppCompatActivity implements Response.Listene
 
     }
 
-
-    @Override
-    public void onErrorResponse(VolleyError error) {
-        Toast.makeText(InicioEmpresa.this, error.toString(),Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void onResponse(JSONObject response) {
-
-        try {
-            Producto p;
-            JSONArray productosJSON = response.getJSONArray("Productos");
-            for(int i = 0; i < productosJSON.length(); i++){
-                JSONObject pupi = productosJSON.getJSONObject(i);
-                p = new Producto( new String(pupi.getString("Nombre")),
-                        new String(pupi.getString("PrecioUnitario")),
-                        Integer.parseInt(pupi.getString("IdProducto")),
-                        new String(pupi.getString("Descripcion")),
-                        Integer.parseInt(pupi.getString("IdRel")));
-                this.minimarket.agregarProducto(p);
-
-                this.idRelacion = new String(pupi.getString("IdRel"));
-
-                System.out.println("El nombre es: " + pupi.getString("Nombre")
-                        + " El precio es: "+ pupi.getString("PrecioUnitario"));
-                //System.out.println(pupi.getString("Nombre"));
-            }
-            this.adapterProductos.notifyDataSetChanged();
-
-
-        }catch (JSONException e){
-            Toast.makeText(InicioEmpresa.this, "Error:", Toast.LENGTH_SHORT).show();
-        }
-    }
-
     private void obtenerProductosBD(){
-        String dir = "http://192.168.1.102/Android/getPM.php?Nombre_empresa="+this.minimarket.getNombreEmpresa();
-        jsR = new JsonObjectRequest(Request.Method.GET, dir, null, this,this);
-        rQ.add(jsR);
+        this.bd.setMinimarket(this.minimarket);
+        this.bd.obtenerProductos(this,this.adapterProductos);
+        System.out.println("La cosa tiene: " + this.minimarket.obtenerCantidadDeProductos());
+        this.adapterProductos.notifyDataSetChanged();
+
     }
 
     private void Inicializar(SharedPreferences preference){
@@ -138,15 +111,15 @@ public class InicioEmpresa extends AppCompatActivity implements Response.Listene
         //double Latitud = preference.getFloat("IdMarket",0);
         //double Longitud = preference.getFloat("IdMarket",0);
 
+        WifiManager wm = (WifiManager) this.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        System.out.println(Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress()));
+        Toast.makeText(this, Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress()), Toast.LENGTH_SHORT).show();
+
         //prueba para guardar datos
         this.nombreEmpresa = Nombre_empresa;
         this.minimarket = new EmpresaMinimarket(IdMarket,this.nombreEmpresa,Nombre_local,Direccion,Rut_empresa,"",MailDueño,10,10);
+        this.bd = new ConectorBD(this.minimarket);
 
-        //original
-        /*
-        this.nombreEmpresa = "COFFE MASTER";
-        this.minimarket = new EmpresaMinimarket(1,this.nombreEmpresa,"COFFE MASTER","Pedro infante con Villa Marina","","","",10,10);
-        */
     }
 
 
@@ -175,9 +148,7 @@ public class InicioEmpresa extends AppCompatActivity implements Response.Listene
                 break;
 
             case(R.id.refreshButtonInicioEmpresa):
-                this.minimarket.limpiarDatos();
-                this.obtenerProductosBD();
-                this.obtenerOfertas();
+            actualizar();
                 break;
             case (R.id.encargos1):
                 Intent ventanaEncargos = new Intent(InicioEmpresa.this, EncargosEmpresa.class);
@@ -187,6 +158,12 @@ public class InicioEmpresa extends AppCompatActivity implements Response.Listene
                 Intent ventanaPerfil = new Intent(InicioEmpresa.this, PerfilEmpresa.class);
                 startActivity(ventanaPerfil);
         }
+    }
+
+    public void actualizar(){
+        this.minimarket.limpiarDatos();
+        this.obtenerProductosBD();
+        this.obtenerOfertas();
     }
 
     public void inicializarRecyclerView(){
@@ -221,51 +198,20 @@ public class InicioEmpresa extends AppCompatActivity implements Response.Listene
     }
 
     public void obtenerOfertas(){
-        String dir = "http://192.168.1.102/Android/getProdConOff.php?Nombre_empresa="+this.nombreEmpresa;
 
-        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-        Calendar calendar = Calendar.getInstance();
-
-        jsR = new JsonObjectRequest(Request.Method.GET, dir, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                Oferta off;
-                try {
-                    JSONArray ofertasJSON = response.getJSONArray("Ofertas");
-                    for (int i = 0; i < ofertasJSON.length(); i++){
-                        JSONObject current = ofertasJSON.getJSONObject(i);
-                        Calendar dataFinal = Calendar.getInstance( );
-                        dataFinal.setTime(formato.parse(new String(current.getString("FechaTermino"))));
-                        int resta = dataFinal.get(Calendar.DAY_OF_YEAR) - calendar.get(Calendar.DAY_OF_YEAR);
-
-                        off = new Oferta(new String(current.getString("PrecioOferta")),String.valueOf(resta), new String(current.getString("IdOferta")) );
-
-                        asignarOferta(Integer.parseInt(new String(current.getString("IdProducto"))),off);
-                        System.out.println("La resta es:"+ resta + " "+current.getString("FechaInicio")+ " "+ current.getString("FechaTermino") );
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                System.out.println("Problema con getProdConOff.php");
-                //Toast.makeText(InicioEmpresa.this, error.toString()+" se vienen cositas", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-    //new JsonObjectRequest(Request.Method.GET, dir, null, this,this)
-
-        rQ.add(jsR);
+        this.bd.obtenerOfertasProductos(this);
 
     }
     public void asignarOferta(int idP, Oferta oferta){
         if(this.minimarket.obtenerProducto(idP) != null) {
             this.minimarket.obtenerProducto(idP).setOferta(oferta);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        actualizar();
     }
 }
 

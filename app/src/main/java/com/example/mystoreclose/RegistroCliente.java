@@ -34,7 +34,7 @@ public class RegistroCliente extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_registro_cliente);
         requestQueue = Volley.newRequestQueue(this);
         initUI();
-        btnRegistrar.setOnClickListener(this);
+        //btnRegistrar.setOnClickListener(this);
     }
 
     private void initUI(){
@@ -45,7 +45,7 @@ public class RegistroCliente extends AppCompatActivity implements View.OnClickLi
         etPassword=findViewById(R.id.etPassword);
 
         //buttons
-        btnRegistrar=findViewById(R.id.btnIniciarSesionEmpresa);
+        btnRegistrar=findViewById(R.id.registroCli);
     }
 
     @Override

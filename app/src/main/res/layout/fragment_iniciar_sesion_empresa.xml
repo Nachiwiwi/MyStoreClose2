@@ -16,7 +16,7 @@
             android:id="@+id/etEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="124dp"
             android:background="@color/colorBoton2"
             android:ems="10"
             android:hint="@string/rutEmpresa"
@@ -32,8 +32,8 @@
         <Button
             android:id="@+id/btnIniciarSesionEmpresa"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="16dp"
             android:backgroundTint="@color/colorBoton1"
             android:text="@string/iniciarSesion"
             android:textColor="@color/letras"
@@ -45,9 +45,9 @@
 
         <ImageView
             android:id="@+id/imageView7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="74dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -57,7 +57,7 @@
             android:id="@+id/MKCContraseña"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="27dp"
+            android:layout_marginTop="12dp"
             android:background="#393E46"
             android:ems="10"
             android:hint="@string/contrasenia"
@@ -71,16 +71,17 @@
 
         <ImageButton
             android:id="@+id/volverInicio"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="16dp"
             android:backgroundTint="#00FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.044"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/flecha"
             app:tint="#EEEEEE"
-            tools:ignore="SpeakableTextPresentCheck"
-            tools:layout_editor_absoluteY="4dp" />
+            tools:ignore="SpeakableTextPresentCheck" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

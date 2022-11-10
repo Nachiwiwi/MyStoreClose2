@@ -60,29 +60,29 @@ public class IniciarSesionCliente extends Fragment implements Response.Listener<
 
         @Override
         public void onErrorResponse(VolleyError error) {
-        Toast.makeText(getContext(), "No se encontró el usuario " + error.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "No se encontró el usuario " + error.toString(), Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onResponse(JSONObject response) {
-        Toast.makeText(getContext(), "Se encontro el usuario" + etuser.getText().toString(), Toast.LENGTH_SHORT).show();
-        //crear clase usuario para acceder y almacenar datos de la consulta php, un array que accede a los datos guardados en el php ("datos")
-        // y preference para almacenar los datos mientras dure la sesion.
-        SesionCliente minimarket = new SesionCliente();
-        SharedPreferences.Editor editor = preference.edit();
-        JSONArray jsonArray = response.optJSONArray("datos");
-        JSONObject jsonObject = null;
+                Toast.makeText(getContext(), "Se encontro el usuario" + etuser.getText().toString(), Toast.LENGTH_SHORT).show();
+                //crear clase usuario para acceder y almacenar datos de la consulta php, un array que accede a los datos guardados en el php ("datos")
+                // y preference para almacenar los datos mientras dure la sesion.
+                SesionCliente minimarket = new SesionCliente();
+                SharedPreferences.Editor editor = preference.edit();
+                JSONArray jsonArray = response.optJSONArray("datos");
+                JSONObject jsonObject = null;
         try {
-        jsonObject = jsonArray.getJSONObject(0);
-        minimarket.setNombre_Usuario(jsonObject.optString("Nombre_Usuario"));
-        minimarket.setNombre(jsonObject.optString("Nombre"));
-        minimarket.setContraseña(jsonObject.optString("Contraseña"));
-        minimarket.setIdCliente(jsonObject.optInt("IdCliente"));
-        minimarket.setCorreo_electronico(jsonObject.optString("Correo_electronico"));
-        minimarket.setLatitud(jsonObject.optDouble("Latitud"));
-        minimarket.setLongitud(jsonObject.optDouble("Longitud"));
+                jsonObject = jsonArray.getJSONObject(0);
+                minimarket.setNombre_Usuario(jsonObject.optString("Nombre_Usuario"));
+                minimarket.setNombre(jsonObject.optString("Nombre"));
+                minimarket.setContraseña(jsonObject.optString("Contraseña"));
+                minimarket.setIdCliente(jsonObject.optInt("IdCliente"));
+                minimarket.setCorreo_electronico(jsonObject.optString("Correo_electronico"));
+                minimarket.setLatitud(jsonObject.optDouble("Latitud"));
+                minimarket.setLongitud(jsonObject.optDouble("Longitud"));
         } catch (Exception e) {
-        e.printStackTrace();
+                e.printStackTrace();
         }
 
         //almacenar el inicio sesion de los datos guardados en la clase(usuario)y guardarlos en editor con un
@@ -106,7 +106,7 @@ public class IniciarSesionCliente extends Fragment implements Response.Listener<
 
          private void iniciarsesion() {
         //acceder al php (API) para el inicio sesion, al igual que llamar el metodo que se utilizara(GET).
-        String url = "http://192.168.56.1/Android/iniciar_sesion_cliente_v2.php?Nombre_Usuario=" + etuser.getText().toString()+"&Contraseña=" + etpwd.getText().toString();
+        String url = "http://192.168.1.102/Android/iniciar_sesion_cliente.php?Nombre_Usuario=" + etuser.getText().toString()+"&Contraseña=" + etpwd.getText().toString();
         jrq = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         rq.add(jrq);
         }

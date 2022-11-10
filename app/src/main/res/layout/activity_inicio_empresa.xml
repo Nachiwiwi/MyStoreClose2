@@ -124,6 +124,7 @@
         android:layout_marginTop="15dp"
         android:background="@color/fondo"
         android:contentDescription="@string/productos"
+        android:tint="#EEEEEE"
         app:layout_constraintBottom_toTopOf="@+id/buscarProductosButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.954"

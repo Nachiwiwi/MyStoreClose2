@@ -179,15 +179,10 @@ public class InicioCliente extends AppCompatActivity implements Response.Listene
     }
 
     private void obtenerUsuarioActual(SharedPreferences preference){
-        String Nombre_Usuario = preference.getString("Nombre_Usuario",null);
+        String Nombre_Usuario = preference.getString("Nombre_Usuario","matichief117");
         String dir;
-        if(Nombre_Usuario == null){
-            //url original 192.168.0.4
-            dir = "http://192.168.1.102/Android/perfil_usuario.php?Nombre_Usuario=matichief117";
-        }else{
-            //url original 192.168.0.4
-            dir = "http://192.168.1.102/Android/perfil_usuario.php?Nombre_Usuario="+Nombre_Usuario;
-        }
+
+        dir = "http://192.168.1.102/Android/perfil_usuario.php?Nombre_Usuario="+Nombre_Usuario;
 
         jsR = new JsonObjectRequest(Request.Method.GET, dir, null, this,this);
         rQ.add(jsR);

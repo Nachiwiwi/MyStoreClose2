@@ -30,10 +30,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import modelo.ColeccionProductos;
+import modelo.ConectorBD;
 import modelo.EmpresaMinimarket;
 import modelo.Producto;
 
-public class AgregarProducto extends AppCompatActivity implements SearchView.OnQueryTextListener,  Response.Listener<JSONObject>, Response.ErrorListener, View.OnClickListener{
+public class AgregarProducto extends AppCompatActivity implements SearchView.OnQueryTextListener,  View.OnClickListener{
 
     //Botones
     private ImageButton botonAtras;
@@ -42,9 +43,7 @@ public class AgregarProducto extends AppCompatActivity implements SearchView.OnQ
     private Button botonPerfil;
     private Button botonInicio;
     // Conexion con la base de datos
-    private RequestQueue rQ;
-    private JsonRequest jsR;
-    private String url;
+    private ConectorBD bd;
 
     // reglas del negocio
     private SearchView buscarProducto;
@@ -70,14 +69,17 @@ public class AgregarProducto extends AppCompatActivity implements SearchView.OnQ
 
         botonInicio = (Button) findViewById(R.id.productos);
         botonInicio.setOnClickListener(this);
-        this.rQ = Volley.newRequestQueue(this);
-        inicializarBaseDeDatos();
 
+        onQueryTextChange("");
+        /*this.rQ = Volley.newRequestQueue(this);
+        inicializarBaseDeDatos();
+        */
     }
     
     public void inicializar(){
         this.coleccionProductos = new ColeccionProductos();
-        this.url = "http://192.168.0.3/Android/getProductos.php";
+        bd = new ConectorBD(this.empresaMinimarket);
+
         this.buscarProducto = (SearchView) findViewById(R.id.searchViewAgregarProducto);
         this.botonAtras = (ImageButton) findViewById(R.id.volverInicio);
         this.botonAgregar = (Button) findViewById(R.id.agregarProd2);
@@ -102,6 +104,8 @@ public class AgregarProducto extends AppCompatActivity implements SearchView.OnQ
         this.fragment = new RecyclerViewAgregarProductoFragment();
         this.adaptadorAgregarProductosP = new AdaptadorAgregarProductos(this.coleccionProductos);
         this.fragment.setAdapter(this.adaptadorAgregarProductosP);
+
+        bd.obtenerProductosLista(this.coleccionProductos, this,this.adaptadorAgregarProductosP);
 
         transaction.replace(R.id.agregarProd, this.fragment);
         transaction.commit();
@@ -135,39 +139,6 @@ public class AgregarProducto extends AppCompatActivity implements SearchView.OnQ
         return false;
     }
 
-
-    @Override
-    public void onErrorResponse(VolleyError error) {
-        Toast.makeText(AgregarProducto.this, error.toString(),Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void onResponse(JSONObject response) {
-        try {
-            Producto p;
-            JSONArray productosJSON = response.getJSONArray("Productos");
-            for(int i = 0; i < productosJSON.length(); i++){
-                JSONObject pupi = productosJSON.getJSONObject(i);
-                p = new Producto( new String(pupi.getString("Nombre")) ,Integer.parseInt(pupi.getString("IdProducto")) );
-                this.coleccionProductos.agregarProducto(p);
-
-                System.out.println("El nombre es: " + p.getNombre()+ " id: "+p.getId());
-            }
-
-        onQueryTextChange("");
-
-        }catch (JSONException e){
-            Toast.makeText(AgregarProducto.this, e.toString(), Toast.LENGTH_SHORT).show();
-        }
-        this.adaptadorAgregarProductosP.notifyDataSetChanged();
-
-    }
-
-    public void inicializarBaseDeDatos(){
-        jsR = new JsonObjectRequest(Request.Method.GET, this.url, null, this,this);
-        rQ.add(jsR);
-    }
-
     @Override
     public void onClick(View v) {
 
@@ -178,18 +149,11 @@ public class AgregarProducto extends AppCompatActivity implements SearchView.OnQ
                 break;
 
             case(R.id.agregarProd2):
-                Intent agregar = new Intent(AgregarProducto.this, InicioEmpresa.class);
 
                 if(this.idProducto != -1){
-                    /*Bundle bundle = new Bundle();
-                    Intent ventanaBuscarProducto = new Intent(AgregarProducto.this,InicioEmpresa.class );
-                    bundle.putSerializable("producto" , (Serializable) this.coleccionProductos.obtenerProducto(this.idProducto));
-                    ventanaBuscarProducto.putExtras(bundle);*/
-
                     agregarProductoBD();
-
                 }
-                startActivity(agregar);
+                onBackPressed();;
                 break;
             case (R.id.encargos1):
                 Intent ventanaEncargos = new Intent(AgregarProducto.this, EncargosEmpresa.class);
@@ -205,49 +169,17 @@ public class AgregarProducto extends AppCompatActivity implements SearchView.OnQ
         }
     }
 
+    // agregarProducto(int idEmpresa, int idP, String descripcion, String precio, String imagen, int idProducto)
     public void agregarProductoBD(){
-
-
         int idEmpresa = this.empresaMinimarket.getIdMinimarket();
         int idP = this.idProducto;
         String descripcion = this.etDescripcion.getText().toString();
         String precio = this.etPrecio.getText().toString();
         String imagen = "Imagen Producto "+ this.coleccionProductos.obtenerProducto(idP);
 
-        String dir = "http://192.168.0.3/Android/post_relmarkprod.php";//?PrecioUnitario="+precio+"&Descripcion="+descripcion+"&IdMarket="+idEmpresa+ "&Imagen=imagen del producto&IdProducto="+idProducto;
-
-        StringRequest stringRequest =new StringRequest(
-                Request.Method.POST,
-                dir,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        //Toast.makeText(context: MainActivity.this, text: "Correct", Toast.LENGTH_SHORT).show();
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                    }
-                }
-        ){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("PrecioUnitario",precio);
-                params.put("Descripcion",descripcion);
-                params.put("IdMarket",String.valueOf(idEmpresa));
-                params.put("Imagen","Imagen del producto");
-                params.put("IdProducto",String.valueOf(idProducto));
-                return params;
-
-            }
-        };
-
-        this.rQ.add(stringRequest);
+        this.bd.agregarProducto(idEmpresa,idP,descripcion,precio,imagen,idProducto,this);
 
 
-        //System.out.println(idEmpresa+ " "+idProducto+ " "+ descripcion+ " "+precio);
     }
+
 }

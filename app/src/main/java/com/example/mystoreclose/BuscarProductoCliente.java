@@ -122,7 +122,7 @@ public class BuscarProductoCliente extends AppCompatActivity implements SearchVi
 
     private void cargarProductosBaseDatos() {
 
-        String URL1= "http://192.168.1.102/Android/Producto_Lista.php";
+        String URL1= "http://192.168.0.4/Android/Producto_Lista.php";
         this.request = new JsonObjectRequest(Request.Method.GET, URL1, null,this,this);
         this.queue.add(request);
     }

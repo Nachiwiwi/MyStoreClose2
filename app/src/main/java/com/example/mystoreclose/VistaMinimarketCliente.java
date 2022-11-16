@@ -1,6 +1,7 @@
 package com.example.mystoreclose;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,28 +11,52 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class VistaMinimarketCliente extends AppCompatActivity {
+import java.util.ArrayList;
 
+import modelo.Cliente;
+import modelo.ConectorBD;
+import modelo.EmpresaMinimarket;
+import modelo.Producto;
+
+public class VistaMinimarketCliente extends AppCompatActivity implements View.OnClickListener{
+
+    TextView nombreMinimarket;
     //Botones
     ImageButton botonAtras;
-    Button botonConfirmar;
+    private Button botonConfirmar;
 
-    private TextView nombreMinimarket;
     private ListView listaProductos;
     private Button botonEncargos;
     private Button botonPerfil;
     private Button botonInicio;
+    private EmpresaMinimarket minimarketActual;
+    private ConectorBD conector;
 
-    //los siguientes arreglos deben ser añadidos desde la base de datos en un futuro solo son ejemplos
 
-    private String listaProductosIndexado[] = {"producto1", "producto2", "producto3", "productoN"};
-    private String precioProductosIndexado[] = {"precio1" , "precio2", "precio3", "precioN"};
+    private RecyclerViewVistaMinimarketCliente recyclerViewProductosMinimarket;
+    private AdaptadorVistaProductosCliente adapterProductos;
+    private ArrayList<Producto> listadoProductosSeleccionados = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vista_minimarket_cliente);
+        botonConfirmar = (Button) findViewById(R.id.encargar);
+        botonConfirmar.setEnabled(false);
+        //tomar los datos del minimarket
+        inicializar();
+        System.out.println(this.minimarketActual.getNombreMinimarket());
+        this.nombreMinimarket = (TextView) findViewById(R.id.labelNombreProducto);
+        this.nombreMinimarket.setText(this.minimarketActual.getNombreMinimarket());
 
+        try {
+            listadoProductosSeleccionados = inicializarRecyclerView(this.botonConfirmar, listadoProductosSeleccionados);
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+
+
+        //System.out.println(minimarketActual.obtenerCantidadDeProductos());
         //Apretar flecha
         botonAtras = (ImageButton) findViewById(R.id.volverInicio);
         botonAtras.setOnClickListener(new View.OnClickListener() {
@@ -43,7 +68,8 @@ public class VistaMinimarketCliente extends AppCompatActivity {
         });
 
         //Apretar botón confirmar encargo
-        botonConfirmar = (Button) findViewById(R.id.encargar);
+
+
         botonConfirmar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,17 +101,50 @@ public class VistaMinimarketCliente extends AppCompatActivity {
                 startActivity(volver);
             }
         });
+        obtenerDatosDB();
+        System.out.println("El tamaño de la coleccion es: "+this.minimarketActual.obtenerCantidadDeProductos());
+    }
 
-        /*listaProductos = (ListView)findViewById(R.id.lv1);
-        nombreMinimarket = (TextView)findViewById(R.id.textViewMinimarketSeleccionado);
-        ArrayAdapter <String> adapter = new ArrayAdapter<String>(this, R.layout.modelo_list_view, listaProductosIndexado);
-        listaProductos.setAdapter(adapter);
+    private void inicializar() {
+        Bundle bundle = getIntent().getExtras();
+        if(bundle != null){
+            this.minimarketActual = (EmpresaMinimarket) bundle.getSerializable("minimarket");
+            //System.out.println(this.clienteActual.getNombre());
+            this.conector = new ConectorBD(this.minimarketActual);
+        }
 
-        listaProductos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    }
+
+    private ArrayList<Producto> inicializarRecyclerView(Button botonConfirmar,ArrayList<Producto> listadoProductosSeleccionados) throws CloneNotSupportedException{
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        this.recyclerViewProductosMinimarket = new RecyclerViewVistaMinimarketCliente();
+        this.adapterProductos = new AdaptadorVistaProductosCliente(this.minimarketActual);
+        this.recyclerViewProductosMinimarket.setAdapter(this.adapterProductos);
+
+        transaction.replace(R.id.fragmentoVistaMinimarketCliente,this.recyclerViewProductosMinimarket);
+        transaction.commit();
+
+        this.adapterProductos.setItemListener(new AdaptadorVistaProductosCliente.ItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                nombreMinimarket.setText("El precio del producto " + listaProductos.getItemAtPosition(i) +" es " + precioProductosIndexado[i]);
+            public void activarBoton(Producto producto) {
+                botonConfirmar.setEnabled(true);
+                listadoProductosSeleccionados.add(producto);
             }
-        });*/
+        });
+        //falta colocar los botones para encargar
+        return listadoProductosSeleccionados;
+    }
+
+    private void obtenerDatosDB(){
+
+        this.conector.setMinimarket(this.minimarketActual);
+        this.conector.obtenerProductos(this, this.adapterProductos);
+        System.out.println("La cosa tiene: " + this.minimarketActual.obtenerCantidadDeProductos());
+        this.adapterProductos.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onClick(View view) {
+
     }
 }

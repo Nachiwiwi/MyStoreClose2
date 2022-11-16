@@ -21,8 +21,12 @@ public class RecyclerViewMinimarketFragment extends Fragment {
 
     private ArrayList<EmpresaMinimarket> data;
     private RecyclerView recyclerView;
-    private AdaptadorMinimarkets adaptadorMinimarkets;
     private RecyclerView.LayoutManager layoutManager;
+    private AdaptadorMinimarkets adaptadorVerMinimarkets;
+
+    public void setAdapter(AdaptadorMinimarkets ad){
+        this.adaptadorVerMinimarkets = ad;
+    }
 
     // Tipo de layout que se va a mostrar por pantalla
     private enum LayoutManagerType {
@@ -54,8 +58,7 @@ public class RecyclerViewMinimarketFragment extends Fragment {
 
         // Se crea el adaptador
 
-        this.adaptadorMinimarkets = new AdaptadorMinimarkets(this.data);
-        this.recyclerView.setAdapter(this.adaptadorMinimarkets);
+        this.recyclerView.setAdapter(this.adaptadorVerMinimarkets);
         this.recyclerView.setLayoutManager(layoutManager);
         this.recyclerView.scrollToPosition(0);
 

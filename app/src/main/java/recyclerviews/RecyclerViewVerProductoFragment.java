@@ -1,4 +1,4 @@
-package com.example.mystoreclose;
+package recyclerviews;
 
 import android.os.Bundle;
 
@@ -10,14 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
+import com.example.mystoreclose.R;
 
-import modelo.ColeccionProductos;
-import modelo.Direccion;
-import modelo.EmpresaMinimarket;
+import adapters.AdaptadorProductos;
 
 
-public class RecyclerViewProductosFragment extends Fragment {
+public class RecyclerViewVerProductoFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private AdaptadorProductos adaptadorProductos;
@@ -32,7 +30,8 @@ public class RecyclerViewProductosFragment extends Fragment {
     private LayoutManagerType layoutManagerTypeActual;
 
     // Constructor del Fragmento
-    public RecyclerViewProductosFragment() {
+    public RecyclerViewVerProductoFragment() {
+        //this.minimarket = new EmpresaMinimarket("","","",new Direccion(),"","","");
     }
 
     @Override

@@ -23,6 +23,13 @@ public class Cliente extends Usuario implements Serializable {
 
     }
 
+    public Cliente(String clave, String correo,String nombre, String idCliente) {
+        super(clave, correo);
+        this.nombreRealUsuario = nombre;
+        this.idUsuario = idCliente;
+    }
+
+
     public Cliente(String clave, String correo) {
         super(clave, correo);
     }

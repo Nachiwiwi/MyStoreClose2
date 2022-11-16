@@ -69,7 +69,7 @@
         app:tint="#EEEEEE"
         tools:ignore="SpeakableTextPresentCheck" />
 
-    <androidx.recyclerview.widget.RecyclerView
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nuevosEncargos"
         android:layout_width="360dp"
         android:layout_height="170dp"
@@ -78,7 +78,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        tools:layout="@layout/fragment_recycler_view_nuevos_encargos_minimarket"
+        />
 
     <TextView
         android:id="@+id/textView6"
@@ -92,7 +94,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView16" />
 
-    <androidx.recyclerview.widget.RecyclerView
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/encargosAceptados"
         android:layout_width="360dp"
         android:layout_height="170dp"
@@ -101,6 +103,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nuevosEncargos" />
+        app:layout_constraintTop_toBottomOf="@+id/nuevosEncargos"
+        tools:layout="@layout/fragment_recycler_view_encargos_aceptados_minimarket"
+        />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

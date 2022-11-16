@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:backgroundTint="@color/colorBoton2"
-    tools:context=".RecyclerViewProductosFragment">
+    tools:context="recyclerviews.RecyclerViewProductosFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewProductosEmpresa"

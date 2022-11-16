@@ -107,7 +107,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContentProductosEmpresa"
-        android:name="com.example.mystoreclose.RecyclerViewProductosFragment"
+        android:name="recyclerviews.RecyclerViewProductosFragment"
         android:layout_width="373dp"
         android:layout_height="223dp"
         android:layout_marginTop="24dp"
@@ -116,21 +116,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
         tools:layout="@layout/fragment_recycler_view_productos" />
-
-    <ImageButton
-        android:id="@+id/refreshButtonInicioEmpresa"
-        android:layout_width="60dp"
-        android:layout_height="64dp"
-        android:layout_marginTop="15dp"
-        android:background="@color/fondo"
-        android:contentDescription="@string/productos"
-        android:tint="#EEEEEE"
-        app:layout_constraintBottom_toTopOf="@+id/buscarProductosButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.954"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/ic_baseline_refresh_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

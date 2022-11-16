@@ -6,7 +6,6 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.Image;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.text.format.Formatter;
@@ -16,29 +15,17 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 
+import adapters.AdaptadorProductos;
 import modelo.ConectorBD;
-import modelo.Direccion;
 import modelo.EmpresaMinimarket;
 import modelo.Oferta;
-import modelo.Producto;
+import recyclerviews.RecyclerViewProductosFragment;
 
 public class InicioEmpresa extends AppCompatActivity implements View.OnClickListener{
     private RequestQueue rQ;
@@ -96,10 +83,11 @@ public class InicioEmpresa extends AppCompatActivity implements View.OnClickList
         this.botonAgregarProducto = (Button) findViewById(R.id.agregarProductosButton);
         this.botonBuscarProductos = (Button) findViewById(R.id.buscarProductosButton);
         this.botonVerProducto = (ImageView) findViewById(R.id.botonVerProducto);
-        this.botonActualizar = (ImageButton) findViewById(R.id.refreshButtonInicioEmpresa);
+        //this.botonActualizar = (ImageButton) findViewById(R.id.refreshButtonInicioEmpresa);
         botonBuscarProductos.setOnClickListener(this);
         botonAgregarProducto.setOnClickListener(this);
-        botonActualizar.setOnClickListener(this);
+        //botonActualizar.setOnClickListener(this);
+
         //acceder a los datos guardados en el inicio secion
         String Nombre_empresa = preference.getString("Nombre_empresa",null);
         String Nombre_local = preference.getString("Nombre_local",null);
@@ -111,9 +99,6 @@ public class InicioEmpresa extends AppCompatActivity implements View.OnClickList
         //double Latitud = preference.getFloat("IdMarket",0);
         //double Longitud = preference.getFloat("IdMarket",0);
 
-        WifiManager wm = (WifiManager) this.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-        System.out.println(Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress()));
-        Toast.makeText(this, Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress()), Toast.LENGTH_SHORT).show();
 
         //prueba para guardar datos
         this.nombreEmpresa = Nombre_empresa;
@@ -147,11 +132,13 @@ public class InicioEmpresa extends AppCompatActivity implements View.OnClickList
                 startActivity(ventanaBuscarProducto);
                 break;
 
-            case(R.id.refreshButtonInicioEmpresa):
+            /*case(R.id.refreshButtonInicioEmpresa):
             actualizar();
-                break;
+                break;*/
             case (R.id.encargos1):
                 Intent ventanaEncargos = new Intent(InicioEmpresa.this, EncargosEmpresa.class);
+                bundle.putSerializable("minimarket" , (Serializable) this.minimarket);
+                ventanaEncargos.putExtras(bundle);
                 startActivity(ventanaEncargos);
                 break;
             case (R.id.perfil):
@@ -164,6 +151,7 @@ public class InicioEmpresa extends AppCompatActivity implements View.OnClickList
         this.minimarket.limpiarDatos();
         this.obtenerProductosBD();
         this.obtenerOfertas();
+        this.bd.obtenerEncargosEmpresa(this);
     }
 
     public void inicializarRecyclerView(){

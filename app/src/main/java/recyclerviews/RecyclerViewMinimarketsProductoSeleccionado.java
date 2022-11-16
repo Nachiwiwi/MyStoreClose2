@@ -1,4 +1,4 @@
-package com.example.mystoreclose;
+package recyclerviews;
 
 import android.os.Bundle;
 
@@ -10,11 +10,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.mystoreclose.R;
 
-public class RecyclerViewAgregarProductoFragment extends Fragment {
+import adapters.AdaptadorMinimarketsProductoS;
+
+
+public class RecyclerViewMinimarketsProductoSeleccionado extends Fragment {
 
     private RecyclerView recyclerView;
-    private AdaptadorAgregarProductos adaptadorProductos;
+    private AdaptadorMinimarketsProductoS adaptadorProductos;
     private RecyclerView.LayoutManager layoutManager;
 
     // Tipo de layout que se va a mostrar por pantalla
@@ -25,7 +29,7 @@ public class RecyclerViewAgregarProductoFragment extends Fragment {
     private LayoutManagerType layoutManagerTypeActual;
 
     // Constructor del Fragmento
-    public RecyclerViewAgregarProductoFragment() {
+    public RecyclerViewMinimarketsProductoSeleccionado() {
     }
 
     @Override
@@ -36,13 +40,11 @@ public class RecyclerViewAgregarProductoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        System.out.println("\nAAAAAAAAAAAAAAAAA\n");
-        View vista = inflater.inflate(R.layout.fragment_recycler_view_agregar_producto, container, false);
-        vista.setTag("pupi");
-        this.recyclerView = (RecyclerView) vista.findViewById(R.id.recyclerViewAgregarProducto);
+        View vista = inflater.inflate(R.layout.fragment_recycler_view_minimarkets_producto_seleccionado, container, false);
+        this.recyclerView = (RecyclerView) vista.findViewById(R.id.recyclerViewMinimarketsProducto);
         this.layoutManager = new LinearLayoutManager(getActivity());
         // Se crea el adaptador
-        //this.adaptadorProductos = new AdaptadorBuscarProductos(this.minimarket);
+        //this.adaptadorProductos = new AdaptadorProductos(this.minimarket);
         this.recyclerView.setAdapter(this.adaptadorProductos);
         this.recyclerView.setLayoutManager(layoutManager);
         this.recyclerView.scrollToPosition(0);
@@ -50,12 +52,9 @@ public class RecyclerViewAgregarProductoFragment extends Fragment {
         return vista;
     }
 
-    public void actualizarBusqueda(String texto) throws CloneNotSupportedException {
-        this.adaptadorProductos.filtrado(texto);
-    }
 
-    public void setAdapter(AdaptadorAgregarProductos ad){
-        this.adaptadorProductos = ad;
+    public void setAdapter(AdaptadorMinimarketsProductoS adapter){
+        this.adaptadorProductos = adapter;
     }
 
 }

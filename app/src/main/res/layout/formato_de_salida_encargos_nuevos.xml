@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="125dp">
+
+    <TextView
+        android:id="@+id/productoEncargoTexto"
+        android:layout_width="244dp"
+        android:layout_height="110dp"
+        android:layout_gravity="center|left"
+        android:layout_marginLeft="10dp"
+        android:text="TextView"
+        android:textColor="@color/colorBoton1" />
+
+    <ImageView
+        android:id="@+id/declineImage"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_gravity="center|right"
+        android:layout_marginRight="10dp"
+        app:srcCompat="@drawable/rejected"
+        app:tint="#FF0000" />
+
+    <ImageView
+        android:id="@+id/checkImage"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_gravity="center|right"
+        android:layout_marginRight="70dp"
+        app:srcCompat="@drawable/check"
+        app:tint="@color/colorBoton1"/>
+</FrameLayout>

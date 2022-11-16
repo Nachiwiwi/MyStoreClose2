@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="110dp">
+
+    <TextView
+        android:id="@+id/encargosAceptadosText"
+        android:layout_width="279dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center|left"
+        android:text="TextView"
+        android:textColor="@color/colorBoton1" />
+
+    <Button
+        android:id="@+id/botonModificarEstadoEncargo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|right"
+        android:layout_marginRight="10dp"
+        android:backgroundTint="@color/colorBoton1"
+        android:text="@string/encargoPendiente"
+        android:textColor="#EEEEEE" />
+</FrameLayout>

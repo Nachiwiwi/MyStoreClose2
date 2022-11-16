@@ -4,7 +4,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -24,15 +23,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import adapters.AdaptadorMinimarketsProductoS;
 import modelo.EmpresaMinimarket;
-import modelo.Oferta;
 import modelo.Producto;
+import recyclerviews.RecyclerViewMinimarketsProductoSeleccionado;
 
 public class MostrarMinimarketsConProductoSeleccionado extends AppCompatActivity implements View.OnClickListener, Response.Listener<JSONObject>, Response.ErrorListener{
     private ArrayList<EmpresaMinimarket> minimarkets = new ArrayList<>();

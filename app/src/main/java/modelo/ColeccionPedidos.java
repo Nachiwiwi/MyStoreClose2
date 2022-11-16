@@ -35,9 +35,22 @@ public class ColeccionPedidos implements Serializable {
         return this.coleccionPedidosMap.get(id);
     }
 
-    public ProductoElegido obtenerPedidoIndice(int idPedido,int indexP){
-        return (ProductoElegido) this.coleccionPedidosArray.get(idPedido).obtenerProducto(indexP);
+    public Pedido obtenerPedidoIndice(int index){
+
+        return this.coleccionPedidosArray.get(index);
     }
 
+
+    /*public ProductoElegido obtenerPedidoIndice(int idPedido,int indexP){
+        return (ProductoElegido) this.coleccionPedidosArray.get(idPedido).obtenerProducto();
+    }*/
+
+    public Producto obtenerProductoElegidoPorPedidoIndice(int index){
+        return this.coleccionPedidosArray.get(index).obtenerProducto();
+    }
+
+    public int dimensionPedidos(){
+        return this.coleccionPedidosArray.size();
+    }
 
 }

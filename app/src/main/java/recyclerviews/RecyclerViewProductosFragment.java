@@ -1,6 +1,5 @@
-package com.example.mystoreclose;
+package recyclerviews;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,17 +10,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
+import com.example.mystoreclose.R;
 
-import modelo.EmpresaMinimarket;
-
-
-public class RecyclerViewMinimarketFragment extends Fragment {
+import adapters.AdaptadorProductos;
 
 
-    private ArrayList<EmpresaMinimarket> data;
+public class RecyclerViewProductosFragment extends Fragment {
+
     private RecyclerView recyclerView;
-    private AdaptadorMinimarkets adaptadorMinimarkets;
+    private AdaptadorProductos adaptadorProductos;
+    //private EmpresaMinimarket minimarket;
     private RecyclerView.LayoutManager layoutManager;
 
     // Tipo de layout que se va a mostrar por pantalla
@@ -29,12 +27,10 @@ public class RecyclerViewMinimarketFragment extends Fragment {
         GRID_LAYOUT_MANAGER,
         LINEAR_LAYOUT_MANAGER
     }
-
     private LayoutManagerType layoutManagerTypeActual;
 
     // Constructor del Fragmento
-    public RecyclerViewMinimarketFragment() {
-        this.data = new ArrayList<>();
+    public RecyclerViewProductosFragment() {
     }
 
     @Override
@@ -42,27 +38,27 @@ public class RecyclerViewMinimarketFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         System.out.println("\nAAAAAAAAAAAAAAAAA\n");
-        View vista = inflater.inflate(R.layout.fragment_recycler_view_minimarkets, container, false);
-        vista.setTag("pupi");
-        this.recyclerView = (RecyclerView) vista.findViewById(R.id.recyclerViewMinimarkets);
+        View vista = inflater.inflate(R.layout.fragment_recycler_view_productos, container, false);
+        this.recyclerView = (RecyclerView) vista.findViewById(R.id.recyclerViewProductosEmpresa);
         this.layoutManager = new LinearLayoutManager(getActivity());
-
         // Se crea el adaptador
-
-        this.adaptadorMinimarkets = new AdaptadorMinimarkets(this.data);
-        this.recyclerView.setAdapter(this.adaptadorMinimarkets);
+        //this.adaptadorProductos = new AdaptadorProductos(this.minimarket);
+        this.recyclerView.setAdapter(this.adaptadorProductos);
         this.recyclerView.setLayoutManager(layoutManager);
         this.recyclerView.scrollToPosition(0);
 
         return vista;
     }
 
-    public void setColeccion(ArrayList<EmpresaMinimarket> coleccion) {
-        this.data = coleccion;
+    /*public void setColeccion(EmpresaMinimarket minimarket){
+        this.minimarket = minimarket;
+    }*/
+    public void setAdapter(AdaptadorProductos adapter){
+        this.adaptadorProductos = adapter;
     }
+
 }

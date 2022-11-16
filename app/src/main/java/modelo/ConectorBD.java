@@ -1,9 +1,5 @@
 package modelo;
 
-import android.content.Context;
-import android.net.wifi.WifiManager;
-import android.widget.Toast;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -13,11 +9,11 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.mystoreclose.AdaptadorAgregarProductos;
-import com.example.mystoreclose.AdaptadorProductos;
+import adapters.AdaptadorAgregarProductos;
+import adapters.AdaptadorProductos;
 import com.example.mystoreclose.AgregarProducto;
 import com.example.mystoreclose.BuscarProductoCliente;
-import com.example.mystoreclose.IniciarSesionCliente;
+import com.example.mystoreclose.EncargosEmpresa;
 import com.example.mystoreclose.IniciarSesionClienteVentana;
 import com.example.mystoreclose.IniciarSesionMinimarketVentana;
 import com.example.mystoreclose.InicioCliente;
@@ -36,12 +32,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Queue;
 
 public class ConectorBD {
     EmpresaMinimarket minimarket;
 
-    //String url = "http://10.8.226.244/Android/";
     String url = "http://192.168.1.102/Android/";
     private JsonRequest jsR;
     StringRequest sR;
@@ -208,6 +202,70 @@ public class ConectorBD {
             }
         });
 
+        requestQueue.add(jsR);
+    }
+
+    public void obtenerEncargosEmpresa(InicioEmpresa contexto){
+        RequestQueue requestQueue = Volley.newRequestQueue(contexto);
+
+        String dir = this.url + "getEncargosMinimarket.php?id_empresa=" + this.minimarket.getIdMinimarket();
+
+        System.out.println("Chaparitas punto com: " + this.minimarket.getIdMinimarket());
+
+        JsonObjectRequest jsR = new JsonObjectRequest(Request.Method.GET, dir, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    Pedido pedido;
+                    Producto productoElegido;
+                    Cliente cliente;
+
+                    String nombreCliente;
+                    String idCliente;
+                    String correoCliente;
+                    String idProducto;
+                    String estadoPedido;
+                    String cantidadSolicitada;
+                    String fechaInicio;
+                    String fechaTermino;
+                    String idPedido;
+                    String idDetalle;
+
+                    JSONArray productosJSON = response.getJSONArray("Encargos");
+                    for(int i = 0; i < productosJSON.length(); i++){
+
+                        JSONObject pupi = productosJSON.getJSONObject(i);
+
+                        nombreCliente  = new String(pupi.getString("Nombre_Usuario"));
+                        idCliente = new String(pupi.getString("IdCliente"));
+                        correoCliente = new String(pupi.getString("Correo_electronico"));
+                        idProducto = new String(pupi.getString("IdProducto"));
+                        estadoPedido = new String(pupi.getString("Estado"));
+                        cantidadSolicitada = new String(pupi.getString("CantidadSolicitada"));
+                        fechaInicio = new String(pupi.getString("Fecha_pedido"));
+                        fechaTermino = new String(pupi.getString("Fecha_resolucion"));
+                        idPedido = new String(pupi.getString("IdPedido"));
+                        idDetalle = new String(pupi.getString("IdDetalle"));
+
+                        cliente = new Cliente("",correoCliente,nombreCliente, idCliente);
+                        productoElegido = minimarket.obtenerProducto(Integer.valueOf(idProducto));
+                        pedido = new Pedido(productoElegido, false, Integer.valueOf(idPedido),Integer.valueOf(idDetalle),
+                                fechaInicio, fechaTermino, Integer.valueOf(cantidadSolicitada), cliente );
+
+                        minimarket.agregarPedido(pedido);
+
+                    }
+
+                }catch (JSONException e){
+
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
         requestQueue.add(jsR);
     }
 

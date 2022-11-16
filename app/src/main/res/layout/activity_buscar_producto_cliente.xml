@@ -92,7 +92,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchViewBuscarProductoCliente"
-        android:name="com.example.mystoreclose.RecyclerViewBuscarProductosClienteFragment"
+        android:name="recyclerviews.RecyclerViewBuscarProductosClienteFragment"
         tools:layout="@layout/fragment_recycler_view_buscar_productos" />
 
 

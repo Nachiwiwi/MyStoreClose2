@@ -1,6 +1,5 @@
-package com.example.mystoreclose;
+package adapters;
 
-import android.content.ClipData;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,9 +10,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mystoreclose.R;
+
 import java.util.ArrayList;
 
-import modelo.EmpresaMinimarket;
 import modelo.Producto;
 
 public class AdaptadorBuscarProductosCliente extends RecyclerView.Adapter<AdaptadorBuscarProductosCliente.ViewHolder>{

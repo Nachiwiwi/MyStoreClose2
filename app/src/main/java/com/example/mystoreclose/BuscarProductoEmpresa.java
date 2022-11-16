@@ -12,7 +12,10 @@ import android.widget.SearchView;
 
 import java.io.Serializable;
 
+import adapters.AdaptadorBuscarProductos;
 import modelo.EmpresaMinimarket;
+import recyclerviews.RecyclerViewBuscarProductosFragment;
+
 // Se implementa la interfaz "SearchView.OnQueryTextListener" para utilizar el SearchView y buscar objetos en tiempo real
 public class BuscarProductoEmpresa extends AppCompatActivity implements SearchView.OnQueryTextListener{
 

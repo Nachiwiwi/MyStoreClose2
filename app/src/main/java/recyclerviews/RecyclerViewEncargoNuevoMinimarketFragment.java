@@ -1,26 +1,22 @@
-package com.example.mystoreclose;
+package recyclerviews;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import com.example.mystoreclose.R;
 
-import java.util.ArrayList;
+import adapters.AdaptadorBuscarProductos;
+import adapters.AdaptadorEncargosNuevosMinimarket;
 
-import modelo.ColeccionProductos;
-import modelo.Direccion;
-import modelo.EmpresaMinimarket;
-
-
-public class RecyclerViewBuscarProductosFragment extends Fragment {
-
+public class RecyclerViewEncargoNuevoMinimarketFragment extends Fragment {
     private RecyclerView recyclerView;
-    private AdaptadorBuscarProductos adaptadorProductos;
+    private AdaptadorEncargosNuevosMinimarket adaptadorProductos;
     private RecyclerView.LayoutManager layoutManager;
 
     // Tipo de layout que se va a mostrar por pantalla
@@ -28,10 +24,10 @@ public class RecyclerViewBuscarProductosFragment extends Fragment {
         GRID_LAYOUT_MANAGER,
         LINEAR_LAYOUT_MANAGER
     }
-    private LayoutManagerType layoutManagerTypeActual;
+    private RecyclerViewEncargoNuevoMinimarketFragment.LayoutManagerType layoutManagerTypeActual;
 
     // Constructor del Fragmento
-    public RecyclerViewBuscarProductosFragment() {
+    public RecyclerViewEncargoNuevoMinimarketFragment() {
     }
 
     @Override
@@ -42,13 +38,10 @@ public class RecyclerViewBuscarProductosFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        System.out.println("\nAAAAAAAAAAAAAAAAA\n");
-        View vista = inflater.inflate(R.layout.fragment_recycler_view_buscar_productos, container, false);
+        View vista = inflater.inflate(R.layout.fragment_recycler_view_nuevos_encargos_minimarket, container, false);
         vista.setTag("pupi");
-        this.recyclerView = (RecyclerView) vista.findViewById(R.id.recyclerViewBuscarProductosEmpresa);
+        this.recyclerView = (RecyclerView) vista.findViewById(R.id.recyclerViewEncargosNuevos);
         this.layoutManager = new LinearLayoutManager(getActivity());
-        // Se crea el adaptador
-        //this.adaptadorProductos = new AdaptadorBuscarProductos(this.minimarket);
         this.recyclerView.setAdapter(this.adaptadorProductos);
         this.recyclerView.setLayoutManager(layoutManager);
         this.recyclerView.scrollToPosition(0);
@@ -60,11 +53,11 @@ public class RecyclerViewBuscarProductosFragment extends Fragment {
         this.minimarket = minimarket;
     }*/
 
-    public void actualizarBusqueda(String texto) throws CloneNotSupportedException {
+    /*public void actualizarBusqueda(String texto) throws CloneNotSupportedException {
         this.adaptadorProductos.filtrado(texto);
-    }
+    }*/
 
-    public void setAdapter(AdaptadorBuscarProductos ad){
+    public void setAdapter(AdaptadorEncargosNuevosMinimarket ad){
         this.adaptadorProductos = ad;
     }
 

@@ -1,4 +1,4 @@
-package com.example.mystoreclose;
+package adapters;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,12 +10,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
-import java.util.Locale;
+import com.example.mystoreclose.R;
 
 import modelo.ColeccionProductos;
 import modelo.EmpresaMinimarket;
-import modelo.Producto;
 
 public class AdaptadorBuscarProductos extends RecyclerView.Adapter<AdaptadorBuscarProductos.ViewHolder>{
     public interface ItemClickListener{
@@ -33,7 +31,6 @@ public class AdaptadorBuscarProductos extends RecyclerView.Adapter<AdaptadorBusc
         this.minimarket = minimarket;
         this.productosMostrados = minimarket.obtenerColeccion();
     }
-
 
     @NonNull
     // Se llama esta funcion cuando el recyclerView precise de una nueva vista para mostrar por pantalla
@@ -56,7 +53,6 @@ public class AdaptadorBuscarProductos extends RecyclerView.Adapter<AdaptadorBusc
     public int getItemCount() {
         return this.productosMostrados.dimensionColeccion();
     }
-
     // clase ViewHolder
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -89,9 +85,7 @@ public class AdaptadorBuscarProductos extends RecyclerView.Adapter<AdaptadorBusc
                     }
                 }
             });
-
         }
-
         public TextView getTextView(){
             return this.texto;
         }
@@ -110,11 +104,8 @@ public class AdaptadorBuscarProductos extends RecyclerView.Adapter<AdaptadorBusc
                     this.productosMostrados.agregarProducto(this.minimarket.obtenerProductoIndice(i));
                 }
             }
-
         }
         notifyDataSetChanged();
     }
-
-
 
 }

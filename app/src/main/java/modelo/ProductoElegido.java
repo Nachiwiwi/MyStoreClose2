@@ -7,6 +7,11 @@ public class ProductoElegido extends Producto{
         super(nombre, precio, id, descripcion, idRelacion);
     }
 
+    public ProductoElegido(Producto p, int cantidad){
+        super(p);
+        this.cantidad = cantidad;
+    }
+
 
     public int getCantidad() {
         return cantidad;

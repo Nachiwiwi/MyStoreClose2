@@ -116,15 +116,19 @@ public class EmpresaMinimarket implements Serializable {
         return this.coleccionPedidos.obtenerPedido(idP);
     }
 
-    public ProductoElegido obtenerProductoPedidoIndice(int idPedido,int indexProducto){
-        return (ProductoElegido) this.coleccionPedidos.obtenerPedidoIndice(idPedido,indexProducto);
+    public Producto obtenerProductoPedidoIndice(int index){
+        return this.coleccionPedidos.obtenerProductoElegidoPorPedidoIndice(index);
+    }
+
+    public Pedido obtenerPedidoIndice(int index){
+        return this.coleccionPedidos.obtenerPedidoIndice(index);
     }
 
     public int obtenerIndiceProducto(int id){
         return this.coleccionProductos.obtenerIndiceProducto(id);
     }
 
-    public ColeccionProductos obtenerColeccion() throws CloneNotSupportedException {
+    public ColeccionProductos obtenerColeccion(){
         return this.coleccionProductos.duplicarColeccion();
     }
 
@@ -134,5 +138,11 @@ public class EmpresaMinimarket implements Serializable {
 
     public Direccion getPosicion(){
         return this.posicion;
+    }
+
+    // para Pedidos
+
+    public int dimensionColeccionPedidos(){
+        return this.coleccionPedidos.dimensionPedidos();
     }
 }

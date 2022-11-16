@@ -1,18 +1,18 @@
-package com.example.mystoreclose;
+package adapters;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mystoreclose.R;
+
 import modelo.ColeccionProductos;
-import modelo.Producto;
 
 public class AdaptadorAgregarProductos extends RecyclerView.Adapter<AdaptadorAgregarProductos.ViewHolder>{
 
@@ -21,6 +21,7 @@ public class AdaptadorAgregarProductos extends RecyclerView.Adapter<AdaptadorAgr
     }
     private ColeccionProductos coleccionProductos;
     private ColeccionProductos coleccionMostrar;
+    private FrameLayout eleccion;
 
 
     private ItemClickListener myListener;
@@ -41,8 +42,12 @@ public class AdaptadorAgregarProductos extends RecyclerView.Adapter<AdaptadorAgr
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AdaptadorAgregarProductos.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        getItemViewType(position);
+        //holder.itemView.setBackground(new ColorDrawable(125));
+
         holder.getTextView().setText("Nombre: "+this.coleccionMostrar.obtenerProductoPorIndice(position).getNombre());
+
     }
 
     @Override
@@ -66,7 +71,8 @@ public class AdaptadorAgregarProductos extends RecyclerView.Adapter<AdaptadorAgr
                 public void onClick(View v) {
                     setItemSeleccionado(getBindingAdapterPosition());
                     if (listener != null){
-                        listener.obtenerIdProducto(coleccionProductos.obtenerProductoPorIndice(getItemSeleccionado()).getId());
+                        if(coleccionProductos.dimensionColeccion() >= getBindingAdapterPosition())
+                            listener.obtenerIdProducto(coleccionProductos.obtenerProductoPorIndice(getItemSeleccionado()).getId());
                     }
 
                     Log.d("Adapter Productos", getBindingAdapterPosition() + " Element " + coleccionProductos.dimensionColeccion() +" clicked.");

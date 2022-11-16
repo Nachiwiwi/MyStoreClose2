@@ -35,6 +35,11 @@ public class Producto implements Serializable {
 
     }
 
+    public Producto(Producto a){
+        Producto p = this;
+        p = a;
+    }
+
 
     public String getDescripcion() {
         return this.descripcion;

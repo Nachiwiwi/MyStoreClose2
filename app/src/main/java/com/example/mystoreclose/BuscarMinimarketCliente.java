@@ -28,6 +28,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import adapters.AdaptadorMinimarkets;
 import modelo.Cliente;
 import modelo.ConectorBD;
 import modelo.Direccion;

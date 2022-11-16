@@ -36,12 +36,8 @@ public class AdaptadorVistaProductosCliente extends RecyclerView.Adapter<Adaptad
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.formato_de_salida_productos_encargos_cliente, parent,false);
         //System.out.println("largoxd"+this.minimarketSeleccionado.obtenerCantidadDeProductos()+"productos " + this.listadoProductosMinimarket.obtenerProducto(0).getNombre()+ "productoxd ");
-        try {
-            return new ViewHolder(v,this.myListener, this.minimarketSeleccionado.obtenerColeccion());
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return new ViewHolder(v,this.myListener, this.minimarketSeleccionado.obtenerColeccion());
+
     }
     @NonNull
     /*@Override

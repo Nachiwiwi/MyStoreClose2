@@ -9,9 +9,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.mystoreclose.AdaptadorAgregarProductos;
-import com.example.mystoreclose.AdaptadorMinimarkets;
-import com.example.mystoreclose.AdaptadorProductos;
 import com.example.mystoreclose.AdaptadorVistaProductosCliente;
 import com.example.mystoreclose.AgregarProducto;
 import com.example.mystoreclose.BuscarMinimarketCliente;
@@ -37,12 +34,16 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
+import adapters.AdaptadorAgregarProductos;
+import adapters.AdaptadorMinimarkets;
+import adapters.AdaptadorProductos;
+
 public class ConectorBD {
     EmpresaMinimarket minimarket;
 
     //String url = "http://10.8.226.244/Android/";
-    //String url = "http://192.168.1.102/Android/"; //IP benja
-    String url = "http://192.168.0.4/Android/"; //IP andres
+    String url = "http://192.168.1.102/Android/"; //IP benja
+    //String url = "http://192.168.0.4/Android/"; //IP andres
     private JsonRequest jsR;
     StringRequest sR;
 
@@ -88,7 +89,7 @@ public class ConectorBD {
         requestQueue.add(sR);
     }
 
-    public void obtenerProductosLista(ColeccionProductos c, AgregarProducto agregarProducto,AdaptadorAgregarProductos adaptador){
+    public void obtenerProductosLista(ColeccionProductos c, AgregarProducto agregarProducto, AdaptadorAgregarProductos adaptador){
         //getProductos.php
 
         RequestQueue requestQueue = Volley.newRequestQueue(agregarProducto);
@@ -176,7 +177,6 @@ public class ConectorBD {
         RequestQueue requestQueue = Volley.newRequestQueue(contexto);
         System.out.println(this.minimarket.getNombreEmpresa());
         String dir = this.url + "getPM.php?Nombre_empresa=" + this.minimarket.getNombreEmpresa();
-        //String dir ="http://192.168.1.102/Android/getPM.php?Nombre_empresa=COFFE MASTER";
         System.out.println(dir);
         jsR = new JsonObjectRequest(Request.Method.GET, dir, null, new Response.Listener<JSONObject>() {
             @Override
@@ -263,11 +263,24 @@ public class ConectorBD {
 
                     }
 
+                }catch (JSONException e){
+
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        requestQueue.add(jsR);
+    }
+
+
     public void obtenerProductos(VistaMinimarketCliente vistaMinimarketCliente, AdaptadorVistaProductosCliente adapterProductos) {
         RequestQueue requestQueue = Volley.newRequestQueue(vistaMinimarketCliente);
         System.out.println(this.minimarket.getNombreEmpresa());
         String dir = this.url + "getPM.php?Nombre_empresa=" + this.minimarket.getNombreEmpresa();
-        //String dir ="http://192.168.1.102/Android/getPM.php?Nombre_empresa=COFFE MASTER";
         System.out.println(dir);
         jsR = new JsonObjectRequest(Request.Method.GET, dir, null, new Response.Listener<JSONObject>() {
             @Override

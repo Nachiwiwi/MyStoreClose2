@@ -52,11 +52,9 @@ public class AdaptadorMinimarkets extends RecyclerView.Adapter<AdaptadorMinimark
     @Override
     public void onBindViewHolder(@NonNull AdaptadorMinimarkets.ViewHolder holder, int position) {
         //holder.bind(this.NombresProductos.get(position));
-        try {
-            holder.getTextView().setText("Nombre: "+this.listadoMinimarkets.get(position).getNombreMinimarket() + "\n" +"Distancia: "+ this.listadoMinimarkets.get(position).getDistanciaRespectoUsuario()+" "+this.listadoMinimarkets.get(position).obtenerColeccion().dimensionColeccion());
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
+
+        holder.getTextView().setText("Nombre: "+this.listadoMinimarkets.get(position).getNombreMinimarket() + "\n" +"Distancia: "+ this.listadoMinimarkets.get(position).getDistanciaRespectoUsuario()+" "+this.listadoMinimarkets.get(position).obtenerColeccion().dimensionColeccion());
+
     }
 
     // Numero de elementos que tiene una lista

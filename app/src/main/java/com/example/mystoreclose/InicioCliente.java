@@ -182,7 +182,7 @@ public class InicioCliente extends AppCompatActivity implements Response.Listene
         String Nombre_Usuario = preference.getString("Nombre_Usuario","matichief117");
         String dir;
 
-        dir = "http://192.168.0.4/Android/perfil_usuario.php?Nombre_Usuario="+Nombre_Usuario;
+        dir = "http://192.168.1.102/Android/perfil_usuario.php?Nombre_Usuario="+Nombre_Usuario;
 
         jsR = new JsonObjectRequest(Request.Method.GET, dir, null, this,this);
         rQ.add(jsR);

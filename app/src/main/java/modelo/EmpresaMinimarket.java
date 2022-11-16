@@ -49,7 +49,7 @@ public class EmpresaMinimarket implements Serializable {
         this.nombreEmpresa = nombreEmpresa;
     }
 
-    public String getNombreMinimarket(String nombre_local) {
+    public String getNombreMinimarket() {
         return nombreMinimarket;
     }
 
@@ -130,6 +130,12 @@ public class EmpresaMinimarket implements Serializable {
 
     public ColeccionProductos obtenerColeccion(){
         return this.coleccionProductos.duplicarColeccion();
+    }
+
+    public ColeccionProductos generarColeccion() throws CloneNotSupportedException{
+        /*ColeccionProductos coleccionProductos = new ColeccionProductos();
+        for(int i = 0 ; i < )*/
+        return this.coleccionProductos;
     }
 
     public void limpiarDatos(){

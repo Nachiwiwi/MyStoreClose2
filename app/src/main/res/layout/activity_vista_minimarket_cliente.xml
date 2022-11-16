@@ -82,7 +82,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productosMini" />
+        app:layout_constraintTop_toBottomOf="@+id/fragmentoVistaMinimarketCliente" />
 
     <ImageButton
         android:id="@+id/volverInicio"
@@ -98,15 +98,16 @@
         app:tint="#EEEEEE"
         tools:ignore="SpeakableTextPresentCheck" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/productosMini"
-        android:layout_width="360dp"
-        android:layout_height="300dp"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentoVistaMinimarketCliente"
+        android:name="com.example.mystoreclose.RecyclerViewProductosFragment"
+        android:layout_width="376dp"
+        android:layout_height="296dp"
         android:layout_marginTop="32dp"
         android:background="@color/colorBoton2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labelNombreProducto" />
+        app:layout_constraintTop_toBottomOf="@+id/labelNombreProducto"
+        tools:layout="@layout/fragment_recycler_view_productos" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

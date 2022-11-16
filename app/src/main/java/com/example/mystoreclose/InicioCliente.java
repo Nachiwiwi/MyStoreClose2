@@ -86,12 +86,12 @@ public class InicioCliente extends AppCompatActivity implements Response.Listene
 
     //Guardar la posicion del cliente
     private void setPosicion() {
-
+        //System.out.println("XDDDDDDDDDDDDDDDDDDD");
         LocationManager locationManager = (LocationManager) InicioCliente.this.getSystemService(Context.LOCATION_SERVICE);
         LocationListener locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(@NonNull Location location) {
-                //System.out.println("\n"+location.getLatitude()+" "+location.getLongitude()+"\n");
+                System.out.println("\n"+location.getLatitude()+" "+location.getLongitude()+"\n");
                 cliente.setUbicacion(location.getLatitude(), location.getLongitude());
             }
 
@@ -119,7 +119,7 @@ public class InicioCliente extends AppCompatActivity implements Response.Listene
             case (R.id.buscarMini):
                 Intent ventanaBuscarMimarket = new Intent(InicioCliente.this, BuscarMinimarketCliente.class);
                 // Se pasa un objeto de clase EmpresaMinimarket para que sea manipulado por la ventana BuscarProductoEmpresa
-
+                System.out.println(this.cliente.getNombre());
                 Bundle bundleMinimarkets = new Bundle();
                 bundleMinimarkets.putSerializable("cliente", (Serializable) this.cliente);
                 ventanaBuscarMimarket.putExtras(bundleMinimarkets);
@@ -167,7 +167,7 @@ public class InicioCliente extends AppCompatActivity implements Response.Listene
             String nombreUsuario = usuarioBuscado.getString("Nombre_Usuario");
             String correo = usuarioBuscado.getString("Correo_electronico");
             String clave = usuarioBuscado.getString("Contraseña");
-            System.out.println("La frase magica es: "+ correo);
+            //System.out.println("La frase magica es: "+ correo);
 
             cliente = new Cliente(idCliente, nombre, nombreUsuario, correo, clave);
             setPosicion();
@@ -182,7 +182,7 @@ public class InicioCliente extends AppCompatActivity implements Response.Listene
         String Nombre_Usuario = preference.getString("Nombre_Usuario","matichief117");
         String dir;
 
-        dir = "http://192.168.1.102/Android/perfil_usuario.php?Nombre_Usuario="+Nombre_Usuario;
+        dir = "http://192.168.0.4/Android/perfil_usuario.php?Nombre_Usuario="+Nombre_Usuario;
 
         jsR = new JsonObjectRequest(Request.Method.GET, dir, null, this,this);
         rQ.add(jsR);

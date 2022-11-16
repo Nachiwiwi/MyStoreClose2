@@ -14,6 +14,8 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -27,6 +29,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import modelo.Cliente;
+import modelo.ConectorBD;
 import modelo.Direccion;
 import modelo.EmpresaMinimarket;
 import recyclerviews.RecyclerViewMinimarketFragment;
@@ -39,14 +42,17 @@ public class BuscarMinimarketCliente extends AppCompatActivity{
     public static ArrayList<EmpresaMinimarket> arrayList= new ArrayList<>();
     public EmpresaMinimarket empresaMinimarket;
     RecyclerView.LayoutManager RecyclerViewListadoMinimarketsCercanos;
-    RecyclerView.Adapter mAdapter;
+    RecyclerViewMinimarketFragment fragment;
+    AdaptadorMinimarkets mAdapter;
     TextView textViewDatosMinimarket;
-    private ArrayList<EmpresaMinimarket> listadoMinimarkets;
+    private ArrayList<EmpresaMinimarket> listadoMinimarkets = new ArrayList<>();
     private RequestQueue queue;
     private Cliente clienteActual;
+    private JsonRequest request;
     private Button botonEncargos;
     private Button botonPerfil;
     private Button botonInicio;
+    ConectorBD conector = new ConectorBD(null);
    // private EmpresaMinimarket arrayMinimarkets[] = new EmpresaMinimarket[listadoMinimarkets.size()];
 
     @Override
@@ -54,9 +60,9 @@ public class BuscarMinimarketCliente extends AppCompatActivity{
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buscar_minimarket_cliente);
-        queue = Volley.newRequestQueue(this);
-        inicializar();
-        readerJSon();
+        inicializar();//inicializa la variable cliente
+        inicializarRecyclerView();
+        //readerJSon();
 
         //Apretar flecha
         botonAtras = (ImageButton) findViewById(R.id.volverInicio);
@@ -94,134 +100,48 @@ public class BuscarMinimarketCliente extends AppCompatActivity{
 
 
 
-        queue = Volley.newRequestQueue(this);
 
-
-
-
-        mostrarMinimarkets();
     }
 
     private void inicializar() {
         Bundle bundle = getIntent().getExtras();
         if(bundle != null){
             this.clienteActual = (Cliente) bundle.getSerializable("cliente");
-//            System.out.println(this.clienteActual.getNombre());
+            //System.out.println(this.clienteActual.getNombre());
         }
     }
 
-    public void mostrarMinimarkets(){
-        //Toast.makeText(BuscarMinimarketCliente.this, listadoMinimarkets.get(1).getNombreMinimarket(), Toast.LENGTH_SHORT).show();
+    public void verInformacionMinimarket(int posicion){
+        System.out.println("la posicion de la lista es: "+posicion);
+
+        Intent ventanaVerMinimarket = new Intent(BuscarMinimarketCliente.this, VistaMinimarketCliente.class );
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("minimarket", listadoMinimarkets.get(posicion));
+        ventanaVerMinimarket.putExtras(bundle);
+        startActivity(ventanaVerMinimarket);
 
     }
-    private void readerJSon() {
 
-        String URL1= "http://192.168.1.102/Android/metodoGET.php?";
-        StringRequest request = new StringRequest(Request.Method.GET, URL1, new Response.Listener<String>() {
+    public void inicializarRecyclerView(){
+        //System.out.println("La posicion del cliente es: "+this.clienteActual.getPosicionActual().getLongitud()+" "+ this.clienteActual.getPosicionActual().getLatitud());
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        this.fragment = new RecyclerViewMinimarketFragment();
+        this.mAdapter = new AdaptadorMinimarkets(this.listadoMinimarkets);
+        this.fragment.setAdapter(this.mAdapter);
+        transaction.replace(R.id.buscarMiniCli, this.fragment);
+        transaction.commit();
+
+        this.mAdapter.setItemListener(new AdaptadorMinimarkets.ItemClickListener() {
             @Override
-            public void onResponse(String response) {
-                ArrayList<EmpresaMinimarket> listadoMinimarkets = new ArrayList<>();
-                try {
-                    JSONArray array = new JSONArray(response);
-                    for(int i = 0 ; i<array.length(); i++){
-                        JSONObject object = array.getJSONObject(i);
-                        int idMinimarket = object.getInt("IdMarket");
-                        String nombreEmpresa = object.getString("Nombre_empresa");
-                        String nombreMinimarket = object.getString("Nombre_local");
-                        String direccion = object.getString("Direccion");
-                        String rutEmpresa = object.getString("Rut_empresa");
-                        String contraseñaDueño = object.getString("ContraseñaDueño");
-                        String mailLocal = object.getString("MailDueño");
-                        double longitud = object.getDouble("Longitud");
-                        double latitud = object.getDouble("Latitud");
-                        //System.out.println("longitud: "+longitud+"latitud: "+latitud);
-                        EmpresaMinimarket nuevaEmpresa = new EmpresaMinimarket(idMinimarket, nombreEmpresa, nombreMinimarket, direccion, rutEmpresa,contraseñaDueño,mailLocal,latitud,longitud);
-                        listadoMinimarkets.add(nuevaEmpresa);
-                        //System.out.println("longitud: " + nuevaEmpresa.getPosicion().getLongitud()+ "latitud: "+ nuevaEmpresa.getPosicion().getLatitud());
-                    }
-                    listadoMinimarkets = ordenarListadoPorDistancia(clienteActual, listadoMinimarkets);
-                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
-                    //System.out.println("Latitud: " +clienteActual.getPosicionActual().getLatitud()+ "Longitud: "+ clienteActual.getPosicionActual().getLongitud());
-                    RecyclerViewMinimarketFragment fragment = new RecyclerViewMinimarketFragment();
-                    fragment.setColeccion(listadoMinimarkets);
-                    // Antes salia R.id.recycleViewBuscarMinimarket, pero no funcionaba
-                    transaction.replace(R.id.buscarMiniCli, fragment);
-                    transaction.commit();
-
-                }catch (JSONException e){
-                    Toast.makeText(BuscarMinimarketCliente.this, "2xd:", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(BuscarMinimarketCliente.this, error.toString(), Toast.LENGTH_SHORT).show();
+            public void verProducto(int posicion) {
+                verInformacionMinimarket(posicion);
             }
         });
-
-        this.queue.add(request);
+        this.conector.obtenerMinimarkets(this, mAdapter, this.listadoMinimarkets,this.mAdapter,this.clienteActual);
+        //this.listadoMinimarkets = ordenarListadoPorDistancia(this.clienteActual, this.listadoMinimarkets);
     }
 
-    public ArrayList<EmpresaMinimarket> ordenarListadoPorDistancia(Cliente clienteActual, ArrayList<EmpresaMinimarket> listadoMinimarkets){
-        EmpresaMinimarket arregloMinimarkets[] = new EmpresaMinimarket[listadoMinimarkets.size()];
-        for(int i = 0; i < listadoMinimarkets.size(); i++){
-            arregloMinimarkets[i] = listadoMinimarkets.get(i);
-            int distanciaTotal = calculoDistancia(clienteActual.getPosicionActual(), listadoMinimarkets.get(i).getPosicion());
-            arregloMinimarkets[i].setDistanciaRespectoUsuario(distanciaTotal);
-            System.out.println("la distancia es de: " + distanciaTotal);
-        }
 
-        quickSort(arregloMinimarkets, 0, listadoMinimarkets.size()-1);
-        listadoMinimarkets.clear();
-        for(int i = 0 ; i< arregloMinimarkets.length; i++){
-            listadoMinimarkets.add(arregloMinimarkets[i]);
-            System.out.println("la distancia ordenada es: "+arregloMinimarkets[i].getDistanciaRespectoUsuario());
-            System.out.println("nombre: " +listadoMinimarkets.get(i).getNombreEmpresa());
-            System.out.println("Distancia Empresa: "+listadoMinimarkets.get(i).getDistanciaRespectoUsuario());
-        }
-        return listadoMinimarkets;
-    }
 
-    public int calculoDistancia(Direccion posicionCliente, Direccion posicionMinimarket){
-        double distanciaTotal = 0;
-        final float radioTierraKm = 6378.0F;
-        double difLatitud = (posicionCliente.getLatitud() - posicionMinimarket.getLatitud()) * (Math.PI / 180);
-        double difLongitud = (posicionCliente.getLongitud() -posicionMinimarket.getLongitud())* (Math.PI / 180);
-
-        distanciaTotal = (Math.pow(Math.sin(difLatitud/2),2)) + Math.cos(posicionMinimarket.getLatitud()* (Math.PI / 180)) * Math.cos(posicionCliente.getLatitud()* (Math.PI / 180)) * (Math.pow(Math.sin(difLongitud/2),2));
-        distanciaTotal = 2 * Math.atan2(Math.sqrt(distanciaTotal), Math.sqrt(1 - distanciaTotal));
-        distanciaTotal = distanciaTotal * radioTierraKm;
-        return (int)distanciaTotal;
-    }
-    private int partition(EmpresaMinimarket arrayMinimarkets[], int begin, int end) {
-        int pivot = arrayMinimarkets[end].getDistanciaRespectoUsuario();
-        int i = (begin-1);
-
-        for (int j = begin; j < end; j++) {
-            if (arrayMinimarkets[j].getDistanciaRespectoUsuario() <= pivot) {
-                i++;
-
-                EmpresaMinimarket swapTemp = arrayMinimarkets[i];
-                arrayMinimarkets[i] = arrayMinimarkets[j];
-                arrayMinimarkets[j] = swapTemp;
-            }
-        }
-
-        EmpresaMinimarket swapTemp = arrayMinimarkets[i+1];
-        arrayMinimarkets[i+1] = arrayMinimarkets[end];
-        arrayMinimarkets[end] = swapTemp;
-
-        return i+1;
-    }
-
-    public void quickSort(EmpresaMinimarket arrayMinimarkets[], int begin, int end) {
-        if (begin < end) {
-            int partitionIndex = partition(arrayMinimarkets, begin, end);
-
-            quickSort(arrayMinimarkets, begin, partitionIndex-1);
-            quickSort(arrayMinimarkets, partitionIndex+1, end);
-        }
-    }
 }

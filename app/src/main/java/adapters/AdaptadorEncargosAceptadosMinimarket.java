@@ -42,28 +42,38 @@ public class AdaptadorEncargosAceptadosMinimarket extends RecyclerView.Adapter<A
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.formato_de_salida_encargos_aceptados, parent,false);
-        //return new ViewHolder(v,this.myListener, this.productosMostrados);
-        return new ViewHolder(v, myListener);
+        return new ViewHolder(v, this.myListener);
     }
 
     // Para actualizar datos de una vista
     @Override
     public void onBindViewHolder(@NonNull AdaptadorEncargosAceptadosMinimarket.ViewHolder holder, int position) {
         //holder.bind(this.NombresProductos.get(position));
-        Pedido p = this.minimarket.obtenerPedidoIndice(position);
+        Pedido p = this.minimarket.obtenerPedidoAceptadoPorIndice(position);
         if (p != null)
             holder.getTextView().setText("Nombre Producto: "+ p.getProductoSolicitado().getNombre() +"\n" +
                     "Numero de unidades: "+ p.getCantidadProductosSolicitados()
                     +"\nNombre Cliente: " + p.getCliente().getNombre()+ "\nDescripción : " +p.getProductoSolicitado().getDescripcion());
 
-            /*holder.getTextView().setText("Nombre: "+this.productosMostrados.obtenerProductoPorIndice(position).getNombre()
-                + "\nPrecio: "+ this.productosMostrados.obtenerProductoPorIndice(position).getPrecio());*/
+        switch (p.getEstado()){
+            case 2:
+                holder.getButton().setText("Entregado");
+                break;
+
+            case 3:
+                holder.getButton().setText("Pendiente");
+                break;
+
+            case 4:
+                holder.getButton().setText("Cancelado");
+                break;
+        }
     }
 
     // Numero de elementos que tiene una lista
     @Override
     public int getItemCount() {
-        return this.minimarket.dimensionColeccionPedidos();
+        return this.minimarket.dimensionColeccionPedidosAceptados();
     }
 
     // clase ViewHolder
@@ -97,40 +107,15 @@ public class AdaptadorEncargosAceptadosMinimarket extends RecyclerView.Adapter<A
                     //Log.d("Adapter Productos", getBindingAdapterPosition() + " Element " + coleccionProductos.dimensionColeccion() +" clicked.");
                 }
             });
-
-            // botonVerProducto
-            /*this.botonVer.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(listener != null){
-                        int posicion = getBindingAdapterPosition();
-                        System.out.println("La posicion es: "+posicion+ " El producto es: "+
-                                coleccionProductos.obtenerProductoPorIndice(posicion).getNombre()+ " y el tamaño es: " + coleccionProductos.dimensionColeccion());
-                        listener.verProducto(coleccionProductos.obtenerProductoPorIndice(posicion).getId());
-                    }
-                }
-            });*/
-
+            
         }
 
         public TextView getTextView(){
             return this.texto;
         }
-    }
-
-    /*public void filtrado(String textoEq) throws CloneNotSupportedException {
-        if(textoEq.length() == 0){
-            this.productosMostrados.clonarColeccion(this.minimarket.obtenerColeccion());
-        }else{
-            this.productosMostrados.vaciarContenido();
-
-            for (int i = 0; i< minimarket.obtenerCantidadDeProductos();i++){
-                if(minimarket.obtenerProductoIndice(i).getNombre().toLowerCase().contains(textoEq.toLowerCase())){
-                    this.productosMostrados.agregarProducto(this.minimarket.obtenerProductoIndice(i));
-                }
-            }
+        public Button getButton(){
+            return this.botonVer;
         }
-        notifyDataSetChanged();
-    }*/
+    }
 
 }

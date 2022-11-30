@@ -13,7 +13,9 @@ public class EmpresaMinimarket implements Serializable {
     private String claveAdministradorMinimarket;
     private String mailAdministradorMinimarket;
     private Direccion posicion;
-    private ColeccionPedidos coleccionPedidos;
+    private ColeccionPedidos coleccionPedidosAceptados;
+    private ColeccionPedidos coleccionPedidosNuevos;
+    private ColeccionPedidos coleccionPedidosRechazados;
     private ColeccionProductos coleccionProductos;
     private int distanciaRespectoUsuario;
 
@@ -27,7 +29,9 @@ public class EmpresaMinimarket implements Serializable {
         this.claveAdministradorMinimarket = clave;
         this.mailAdministradorMinimarket = corrreo;
         this.posicion = new Direccion(latitud, longitud);
-        this.coleccionPedidos = new ColeccionPedidos();
+        this.coleccionPedidosNuevos = new ColeccionPedidos();
+        this.coleccionPedidosAceptados = new ColeccionPedidos();
+        this.coleccionPedidosRechazados = new ColeccionPedidos();
         this.coleccionProductos = new ColeccionProductos();
     }
 
@@ -102,32 +106,6 @@ public class EmpresaMinimarket implements Serializable {
         return this.coleccionProductos.dimensionColeccion();
     }
 
-    // Para pedidos
-
-    public void agregarPedido(Pedido pedido){
-        this.coleccionPedidos.agregarPedido(pedido);
-    }
-
-    public void eliminarPedido(int idP){
-        this.coleccionPedidos.eliminarPedido(idP);
-    }
-
-    public Pedido obtenerPedidoId(int idP){
-        return this.coleccionPedidos.obtenerPedido(idP);
-    }
-
-    public Producto obtenerProductoPedidoIndice(int index){
-        return this.coleccionPedidos.obtenerProductoElegidoPorPedidoIndice(index);
-    }
-
-    public Pedido obtenerPedidoIndice(int index){
-        return this.coleccionPedidos.obtenerPedidoIndice(index);
-    }
-
-    public int obtenerIndiceProducto(int id){
-        return this.coleccionProductos.obtenerIndiceProducto(id);
-    }
-
     public ColeccionProductos obtenerColeccion(){
         return this.coleccionProductos.duplicarColeccion();
     }
@@ -140,6 +118,9 @@ public class EmpresaMinimarket implements Serializable {
 
     public void limpiarDatos(){
         this.coleccionProductos.vaciarContenido();
+        this.coleccionPedidosAceptados.vaciarContenido();
+        this.coleccionPedidosNuevos.vaciarContenido();
+        this.coleccionPedidosRechazados.vaciarContenido();
     }
 
     public Direccion getPosicion(){
@@ -148,7 +129,54 @@ public class EmpresaMinimarket implements Serializable {
 
     // para Pedidos
 
-    public int dimensionColeccionPedidos(){
-        return this.coleccionPedidos.dimensionPedidos();
+    public void agregarPedido(Pedido pedido){
+        if (pedido.getEstado() == 1){
+            this.coleccionPedidosNuevos.agregarPedido(pedido);
+        }
+        if(pedido.getEstado() == 2 || pedido.getEstado() == 3 || pedido.getEstado() == 4){
+            this.coleccionPedidosAceptados.agregarPedido(pedido);
+        }
+        if (pedido.getEstado() == 0){
+            this.coleccionPedidosRechazados.agregarPedido(pedido);
+        }
+    }
+
+    public void eliminarPedido(int idP){
+        if(this.coleccionPedidosNuevos.contienePedido(idP)){
+            this.coleccionPedidosNuevos.eliminarPedido(idP);
+            return;
+        }
+        else{
+            this.coleccionPedidosAceptados.eliminarPedido(idP);
+        }
+
+        this.coleccionPedidosRechazados.eliminarPedido(idP);
+    }
+
+    public Pedido obtenerPedidoId(int idP){
+        if(this.coleccionPedidosNuevos.contienePedido(idP)){
+            return this.coleccionPedidosNuevos.obtenerPedido(idP);
+        }
+        return this.coleccionPedidosAceptados.obtenerPedido(idP);
+    }
+
+    public Pedido obtenerPedidoNuevoPorIndice(int index){
+        return this.coleccionPedidosNuevos.obtenerPedidoIndice(index);
+    }
+
+    public Pedido obtenerPedidoAceptadoPorIndice(int index){
+        return this.coleccionPedidosAceptados.obtenerPedidoIndice(index);
+    }
+
+    public int obtenerIndiceProducto(int id){
+        return this.coleccionProductos.obtenerIndiceProducto(id);
+    }
+
+    public int dimensionColeccionPedidosAceptados(){
+        return this.coleccionPedidosAceptados.dimensionPedidos();
+    }
+
+    public int dimensionColeccionPedidosNuevos(){
+        return this.coleccionPedidosNuevos.dimensionPedidos();
     }
 }

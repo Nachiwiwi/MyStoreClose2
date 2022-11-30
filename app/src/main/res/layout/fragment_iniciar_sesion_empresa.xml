@@ -64,6 +64,7 @@
             android:inputType="textPassword"
             android:minHeight="48dp"
             android:textAlignment="center"
+            android:textColor="@color/letras"
             android:textColorHint="#EEEEEE"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

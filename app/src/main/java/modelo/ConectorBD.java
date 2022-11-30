@@ -69,7 +69,6 @@ public class ConectorBD {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
                     }
                 }
         ){
@@ -82,7 +81,6 @@ public class ConectorBD {
                 params.put("Imagen","Imagen del producto");
                 params.put("IdProducto",String.valueOf(idProducto));
                 return params;
-
             }
         };
 
@@ -114,8 +112,6 @@ public class ConectorBD {
                 }catch (JSONException e){
                     //Toast.makeText(AgregarProducto.this, e.toString(), Toast.LENGTH_SHORT).show();
                 }
-
-
             }
 
         }, new Response.ErrorListener(){
@@ -166,9 +162,6 @@ public class ConectorBD {
         });
 
         requestQueue.add(jsR);
-        //new JsonObjectRequest(Request.Method.GET, dir, null, this,this)
-
-        //rQ.add(jsR);
     }
 
 
@@ -205,7 +198,6 @@ public class ConectorBD {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
             }
         });
 
@@ -256,15 +248,12 @@ public class ConectorBD {
 
                         cliente = new Cliente("",correoCliente,nombreCliente, idCliente);
                         productoElegido = minimarket.obtenerProducto(Integer.valueOf(idProducto));
-                        pedido = new Pedido(productoElegido, false, Integer.valueOf(idPedido),Integer.valueOf(idDetalle),
-                                fechaInicio, fechaTermino, Integer.valueOf(cantidadSolicitada), cliente );
+                        pedido = new Pedido(productoElegido, Integer.valueOf(estadoPedido), Integer.valueOf(idPedido),
+                                Integer.valueOf(idDetalle), fechaInicio, fechaTermino, Integer.valueOf(cantidadSolicitada), cliente );
 
                         minimarket.agregarPedido(pedido);
-
                     }
-
                 }catch (JSONException e){
-
                 }
             }
         }, new Response.ErrorListener() {
@@ -273,15 +262,14 @@ public class ConectorBD {
 
             }
         });
+
         requestQueue.add(jsR);
     }
 
 
     public void obtenerProductos(VistaMinimarketCliente vistaMinimarketCliente, AdaptadorVistaProductosCliente adapterProductos) {
         RequestQueue requestQueue = Volley.newRequestQueue(vistaMinimarketCliente);
-        System.out.println(this.minimarket.getNombreEmpresa());
         String dir = this.url + "getPM.php?Nombre_empresa=" + this.minimarket.getNombreEmpresa();
-        System.out.println(dir);
         jsR = new JsonObjectRequest(Request.Method.GET, dir, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -296,27 +284,21 @@ public class ConectorBD {
                                 new String(pupi.getString("Descripcion")),
                                 Integer.parseInt(pupi.getString("IdRel")));
                         agregarPM(p);
-                        System.out.println("El nombre es: " + pupi.getString("Nombre")
-                                + " El precio es: "+ pupi.getString("PrecioUnitario"));
+
                     }
 
                     adapterProductos.notifyDataSetChanged();
-                    System.out.println("el largo del la wea es "+adapterProductos.getlargo());
-
 
                 }catch (JSONException e){
-
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
             }
         });
         requestQueue.add(jsR);
     }
-
     // Clase VerProducto
     public void modificarProductoEmpresa(String idRelacion, String precioUnitario, String descripcion, String imagen, VerProducto verProducto){
         String dir = this.url + "putRelmarkprod.php";
@@ -334,7 +316,6 @@ public class ConectorBD {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
                     }
                 }
         ){
@@ -346,12 +327,9 @@ public class ConectorBD {
                 params.put("Descripcion",descripcion);
                 params.put("Imagen", imagen);
                 return params;
-
             }
         };
-
         requestQueue.add(stringRequest);
-
     }
 
     public void eliminarProductoEmpresa(String idRel, VerProducto verProducto){
@@ -370,7 +348,6 @@ public class ConectorBD {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
                     }
                 }
         ){
@@ -379,7 +356,6 @@ public class ConectorBD {
                 Map<String, String> params = new HashMap<>();
                 params.put("IdRel",idRel);
                 return params;
-
             }
         };
 
@@ -445,7 +421,6 @@ public class ConectorBD {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
                     }
                 }
         ){
@@ -488,7 +463,6 @@ public class ConectorBD {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
                     }
                 }
         ){
@@ -500,7 +474,6 @@ public class ConectorBD {
                 params.put("FechaInicio",fechaInicial);
                 params.put("FechaTermino",fechaTerminal);
                 return params;
-
             }
         };
 
@@ -640,10 +613,7 @@ public class ConectorBD {
             }
         });
 
-
         requestQueue.add(jsonObjectRequest);
-
-
     }
 
     // Incompleto
@@ -758,9 +728,38 @@ public class ConectorBD {
         requestQueue.add(jsR);
     }
 
+    public void actualizarEstadoEncargo(int idEncargo, int estadoNuevo, EncargosEmpresa encargosEmpresa){
+        String dir =  this.url + "putModificarEstadoEncargo.php";
+        RequestQueue requestQueue = Volley.newRequestQueue(encargosEmpresa);
+        System.out.println("Actualizar pedido"+ idEncargo+ " "+estadoNuevo);
+        StringRequest stringRequest =new StringRequest(
+                Request.Method.POST,
+                dir,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        System.out.println("Dentro On response");
+                        //Toast.makeText(context: MainActivity.this, text: "Correct", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
 
+                    }
+                }
+        ){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("IdEncargo", String.valueOf(idEncargo));
+                params.put("Estado",String.valueOf(estadoNuevo));
+                return params;
 
-
+            }
+        };
+        requestQueue.add(stringRequest);
+    }
 
 
 

@@ -31,6 +31,10 @@ public class ColeccionPedidos implements Serializable {
         }
     }
 
+    public boolean contienePedido(int idP){
+        return this.coleccionPedidosMap.containsKey(idP);
+    }
+
     public Pedido obtenerPedido(int id){
         return this.coleccionPedidosMap.get(id);
     }
@@ -51,6 +55,11 @@ public class ColeccionPedidos implements Serializable {
 
     public int dimensionPedidos(){
         return this.coleccionPedidosArray.size();
+    }
+
+    public void vaciarContenido(){
+        this.coleccionPedidosArray.clear();
+        this.coleccionPedidosMap.clear();
     }
 
 }

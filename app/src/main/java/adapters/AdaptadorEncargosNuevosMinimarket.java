@@ -20,17 +20,19 @@ import modelo.Pedido;
 
 public class AdaptadorEncargosNuevosMinimarket extends RecyclerView.Adapter<AdaptadorEncargosNuevosMinimarket.ViewHolder>{
 
-    /*public interface ItemClickListener{
-        void verProducto(int idProducto);
-    }*/
+    public interface ItemClickListener{
+        void rechazarPedido(int indexPedido);
+        void aceptarPedido(int indexPedido);
+    }
 
     //private ColeccionPedidos coleccionPedidos;
 
     private EmpresaMinimarket minimarket;
-    /*private ItemClickListener myListener;
+
+    private ItemClickListener myListener;
     public void setItemListener(ItemClickListener itemListener){
         this.myListener = itemListener;
-    }*/
+    }
 
     public AdaptadorEncargosNuevosMinimarket(EmpresaMinimarket minimarket){
         this.minimarket = minimarket;
@@ -42,14 +44,14 @@ public class AdaptadorEncargosNuevosMinimarket extends RecyclerView.Adapter<Adap
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.formato_de_salida_encargos_nuevos, parent,false);
         //return new ViewHolder(v,this.myListener, this.productosMostrados);
-        return new ViewHolder(v);
+        return new ViewHolder(v, this.myListener);
     }
 
     // Para actualizar datos de una vista
     @Override
-    public void onBindViewHolder(@NonNull AdaptadorEncargosNuevosMinimarket.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         //holder.bind(this.NombresProductos.get(position));
-        Pedido p = this.minimarket.obtenerPedidoIndice(position);
+        Pedido p = this.minimarket.obtenerPedidoNuevoPorIndice(position);
         if (p != null)
             holder.getTextView().setText("Nombre Producto: "+ p.getProductoSolicitado().getNombre() +"\n" +
                 "Numero de unidades: "+ p.getCantidadProductosSolicitados()
@@ -61,7 +63,7 @@ public class AdaptadorEncargosNuevosMinimarket extends RecyclerView.Adapter<Adap
     // Numero de elementos que tiene una lista
     @Override
     public int getItemCount() {
-        return this.minimarket.dimensionColeccionPedidos();
+        return this.minimarket.dimensionColeccionPedidosNuevos();
     }
 
     // clase ViewHolder
@@ -73,7 +75,7 @@ public class AdaptadorEncargosNuevosMinimarket extends RecyclerView.Adapter<Adap
         private ImageView botonRechazar;
         private ImageView botonAceptar;
 
-        public ViewHolder(View v) {
+        public ViewHolder(View v, ItemClickListener listener) {
 //        public ViewHolder(View v, ItemClickListener listener, ColeccionProductos coleccionProductos) {
             super(v);
             this.texto = v.findViewById(R.id.productoEncargoTexto);
@@ -83,6 +85,8 @@ public class AdaptadorEncargosNuevosMinimarket extends RecyclerView.Adapter<Adap
             this.botonAceptar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    int posicion = getBindingAdapterPosition();
+                    listener.aceptarPedido(posicion);
                     System.out.println("Aceptar");
                 }
             });
@@ -90,10 +94,12 @@ public class AdaptadorEncargosNuevosMinimarket extends RecyclerView.Adapter<Adap
             this.botonRechazar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    int posicion = getBindingAdapterPosition();
+                    listener.rechazarPedido(posicion);
                     System.out.println("Rechazar");
                 }
             });
-            //this.botonVer = v.findViewById(R.id.botonVerProducto);
+
             // Realiza una accion cuando se seleccione un elemento
             v.setOnClickListener(new View.OnClickListener() {
                 @Override

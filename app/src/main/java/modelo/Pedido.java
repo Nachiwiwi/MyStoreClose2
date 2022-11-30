@@ -10,24 +10,24 @@ public class Pedido implements Serializable {
     private int cantidadProductosSolicitados;
     private int id;
     private int idDetalle;
-    private boolean aceptado;
+    private int estado;
     private String fechaLimite;
     private String fechaInicio;
     private Cliente cliente;
 
     public Pedido(Producto productoElegido ){
         this.productoSolicitado = productoElegido;
-        this.aceptado = false;
+        this.estado = 1;
     }
 
-    public Pedido(Producto productoElegido, boolean v ){
+    public Pedido(Producto productoElegido, int v ){
         this.productoSolicitado = productoElegido;
-        this.aceptado = v;
+        this.estado = v;
     }
 
-    public Pedido(Producto productoElegido, boolean v, int id,int idDetalle ,String fechai, String fechaf, int cant, Cliente cliente){
+    public Pedido(Producto productoElegido, int v, int id,int idDetalle ,String fechai, String fechaf, int cant, Cliente cliente){
         this.productoSolicitado = productoElegido;
-        this.aceptado = v;
+        this.estado = v;
         this.id = id;
         this.fechaInicio = fechai;
         this.fechaLimite = fechaf;
@@ -36,11 +36,11 @@ public class Pedido implements Serializable {
         this.cliente = cliente;
     }
 
-    public boolean idAceptado(){
-        return this.aceptado;
+    public int getEstado(){
+        return this.estado;
     }
-    public void setAceptado(boolean v){
-        this.aceptado = v;
+    public void setEstado(int v){
+        this.estado = v;
     }
 
     public int getId() {
@@ -96,10 +96,6 @@ public class Pedido implements Serializable {
 
     public void setIdDetalle(int idDetalle) {
         this.idDetalle = idDetalle;
-    }
-
-    public boolean isAceptado() {
-        return aceptado;
     }
 
     public Cliente getCliente(){

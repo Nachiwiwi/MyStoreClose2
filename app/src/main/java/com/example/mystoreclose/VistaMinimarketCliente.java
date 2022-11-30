@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import modelo.Cliente;
 import modelo.ConectorBD;
 import modelo.EmpresaMinimarket;
 import modelo.Producto;
@@ -25,7 +24,6 @@ public class VistaMinimarketCliente extends AppCompatActivity implements View.On
     ImageButton botonAtras;
     private Button botonConfirmar;
 
-    private ListView listaProductos;
     private Button botonEncargos;
     private Button botonPerfil;
     private Button botonInicio;

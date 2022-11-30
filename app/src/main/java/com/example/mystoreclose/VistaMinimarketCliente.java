@@ -1,10 +1,13 @@
 package com.example.mystoreclose;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -29,6 +32,8 @@ public class VistaMinimarketCliente extends AppCompatActivity implements View.On
     private Button botonEncargos;
     private Button botonPerfil;
     private Button botonInicio;
+
+    private Cliente clienteActual;
     private EmpresaMinimarket minimarketActual;
     private ConectorBD conector;
 
@@ -42,6 +47,7 @@ public class VistaMinimarketCliente extends AppCompatActivity implements View.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vista_minimarket_cliente);
         botonConfirmar = (Button) findViewById(R.id.encargar);
+        botonConfirmar.setVisibility(View.INVISIBLE);
         botonConfirmar.setEnabled(false);
         //tomar los datos del minimarket
         inicializar();
@@ -73,7 +79,17 @@ public class VistaMinimarketCliente extends AppCompatActivity implements View.On
         botonConfirmar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent confirmar = new Intent(VistaMinimarketCliente.this, InicioCliente.class);
+
+                Intent confirmar = new Intent(VistaMinimarketCliente.this, EncargosCliente.class );
+                Bundle bundleListaProductos = new Bundle();
+                Bundle bundleCliente = new Bundle();
+                Bundle bundleMinimarket = new Bundle();
+                bundleListaProductos.putSerializable("listadoProductos", listadoProductosSeleccionados);
+                bundleCliente.putSerializable("cliente", clienteActual);
+                bundleMinimarket.putSerializable("minimarket",minimarketActual);
+                confirmar.putExtras(bundleListaProductos);
+                confirmar.putExtras(bundleCliente);
+                confirmar.putExtras(bundleMinimarket);
                 startActivity(confirmar);
             }
         });
@@ -102,13 +118,14 @@ public class VistaMinimarketCliente extends AppCompatActivity implements View.On
             }
         });
         obtenerDatosDB();
-        System.out.println("El tamaño de la coleccion es: "+this.minimarketActual.obtenerCantidadDeProductos());
+        //System.out.println("El tamaño de la coleccion es: "+this.minimarketActual.obtenerCantidadDeProductos());
     }
 
     private void inicializar() {
         Bundle bundle = getIntent().getExtras();
         if(bundle != null){
             this.minimarketActual = (EmpresaMinimarket) bundle.getSerializable("minimarket");
+            this.clienteActual = (Cliente) bundle.getSerializable("cliente");
             //System.out.println(this.clienteActual.getNombre());
             this.conector = new ConectorBD(this.minimarketActual);
         }
@@ -129,6 +146,10 @@ public class VistaMinimarketCliente extends AppCompatActivity implements View.On
             public void activarBoton(Producto producto) {
                 botonConfirmar.setEnabled(true);
                 listadoProductosSeleccionados.add(producto);
+                createInicioDialogEncargar();
+                /*for(int i = 0; i < listadoProductosSeleccionados.size();i++){
+                    System.out.println(listadoProductosSeleccionados.get(i).getNombre());
+                }*/
             }
         });
         //falta colocar los botones para encargar
@@ -146,5 +167,48 @@ public class VistaMinimarketCliente extends AppCompatActivity implements View.On
     @Override
     public void onClick(View view) {
 
+    }
+
+    public void verInformacionMinimarket(ArrayList<Producto> listadoProductosSeleccionados){
+        System.out.println("Tamaño arrayList: "+listadoProductosSeleccionados.size());
+
+        Intent ventanaVerMinimarket = new Intent(this, EncargosCliente.class );
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("listadoProductos", listadoProductosSeleccionados);
+        ventanaVerMinimarket.putExtras(bundle);
+        startActivity(ventanaVerMinimarket);
+
+    }
+    public void createInicioDialogEncargar(){
+        AlertDialog.Builder encargarPopup = new AlertDialog.Builder(VistaMinimarketCliente.this);
+        LayoutInflater pestaña = getLayoutInflater();
+        View view = pestaña.inflate(R.layout.encargar_popup, null);
+        encargarPopup.setView(view);
+        final AlertDialog dialog = encargarPopup.create();
+        dialog.show();
+
+        Button encargar = view.findViewById(R.id.botonEncargar);
+        encargar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent ventanaEncargos = new Intent(VistaMinimarketCliente.this,EncargosCliente.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("listadoProductos", listadoProductosSeleccionados);
+                ventanaEncargos.putExtras(bundle);
+                startActivity(ventanaEncargos);
+            }
+        });
+
+        Button cancelar = view.findViewById(R.id.botonCancelar);
+        encargar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent ventanaEncargos = new Intent(VistaMinimarketCliente.this,EncargosCliente.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("listadoProductos", listadoProductosSeleccionados);
+                ventanaEncargos.putExtras(bundle);
+                startActivity(ventanaEncargos);
+            }
+        });
     }
 }

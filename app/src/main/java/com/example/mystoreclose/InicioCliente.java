@@ -86,7 +86,7 @@ public class InicioCliente extends AppCompatActivity implements Response.Listene
 
     //Guardar la posicion del cliente
     private void setPosicion() {
-        //System.out.println("XDDDDDDDDDDDDDDDDDDD");
+
         LocationManager locationManager = (LocationManager) InicioCliente.this.getSystemService(Context.LOCATION_SERVICE);
         LocationListener locationListener = new LocationListener() {
             @Override
@@ -182,7 +182,7 @@ public class InicioCliente extends AppCompatActivity implements Response.Listene
         String Nombre_Usuario = preference.getString("Nombre_Usuario","matichief117");
         String dir;
 
-        dir = "http://192.168.1.102/Android/perfil_usuario.php?Nombre_Usuario="+Nombre_Usuario;
+        dir = "http://192.168.0.4/Android/perfil_usuario.php?Nombre_Usuario="+Nombre_Usuario;
 
         jsR = new JsonObjectRequest(Request.Method.GET, dir, null, this,this);
         rQ.add(jsR);

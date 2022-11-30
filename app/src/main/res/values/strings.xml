@@ -42,6 +42,7 @@
     <string name="imagen">Imagen</string>
     <string name="filtroprecio">Filtrar por precio</string>
     <string name="filtrar">Filtrar</string>
+    <string name="encargar">Encargar</string>
     <string name="cancelar">Cancelar</string>
     <string name="preciominimo">Precio mínimo</string>
     <string name="preciomaximo">Precio máximo</string>

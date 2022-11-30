@@ -53,7 +53,7 @@ public class BuscarMinimarketCliente extends AppCompatActivity{
     private Button botonEncargos;
     private Button botonPerfil;
     private Button botonInicio;
-    ConectorBD conector = new ConectorBD(null);
+    ConectorBD conector = new ConectorBD();
    // private EmpresaMinimarket arrayMinimarkets[] = new EmpresaMinimarket[listadoMinimarkets.size()];
 
     @Override
@@ -113,12 +113,15 @@ public class BuscarMinimarketCliente extends AppCompatActivity{
     }
 
     public void verInformacionMinimarket(int posicion){
-        System.out.println("la posicion de la lista es: "+posicion);
+       // System.out.println("la posicion de la lista es: "+posicion);
 
         Intent ventanaVerMinimarket = new Intent(BuscarMinimarketCliente.this, VistaMinimarketCliente.class );
         Bundle bundle = new Bundle();
+        Bundle bundle1 = new Bundle();
         bundle.putSerializable("minimarket", listadoMinimarkets.get(posicion));
+        bundle1.putSerializable("cliente", this.clienteActual);
         ventanaVerMinimarket.putExtras(bundle);
+        ventanaVerMinimarket.putExtras(bundle1);
         startActivity(ventanaVerMinimarket);
 
     }

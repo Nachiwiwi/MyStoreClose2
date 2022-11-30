@@ -12,7 +12,7 @@
 
     <TextView
         android:id="@+id/textoNombre"
-        android:layout_width="213dp"
+        android:layout_width="156dp"
         android:layout_height="63dp"
         android:layout_gravity="center"
         android:text="Elemento"
@@ -29,7 +29,7 @@
     <ImageView
         android:id="@+id/imageView17"
         android:layout_width="57dp"
-        android:layout_height="70dp"
+        android:layout_height="87dp"
         android:layout_gravity="center|left"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,11 +39,12 @@
         app:layout_constraintVertical_bias="0.023"
         app:srcCompat="@drawable/logotallersw" />
 
-    <Button
-        android:id="@+id/bottonAgregarAlCarro"
-        android:layout_width="75dp"
-        android:layout_height="63dp"
+    <TextView
+        android:id="@+id/estadoPedido"
+        android:layout_width="87dp"
+        android:layout_height="50dp"
         android:layout_gravity="center|right"
-        android:text="Button" />
+        android:text="TextView" />
+
 
 </FrameLayout>

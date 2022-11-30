@@ -40,10 +40,10 @@ import adapters.AdaptadorProductos;
 
 public class ConectorBD {
     EmpresaMinimarket minimarket;
-
+    private Cliente cliente;
     //String url = "http://10.8.226.244/Android/";
-    String url = "http://192.168.1.102/Android/"; //IP benja
-    //String url = "http://192.168.0.4/Android/"; //IP andres
+    //String url = "http://192.168.1.102/Android/"; //IP benja
+    String url = "http://192.168.0.4/Android/"; //IP andres
     private JsonRequest jsR;
     StringRequest sR;
 
@@ -51,6 +51,11 @@ public class ConectorBD {
         this.minimarket = minimarket;
     }
 
+    public ConectorBD(Cliente cliente){
+        this.cliente = cliente;
+    }
+    public ConectorBD(){
+    }
     public void agregarProducto(int idEmpresa, int idP, String descripcion, String precio, String imagen, int idProducto, AgregarProducto agregarProducto){
 
         imagen = "Imagen Producto "+ imagen;

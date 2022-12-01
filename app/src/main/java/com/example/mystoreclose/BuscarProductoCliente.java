@@ -23,9 +23,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import adapters.AdaptadorBuscarProductosCliente;
+import modelo.Cliente;
 import modelo.Producto;
 import recyclerviews.RecyclerViewBuscarProductosClienteFragment;
 
@@ -37,6 +39,8 @@ public class BuscarProductoCliente extends AppCompatActivity implements SearchVi
     SearchView barraBusqueda;
     RecyclerViewBuscarProductosClienteFragment fragment;
     AdaptadorBuscarProductosCliente adapter ;
+    private Cliente clienteActual;
+
     ImageButton botonAtras;
     private Button botonEncargos;
     private Button botonPerfil;
@@ -45,6 +49,7 @@ public class BuscarProductoCliente extends AppCompatActivity implements SearchVi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buscar_producto_cliente);
+        inicializar();
         this.listadoProductos = new ArrayList<>();
         //Apretar flecha
         botonAtras = (ImageButton) findViewById(R.id.volverInicio);
@@ -67,8 +72,11 @@ public class BuscarProductoCliente extends AppCompatActivity implements SearchVi
         botonPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent volver = new Intent(BuscarProductoCliente.this, PerfilCliente.class);
-                startActivity(volver);
+                Intent ventanaPerfil = new Intent(BuscarProductoCliente.this, PerfilCliente.class);
+                Bundle perfilCliente = new Bundle();
+                perfilCliente.putSerializable("cliente", (Serializable) clienteActual);
+                ventanaPerfil.putExtras(perfilCliente);
+                startActivity(ventanaPerfil);
             }
         });
         botonInicio = (Button) findViewById(R.id.productos);
@@ -90,7 +98,13 @@ public class BuscarProductoCliente extends AppCompatActivity implements SearchVi
 
 
     }
-
+    private void inicializar() {
+        Bundle bundle = getIntent().getExtras();
+        if(bundle != null){
+            this.clienteActual = (Cliente) bundle.getSerializable("cliente");
+            //System.out.println(this.clienteActual.getNombre());
+        }
+    }
     public void inicializarRecyclerView(){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         this.fragment = new RecyclerViewBuscarProductosClienteFragment();
@@ -111,14 +125,18 @@ public class BuscarProductoCliente extends AppCompatActivity implements SearchVi
         Intent ventanaBuscarProducto = new Intent(BuscarProductoCliente.this,MostrarMinimarketsConProductoSeleccionado.class );
         Bundle bundle = new Bundle();
         bundle.putString("idProducto", String.valueOf(posicion));
+        Bundle bundle1 = new Bundle();
+        bundle1.putSerializable("cliente",(Serializable) clienteActual);
         ventanaBuscarProducto.putExtras(bundle);
+        ventanaBuscarProducto.putExtras(bundle1);
         startActivity(ventanaBuscarProducto);
 
     }
 
     private void cargarProductosBaseDatos() {
 
-        String URL1= "http://192.168.1.102/Android/Producto_Lista.php";
+        //String URL1= "http://192.168.1.102/Android/Producto_Lista.php"; //ip benja
+        String URL1= "http://192.168.0.4/Android/Producto_Lista.php"; // ip andres
         this.request = new JsonObjectRequest(Request.Method.GET, URL1, null,this,this);
         this.queue.add(request);
     }

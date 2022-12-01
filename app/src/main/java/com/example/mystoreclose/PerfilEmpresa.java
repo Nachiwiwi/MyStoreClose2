@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
+
+import modelo.EmpresaMinimarket;
 
 public class PerfilEmpresa extends AppCompatActivity {
 
@@ -15,11 +18,19 @@ public class PerfilEmpresa extends AppCompatActivity {
     private Button botonEncargos;
     private Button botonInicio;
 
+    private EmpresaMinimarket minimarketActual;
+
+    private TextView nombreEmpresa;
+    private TextView nombreMinimarket;
+    private TextView direccionMinimarket;
+    private TextView rutEmpresa;
+    private TextView numeroProductosMinimarket;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil_empresa);
-
+        incializar();
         //Apretar flecha
         botonAtras = (ImageButton) findViewById(R.id.volverInicio);
         botonAtras.setOnClickListener(new View.OnClickListener() {
@@ -46,5 +57,22 @@ public class PerfilEmpresa extends AppCompatActivity {
                 startActivity(volver);
             }
         });
+    }
+
+    private void incializar() {
+        this.nombreEmpresa = findViewById(R.id.textViewNombreEmpresa);
+        this.nombreMinimarket = findViewById(R.id.textViewNombreMinimarket);
+        this.direccionMinimarket = findViewById(R.id.textViewDireccionMinimarket);
+        this.rutEmpresa = findViewById(R.id.textViewRutEmpresa);
+        this.numeroProductosMinimarket = findViewById(R.id.textViewNumeroProductosMinimarket);
+
+        Bundle bundle = getIntent().getExtras();
+        this.minimarketActual = (EmpresaMinimarket) bundle.getSerializable("minimarket");
+
+        this.nombreEmpresa.setText(this.minimarketActual.getNombreEmpresa());
+        this.nombreMinimarket.setText(this.minimarketActual.getNombreMinimarket());
+        this.direccionMinimarket.setText(this.minimarketActual.getDireccion());
+        this.rutEmpresa.setText(this.minimarketActual.getRutEmpresa());
+        this.numeroProductosMinimarket.setText(String.valueOf(this.minimarketActual.obtenerCantidadDeProductos()));
     }
 }

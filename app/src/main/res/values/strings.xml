@@ -54,6 +54,13 @@
     <string name="productoFueraDelCatalogo">Agregar producto nuevo</string>
     <string name="agregarProductoAlCatalogo">Agregar producto nuevo al catálogo</string>
     <string name="nombreProducto">Nombre producto</string>
+    <string name="nombre">Nombre</string>
+    <string name="contraseña">Contraseña</string>
+    <string name="nombreEmpresa">Nombre Empresa:</string>
+    <string name="nombreMinimarket">Nombre Minimarket:</string>
+    <string name="direccionMinimarket">Dirección:</string>
+    <string name="numeroProductos">Cantidad de Productos:</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -21,9 +21,23 @@ import modelo.EmpresaMinimarket;
 
 public class AdaptadorMinimarkets extends RecyclerView.Adapter<AdaptadorMinimarkets.ViewHolder>{
     private ArrayList<EmpresaMinimarket> listadoMinimarkets ;
+    private ArrayList<EmpresaMinimarket> listadoMinimarketsFiltrado;
     private ItemClickListener clickListener;
 
-
+    public void filtrado(String s) {
+        this.listadoMinimarketsFiltrado = new ArrayList(listadoMinimarkets);
+        if(s.length() == 0){
+            this.listadoMinimarketsFiltrado = new ArrayList<>(this.listadoMinimarkets);
+        }else{
+            this.listadoMinimarketsFiltrado = new ArrayList<>();
+            for(int i = 0; i < listadoMinimarkets.size(); i++){
+                if(listadoMinimarkets.get(i).getNombreMinimarket().toLowerCase().contains(s.toLowerCase())){
+                    this.listadoMinimarketsFiltrado.add(listadoMinimarkets.get(i));
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
 
     public interface ItemClickListener{
         void verProducto(int posicion);
@@ -34,6 +48,7 @@ public class AdaptadorMinimarkets extends RecyclerView.Adapter<AdaptadorMinimark
     }
     public AdaptadorMinimarkets(ArrayList<EmpresaMinimarket> NombresProductos){
         this.listadoMinimarkets = NombresProductos ;
+        this.listadoMinimarketsFiltrado = this.listadoMinimarkets;
     }
 
     @NonNull
@@ -53,14 +68,14 @@ public class AdaptadorMinimarkets extends RecyclerView.Adapter<AdaptadorMinimark
     public void onBindViewHolder(@NonNull AdaptadorMinimarkets.ViewHolder holder, int position) {
         //holder.bind(this.NombresProductos.get(position));
 
-        holder.getTextView().setText("Nombre: "+this.listadoMinimarkets.get(position).getNombreMinimarket() + "\n" +"Distancia: "+ this.listadoMinimarkets.get(position).getDistanciaRespectoUsuario()+" "+this.listadoMinimarkets.get(position).obtenerColeccion().dimensionColeccion());
+        holder.getTextView().setText("Nombre: "+this.listadoMinimarketsFiltrado.get(position).getNombreMinimarket() + "\n" +"Distancia: "+ this.listadoMinimarketsFiltrado.get(position).getDistanciaRespectoUsuario()+ "\nDireccion " + this.listadoMinimarketsFiltrado.get(position).getDireccion());
 
     }
 
     // Numero de elementos que tiene una lista
     @Override
     public int getItemCount() {
-        return this.listadoMinimarkets.size();
+        return this.listadoMinimarketsFiltrado.size();
     }
 
     // clase ViewHolder
@@ -86,11 +101,10 @@ public class AdaptadorMinimarkets extends RecyclerView.Adapter<AdaptadorMinimark
             this.botonVer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    System.out.println("xdxd");
                     if (listener != null) {
                         int posicion = getBindingAdapterPosition();
-                        System.out.println("La posicion es: "+posicion+ " El producto es: "+
-                              coleccion.get(posicion).getNombreEmpresa()+ " y el tamaño es: " + coleccion.get(posicion).getDistancia());
+                        //System.out.println("La posicion es: "+posicion+ " El producto es: "+
+                        //      coleccion.get(posicion).getNombreEmpresa()+ " y el tamaño es: " + coleccion.get(posicion).getDistancia());
                         listener.verProducto(posicion);
                     }
                 }
@@ -107,16 +121,13 @@ public class AdaptadorMinimarkets extends RecyclerView.Adapter<AdaptadorMinimark
             arregloMinimarkets[i] = listadoMinimarkets.get(i);
             int distanciaTotal = calculoDistancia(clienteActual.getPosicionActual(), listadoMinimarkets.get(i).getPosicion());
             arregloMinimarkets[i].setDistanciaRespectoUsuario(distanciaTotal);
-            System.out.println("la distancia es de: " + distanciaTotal);
         }
 
         quickSort(arregloMinimarkets, 0, listadoMinimarkets.size()-1);
         listadoMinimarkets.clear();
         for(int i = 0 ; i< arregloMinimarkets.length; i++){
             listadoMinimarkets.add(arregloMinimarkets[i]);
-            System.out.println("la distancia ordenada es: "+arregloMinimarkets[i].getDistanciaRespectoUsuario());
-            System.out.println("nombre: " +listadoMinimarkets.get(i).getNombreEmpresa());
-            System.out.println("Distancia Empresa: "+listadoMinimarkets.get(i).getDistanciaRespectoUsuario());
+
         }
     }
 

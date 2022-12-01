@@ -99,18 +99,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ofertasDest"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentContentOfertasZona"
         tools:ignore="SpeakableTextPresentCheck" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/ofertasDest"
-        android:layout_width="360dp"
-        android:layout_height="125dp"
-        android:layout_marginTop="16dp"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContentOfertasZona"
+        android:layout_width="373dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="24dp"
+        android:background="@color/colorBoton2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        tools:layout="@layout/fragment_ofertas_cliente" />
 
     <Button
         android:id="@+id/buscarMini"

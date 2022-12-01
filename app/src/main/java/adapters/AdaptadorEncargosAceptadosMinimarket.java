@@ -95,8 +95,10 @@ public class AdaptadorEncargosAceptadosMinimarket extends RecyclerView.Adapter<A
                 @Override
                 public void onClick(View v) {
                     int posicion = getBindingAdapterPosition();
-                    listener.modificarEstadoEncargo(posicion);
-                    System.out.println("AAAAAAAAA: "+posicion);
+                    if(listener != null){
+                        listener.modificarEstadoEncargo(posicion);
+                        System.out.println("AAAAAAAAA: "+posicion);
+                    }
                 }
             });
 

@@ -1,5 +1,6 @@
 package com.example.mystoreclose;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -53,6 +54,12 @@ public class VerProducto extends AppCompatActivity implements View.OnClickListen
     private Button botonInicio;
     // Base de datos
     private ConectorBD conectorBD;
+    // PopUp
+    private AlertDialog.Builder dialogBuilder1;
+    private AlertDialog dialog1;
+    private Button botonAceptar;
+    private Button botonCancelar;
+    private TextView mensajePopup;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,12 +129,7 @@ public class VerProducto extends AppCompatActivity implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()){
             case (R.id.eliminarProd1):
-
-                if(this.producto.tieneOferta()){
-                    this.eliminarOferta();
-                }
-                eliminarProductoEmpresa();
-
+                popupConfirmarOpcionEliminarProducto();
                 break;
             case(R.id.volverInicio):
                 break;
@@ -135,35 +137,11 @@ public class VerProducto extends AppCompatActivity implements View.OnClickListen
                 System.out.println("Modificar Producto");
 
                 if(revisarCeldas()){
-
-                    String precioOfertaF = this.precioOferta.getText().toString();
-                    String tiempoDeLaOferta = this.duracionOferta.getText().toString();
-
-                    modificarElProductoEmpresa();
-
-                    // Si el producto tiene oferta y las casillas de precioOferta y duracionOferta están marcadas,
-                    // Se modifica el producto y luego las caracteristicas de la oferta
-                    if(producto.tieneOferta() && !tiempoDeLaOferta.equals("") && !precioOfertaF.equals("")){
-                        modificarOferta();
-                    }
-
-                    // Si el producto tiene oferta y las casillas de precioOferta y duracionOferta no están marcadas,
-                    // Se modifica el producto y se elimina la oferta la oferta
-
-                    if(producto.tieneOferta() && tiempoDeLaOferta.equals("") && precioOfertaF.equals("")){
-                        eliminarOferta();
-                    }
-
-                    // Si el producto no tiene oferta y las casillas de precioOferta y duracionOferta están marcadas,
-                    // se crea una oferta
-                    if(!producto.tieneOferta() && !tiempoDeLaOferta.equals("") && !precioOfertaF.equals("")){
-                        crearOferta();
-                    }
+                    popupConfirmarOpcionModificarProducto();
                 }
                 break;
         }
 
-        onBackPressed();
     }
 
     public boolean revisarCeldas(){
@@ -247,5 +225,98 @@ public class VerProducto extends AppCompatActivity implements View.OnClickListen
 
         this.conectorBD.modificarProductoEmpresa(idRelacion,precioUnitario,descripcion,imagen,this);
 
+    }
+
+    public void popupConfirmarOpcionModificarProducto(){
+        dialogBuilder1 = new AlertDialog.Builder(this);
+        final View contactPopUpView = getLayoutInflater().inflate(R.layout.popup_certeza,null);
+
+        this.botonAceptar = contactPopUpView.findViewById(R.id.botonSiPopup);
+        this.botonCancelar = contactPopUpView.findViewById(R.id.botonNoPopup);
+        this.mensajePopup = contactPopUpView.findViewById(R.id.mensajeConfirmacionPupup);
+
+        this.mensajePopup.setText("¿Estás seguro/a que quieres modificar este producto?");
+
+        this.botonAceptar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String precioOfertaF = precioOferta.getText().toString();
+                String tiempoDeLaOferta = duracionOferta.getText().toString();
+
+                if( Integer.parseInt(producto.getPrecio()) < Integer.parseInt(precioOfertaF)){
+                    Toast.makeText(getBaseContext(),"El precio de la oferta es mayor que el precio corriente",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                modificarElProductoEmpresa();
+
+                // Si el producto tiene oferta y las casillas de precioOferta y duracionOferta están marcadas,
+                // Se modifica el producto y luego las caracteristicas de la oferta
+                if(producto.tieneOferta() && !tiempoDeLaOferta.equals("") && !precioOfertaF.equals("")){
+                    modificarOferta();
+                }
+
+                // Si el producto tiene oferta y las casillas de precioOferta y duracionOferta no están marcadas,
+                // Se modifica el producto y se elimina la oferta
+
+                if(producto.tieneOferta() && tiempoDeLaOferta.equals("") && precioOfertaF.equals("")){
+                    eliminarOferta();
+                }
+
+                // Si el producto no tiene oferta y las casillas de precioOferta y duracionOferta están marcadas,
+                // se crea una oferta
+                if(!producto.tieneOferta() && !tiempoDeLaOferta.equals("") && !precioOfertaF.equals("")){
+                    crearOferta();
+                }
+                onBackPressed();
+                dialog1.dismiss();
+            }
+        });
+
+        this.botonCancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog1.dismiss();
+            }
+        });
+
+        dialogBuilder1.setView(contactPopUpView);
+        this.dialog1 = dialogBuilder1.create();
+        this.dialog1.show();
+    }
+
+    public void popupConfirmarOpcionEliminarProducto(){
+        dialogBuilder1 = new AlertDialog.Builder(this);
+        final View contactPopUpView = getLayoutInflater().inflate(R.layout.popup_certeza,null);
+
+        this.botonAceptar = contactPopUpView.findViewById(R.id.botonSiPopup);
+        this.botonCancelar = contactPopUpView.findViewById(R.id.botonNoPopup);
+        this.mensajePopup = contactPopUpView.findViewById(R.id.mensajeConfirmacionPupup);
+
+        this.mensajePopup.setText("¿Estás seguro/a que quieres eliminar este producto?");
+
+        this.botonAceptar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //agregarProductoBD();
+                if(producto.tieneOferta()){
+                    eliminarOferta();
+                }
+                eliminarProductoEmpresa();
+                onBackPressed();
+                dialog1.dismiss();
+            }
+        });
+
+        this.botonCancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog1.dismiss();
+            }
+        });
+
+        dialogBuilder1.setView(contactPopUpView);
+        this.dialog1 = dialogBuilder1.create();
+        this.dialog1.show();
     }
 }

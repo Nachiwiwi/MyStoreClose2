@@ -51,6 +51,9 @@
     <string name="encargoCancelado">Cancelado</string>
     <string name="si">Sí</string>
     <string name="no">No</string>
+    <string name="productoFueraDelCatalogo">Agregar producto nuevo</string>
+    <string name="agregarProductoAlCatalogo">Agregar producto nuevo al catálogo</string>
+    <string name="nombreProducto">Nombre producto</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

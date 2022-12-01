@@ -105,10 +105,10 @@ public class IniciarSesionCliente extends Fragment implements Response.Listener<
 
 
          private void iniciarsesion() {
-        //acceder al php (API) para el inicio sesion, al igual que llamar el metodo que se utilizara(GET).
-        String url = "http://192.168.1.102/Android/iniciar_sesion_cliente.php?Nombre_Usuario=" + etuser.getText().toString()+"&Contraseña=" + etpwd.getText().toString();
-        jrq = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
-        rq.add(jrq);
+                //acceder al php (API) para el inicio sesion, al igual que llamar el metodo que se utilizara(GET).
+                String url = "http://192.168.20.246/Android/iniciar_sesion_cliente.php?Nombre_Usuario=" + etuser.getText().toString()+"&Contraseña=" + etpwd.getText().toString();
+                jrq = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
+                rq.add(jrq);
         }
 
 

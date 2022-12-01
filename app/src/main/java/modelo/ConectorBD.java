@@ -11,6 +11,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.mystoreclose.AdaptadorVistaProductosCliente;
 import com.example.mystoreclose.AgregarProducto;
+import com.example.mystoreclose.AgregarProductoNuevo;
 import com.example.mystoreclose.BuscarMinimarketCliente;
 import com.example.mystoreclose.BuscarProductoCliente;
 import com.example.mystoreclose.EncargosEmpresa;
@@ -42,8 +43,8 @@ public class ConectorBD {
     EmpresaMinimarket minimarket;
     private Cliente cliente;
     //String url = "http://10.8.226.244/Android/";
-    //String url = "http://192.168.1.102/Android/"; //IP benja
-    String url = "http://192.168.0.4/Android/"; //IP andres
+    String url = "http://192.168.20.246/Android/"; //IP benja
+    //String url = "http://192.168.0.4/Android/"; //IP andres
     private JsonRequest jsR;
     StringRequest sR;
 
@@ -56,7 +57,7 @@ public class ConectorBD {
     }
     public ConectorBD(){
     }
-    public void agregarProducto(int idEmpresa, int idP, String descripcion, String precio, String imagen, int idProducto, AgregarProducto agregarProducto){
+    public void agregarProducto(int idEmpresa, String descripcion, String precio, String imagen, int idProducto, AgregarProducto agregarProducto){
 
         imagen = "Imagen Producto "+ imagen;
         RequestQueue requestQueue= Volley.newRequestQueue(agregarProducto);
@@ -69,6 +70,7 @@ public class ConectorBD {
                     @Override
                     public void onResponse(String response) {
                         //Toast.makeText(context: MainActivity.this, text: "Correct", Toast.LENGTH_SHORT).show();
+
                     }
                 },
                 new Response.ErrorListener() {
@@ -88,7 +90,36 @@ public class ConectorBD {
                 return params;
             }
         };
+        requestQueue.add(sR);
+    }
 
+    public void agregarProducto(String nombreProducto, AgregarProductoNuevo agregarProducto){
+
+        RequestQueue requestQueue= Volley.newRequestQueue(agregarProducto);
+        String dir = url + "postProducto.php";//?PrecioUnitario="+precio+"&Descripcion="+descripcion+"&IdMarket="+idEmpresa+ "&Imagen=imagen del producto&IdProducto="+idProducto;
+
+        sR =new StringRequest(
+                Request.Method.POST,
+                dir,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                }
+        ){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Nombre",nombreProducto);
+
+                return params;
+            }
+        };
         requestQueue.add(sR);
     }
 
@@ -108,16 +139,19 @@ public class ConectorBD {
                         p = new Producto( new String(pupi.getString("Nombre")) ,Integer.parseInt(pupi.getString("IdProducto")) );
                         c.agregarProducto(p);
 
-                        System.out.println("El nombre es: " + p.getNombre()+ " id: "+p.getId());
+                        //System.out.println("El nombre es: " + p.getNombre()+ " id: "+p.getId());
                     }
 
                     System.out.println("Fiumbiu");
-                    adaptador.notifyDataSetChanged();
+                    //adaptador.filtrado("");
+
 
                 }catch (JSONException e){
                     //Toast.makeText(AgregarProducto.this, e.toString(), Toast.LENGTH_SHORT).show();
                 }
+
             }
+
 
         }, new Response.ErrorListener(){
             @Override

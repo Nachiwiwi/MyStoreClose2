@@ -1,5 +1,6 @@
 package adapters;
 
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,11 +19,10 @@ public class AdaptadorAgregarProductos extends RecyclerView.Adapter<AdaptadorAgr
 
     public interface ItemClickListener{
         void obtenerIdProducto(int idProducto);
+        void setFalseFrameLayout(FrameLayout fL);
     }
     private ColeccionProductos coleccionProductos;
     private ColeccionProductos coleccionMostrar;
-    private FrameLayout eleccion;
-
 
     private ItemClickListener myListener;
 
@@ -44,11 +44,12 @@ public class AdaptadorAgregarProductos extends RecyclerView.Adapter<AdaptadorAgr
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         getItemViewType(position);
-        //holder.itemView.setBackground(new ColorDrawable(125));
 
         holder.getTextView().setText("Nombre: "+this.coleccionMostrar.obtenerProductoPorIndice(position).getNombre());
 
     }
+
+
 
     @Override
     public int getItemCount() {
@@ -57,44 +58,53 @@ public class AdaptadorAgregarProductos extends RecyclerView.Adapter<AdaptadorAgr
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView texto;
+        private FrameLayout frameLayout;
         private int itemSeleccionado = -1;
         //private Button botonAgregarProducto;
 
         public ViewHolder(View v, ItemClickListener listener, ColeccionProductos coleccionProductos) {
             super(v);
             this.texto = v.findViewById(R.id.nombreProductoAgergar);
-            //this.botonAgregarProducto = (Button) v.findViewById(R.id.agregarProd2);
+            this.frameLayout = v.findViewById(R.id.frameLayoutProductoAgregar);
+
+            ////this.botonAgregarProducto = (Button) v.findViewById(R.id.agregarProd2);
 
             // Realiza una accion cuando se seleccione un elemento
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    setItemSeleccionado(getBindingAdapterPosition());
+                    //setItemSeleccionado(getBindingAdapterPosition());
                     if (listener != null){
-                        if(coleccionProductos.dimensionColeccion() >= getBindingAdapterPosition())
-                            listener.obtenerIdProducto(coleccionProductos.obtenerProductoPorIndice(getItemSeleccionado()).getId());
+                        System.out.println(coleccionProductos.obtenerProductoPorIndice(getBindingAdapterPosition()).getId()+ "-----"+coleccionProductos.obtenerProductoPorIndice(getBindingAdapterPosition()).getNombre());
+                        System.out.println(coleccionProductos.dimensionColeccion());
+                        if(coleccionProductos.dimensionColeccion() >= getBindingAdapterPosition() ) {
+                            listener.obtenerIdProducto(coleccionProductos.obtenerProductoPorIndice(getBindingAdapterPosition()).getId());
+                            listener.setFalseFrameLayout(frameLayout);
+                        }
                     }
+
+                    frameLayout.setBackgroundColor(Color.parseColor("#FF00ADB5"));
+
 
                     Log.d("Adapter Productos", getBindingAdapterPosition() + " Element " + coleccionProductos.dimensionColeccion() +" clicked.");
                 }
             });
 
+
         }
 
-        public int getItemSeleccionado(){
-            return this.itemSeleccionado;
-        }
-
-        public void setItemSeleccionado(int value){
-            this.itemSeleccionado = value;
-        }
 
         public TextView getTextView(){
             return this.texto;
         }
+
+
+        public FrameLayout getFrameLayout(){
+            return this.frameLayout;
+        }
     }
 
-    public void filtrado(String textoEq) throws CloneNotSupportedException {
+    public void filtrado(String textoEq) {
 
         if(textoEq.length() == 0){
             this.coleccionMostrar = this.coleccionProductos.duplicarColeccion();

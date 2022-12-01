@@ -95,8 +95,11 @@ public class AdaptadorEncargosNuevosMinimarket extends RecyclerView.Adapter<Adap
                 @Override
                 public void onClick(View v) {
                     int posicion = getBindingAdapterPosition();
-                    listener.rechazarPedido(posicion);
-                    System.out.println("Rechazar");
+                    if(listener != null){
+                        listener.rechazarPedido(posicion);
+                        System.out.println("Rechazar");
+                    }
+
                 }
             });
 

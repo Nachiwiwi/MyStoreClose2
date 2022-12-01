@@ -87,12 +87,13 @@
         android:id="@+id/agregarProd2"
         android:layout_width="170dp"
         android:layout_height="50dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:backgroundTint="@color/colorBoton1"
         android:text="@string/agregarProducto"
         android:textColor="@color/letras"
         android:textSize="12dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.17"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextPrecioProducto" />
 
@@ -103,6 +104,7 @@
         android:layout_marginTop="16dp"
         android:background="@color/colorBoton2"
         android:hint="@string/descripcion"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/agregarProd" />
@@ -114,6 +116,7 @@
         android:layout_marginTop="16dp"
         android:background="@color/colorBoton2"
         android:hint="@string/precio"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextDescripcionProducto" />
@@ -140,6 +143,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         app:menu="@menu/barrabusq" />
+
+    <TextView
+        android:id="@+id/agregarProductoFueraDelCatalogo"
+        android:layout_width="159dp"
+        android:layout_height="76dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/productoFueraDelCatalogo"
+        android:textColor="@color/letras"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.794"
+        app:layout_constraintStart_toEndOf="@+id/agregarProd2"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPrecioProducto" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

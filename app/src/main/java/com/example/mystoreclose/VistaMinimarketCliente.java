@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import modelo.Cliente;
 import modelo.ConectorBD;
 import modelo.EmpresaMinimarket;
 import modelo.Producto;

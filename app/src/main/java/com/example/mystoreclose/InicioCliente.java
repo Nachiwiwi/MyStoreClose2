@@ -11,6 +11,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,12 +39,16 @@ import java.io.Serializable;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
 
+import adapters.AdaptadorOfertasCliente;
 import modelo.Cliente;
+import modelo.ConectorBD;
 import modelo.Direccion;
 import modelo.EmpresaMinimarket;
+import modelo.Oferta;
 import modelo.Producto;
+import recyclerviews.RecyclerViewOfertasFragment;
 
-public class InicioCliente extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener, View.OnClickListener {
+public class InicioCliente extends AppCompatActivity implements SearchView.OnQueryTextListener, Response.Listener<JSONObject>, Response.ErrorListener, View.OnClickListener {
 
     //Botones
     Button botonBuscarMinimarkets;
@@ -50,8 +56,13 @@ public class InicioCliente extends AppCompatActivity implements Response.Listene
     private RequestQueue rQ;
     private Button botonEncargos;
     private Button botonPerfil;
-    Button botonBuscarProductos;
+    private Button botonBuscarProductos;
+    private SearchView barraBusqueda;
 
+    private ConectorBD bd;
+    private RecyclerViewOfertasFragment ofertasDestacadas;
+    private AdaptadorOfertasCliente adaptadorOfertasCliente;
+    private ArrayList<Oferta> listadoOfertas = new ArrayList<>();
     TextView prueba;
     private Cliente cliente; //= new Cliente();
     //Barra navegación
@@ -66,7 +77,14 @@ public class InicioCliente extends AppCompatActivity implements Response.Listene
         prueba = (TextView) findViewById(R.id.textView4);
         rQ = Volley.newRequestQueue(this);
         preference = getSharedPreferences("preference",MODE_PRIVATE);
+
         obtenerUsuarioActual(preference);
+        recyclerViewOfertas();
+        obtenerOfertas();
+
+        barraBusqueda = (SearchView) findViewById(R.id.searchViewBuscarProductoCliente);
+        barraBusqueda.setOnQueryTextListener(this);
+
         //Apretar botón buscar minimarket
         botonBuscarMinimarkets = (Button) findViewById(R.id.buscarMini);
         botonBuscarMinimarkets.setOnClickListener(this);
@@ -83,6 +101,24 @@ public class InicioCliente extends AppCompatActivity implements Response.Listene
         botonPerfil.setOnClickListener(this);
     }
 
+    private void obtenerOfertas() {
+        this.bd = new ConectorBD();
+        this.bd.getOfertas(this, listadoOfertas, this.adaptadorOfertasCliente);
+        this.adaptadorOfertasCliente.notifyDataSetChanged();
+
+    }
+
+    private void recyclerViewOfertas() {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        this.ofertasDestacadas = new RecyclerViewOfertasFragment();
+        this.adaptadorOfertasCliente = new AdaptadorOfertasCliente(this.listadoOfertas); //meter ofertas
+        this.ofertasDestacadas.setAdapter(adaptadorOfertasCliente);
+
+        transaction.replace(R.id.fragmentContentOfertasZona, this.ofertasDestacadas);
+        transaction.commit();
+
+    }
+
 
     //Guardar la posicion del cliente
     private void setPosicion() {
@@ -93,6 +129,7 @@ public class InicioCliente extends AppCompatActivity implements Response.Listene
             public void onLocationChanged(@NonNull Location location) {
                 System.out.println("\n"+location.getLatitude()+" "+location.getLongitude()+"\n");
                 cliente.setUbicacion(location.getLatitude(), location.getLongitude());
+
             }
 
             public void onStatusChanged(String provider, int status, Bundle extras) {
@@ -119,7 +156,6 @@ public class InicioCliente extends AppCompatActivity implements Response.Listene
             case (R.id.buscarMini):
                 Intent ventanaBuscarMimarket = new Intent(InicioCliente.this, BuscarMinimarketCliente.class);
                 // Se pasa un objeto de clase EmpresaMinimarket para que sea manipulado por la ventana BuscarProductoEmpresa
-                System.out.println(this.cliente.getNombre());
                 Bundle bundleMinimarkets = new Bundle();
                 bundleMinimarkets.putSerializable("cliente", (Serializable) this.cliente);
                 ventanaBuscarMimarket.putExtras(bundleMinimarkets);
@@ -142,6 +178,9 @@ public class InicioCliente extends AppCompatActivity implements Response.Listene
                 break;
             case (R.id.perfil):
                 Intent ventanaPerfil = new Intent(InicioCliente.this, PerfilCliente.class);
+                Bundle perfilCliente = new Bundle();
+                perfilCliente.putSerializable("cliente", (Serializable) this.cliente);
+                ventanaPerfil.putExtras(perfilCliente);
                 startActivity(ventanaPerfil);
         }
 
@@ -167,8 +206,6 @@ public class InicioCliente extends AppCompatActivity implements Response.Listene
             String nombreUsuario = usuarioBuscado.getString("Nombre_Usuario");
             String correo = usuarioBuscado.getString("Correo_electronico");
             String clave = usuarioBuscado.getString("Contraseña");
-            //System.out.println("La frase magica es: "+ correo);
-
             cliente = new Cliente(idCliente, nombre, nombreUsuario, correo, clave);
             setPosicion();
 
@@ -186,5 +223,16 @@ public class InicioCliente extends AppCompatActivity implements Response.Listene
 
         jsR = new JsonObjectRequest(Request.Method.GET, dir, null, this,this);
         rQ.add(jsR);
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+        ofertasDestacadas.actualizarBusqueda(s);
+        return false;
     }
 }

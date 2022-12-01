@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import adapters.AdaptadorMinimarkets;
@@ -35,7 +37,7 @@ import modelo.Direccion;
 import modelo.EmpresaMinimarket;
 import recyclerviews.RecyclerViewMinimarketFragment;
 
-public class BuscarMinimarketCliente extends AppCompatActivity{
+public class BuscarMinimarketCliente extends AppCompatActivity implements SearchView.OnQueryTextListener{
 
     //Botones
     ImageButton botonAtras;
@@ -53,6 +55,7 @@ public class BuscarMinimarketCliente extends AppCompatActivity{
     private Button botonEncargos;
     private Button botonPerfil;
     private Button botonInicio;
+    private SearchView barraBusqueda;
     ConectorBD conector = new ConectorBD();
    // private EmpresaMinimarket arrayMinimarkets[] = new EmpresaMinimarket[listadoMinimarkets.size()];
 
@@ -86,8 +89,11 @@ public class BuscarMinimarketCliente extends AppCompatActivity{
         botonPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent volver = new Intent(BuscarMinimarketCliente.this, PerfilCliente.class);
-                startActivity(volver);
+                Intent ventanaPerfil = new Intent(BuscarMinimarketCliente.this, PerfilCliente.class);
+                Bundle perfilCliente = new Bundle();
+                perfilCliente.putSerializable("cliente", (Serializable) clienteActual);
+                ventanaPerfil.putExtras(perfilCliente);
+                startActivity(ventanaPerfil);
             }
         });
         botonInicio = (Button) findViewById(R.id.productos);
@@ -99,7 +105,8 @@ public class BuscarMinimarketCliente extends AppCompatActivity{
             }
         });
 
-
+        barraBusqueda = (SearchView) findViewById(R.id.searchViewBuscarProductoCliente);
+        barraBusqueda.setOnQueryTextListener(this);
 
 
     }
@@ -127,8 +134,6 @@ public class BuscarMinimarketCliente extends AppCompatActivity{
     }
 
     public void inicializarRecyclerView(){
-        //System.out.println("La posicion del cliente es: "+this.clienteActual.getPosicionActual().getLongitud()+" "+ this.clienteActual.getPosicionActual().getLatitud());
-
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         this.fragment = new RecyclerViewMinimarketFragment();
         this.mAdapter = new AdaptadorMinimarkets(this.listadoMinimarkets);
@@ -147,5 +152,14 @@ public class BuscarMinimarketCliente extends AppCompatActivity{
     }
 
 
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        return false;
+    }
 
+    @Override
+    public boolean onQueryTextChange(String s) {
+        fragment.actualizarBusqueda(s);
+        return false;
+    }
 }

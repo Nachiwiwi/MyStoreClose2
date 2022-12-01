@@ -31,6 +31,10 @@ public class RecyclerViewMinimarketFragment extends Fragment {
         this.adaptadorVerMinimarkets = ad;
     }
 
+    public void actualizarBusqueda(String s) {
+        this.adaptadorVerMinimarkets.filtrado(s);
+    }
+
     // Tipo de layout que se va a mostrar por pantalla
     private enum LayoutManagerType {
         GRID_LAYOUT_MANAGER,
@@ -53,7 +57,6 @@ public class RecyclerViewMinimarketFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        System.out.println("\nAAAAAAAAAAAAAAAAA\n");
         View vista = inflater.inflate(R.layout.fragment_recycler_view_minimarkets, container, false);
         vista.setTag("pupi");
         this.recyclerView = (RecyclerView) vista.findViewById(R.id.recyclerViewMinimarkets);

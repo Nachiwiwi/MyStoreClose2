@@ -74,7 +74,7 @@ public class InicioEmpresa extends AppCompatActivity implements View.OnClickList
     private void obtenerProductosBD(){
         this.bd.setMinimarket(this.minimarket);
         this.bd.obtenerProductos(this,this.adapterProductos);
-        System.out.println("La cosa tiene: " + this.minimarket.obtenerCantidadDeProductos());
+        //System.out.println("La cosa tiene: " + this.minimarket.obtenerCantidadDeProductos());
         this.adapterProductos.notifyDataSetChanged();
 
     }
@@ -143,6 +143,8 @@ public class InicioEmpresa extends AppCompatActivity implements View.OnClickList
                 break;
             case (R.id.perfil):
                 Intent ventanaPerfil = new Intent(InicioEmpresa.this, PerfilEmpresa.class);
+                bundle.putSerializable("minimarket" , (Serializable) this.minimarket);
+                ventanaPerfil.putExtras(bundle);
                 startActivity(ventanaPerfil);
         }
     }

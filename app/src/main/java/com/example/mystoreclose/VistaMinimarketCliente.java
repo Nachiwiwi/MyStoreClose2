@@ -14,8 +14,10 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
+import modelo.Cliente;
 import modelo.ConectorBD;
 import modelo.EmpresaMinimarket;
 import modelo.Producto;
@@ -103,8 +105,11 @@ public class VistaMinimarketCliente extends AppCompatActivity implements View.On
         botonPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent volver = new Intent(VistaMinimarketCliente.this, PerfilCliente.class);
-                startActivity(volver);
+                Intent ventanaPerfil = new Intent(VistaMinimarketCliente.this, PerfilCliente.class);
+                Bundle perfilCliente = new Bundle();
+                perfilCliente.putSerializable("cliente", (Serializable) clienteActual);
+                ventanaPerfil.putExtras(perfilCliente);
+                startActivity(ventanaPerfil);
             }
         });
         botonInicio = (Button) findViewById(R.id.productos);
@@ -168,7 +173,7 @@ public class VistaMinimarketCliente extends AppCompatActivity implements View.On
     }
 
     public void verInformacionMinimarket(ArrayList<Producto> listadoProductosSeleccionados){
-        System.out.println("Tamaño arrayList: "+listadoProductosSeleccionados.size());
+        //System.out.println("Tamaño arrayList: "+listadoProductosSeleccionados.size());
 
         Intent ventanaVerMinimarket = new Intent(this, EncargosCliente.class );
         Bundle bundle = new Bundle();

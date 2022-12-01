@@ -23,11 +23,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import adapters.AdaptadorMinimarketsProductoS;
+import modelo.Cliente;
 import modelo.EmpresaMinimarket;
 import modelo.Producto;
 import recyclerviews.RecyclerViewMinimarketsProductoSeleccionado;
@@ -49,6 +51,7 @@ public class MostrarMinimarketsConProductoSeleccionado extends AppCompatActivity
     private Button cancelarFiltro;
     private EditText filtroPrecioMinimo;
     private EditText filtroPrecioMaximo;
+    private Cliente clienteActual;
     private int minimo = -1;
     private int maximo = -1;
     private Button botonEncargos;
@@ -76,8 +79,11 @@ public class MostrarMinimarketsConProductoSeleccionado extends AppCompatActivity
         botonPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent volver = new Intent(MostrarMinimarketsConProductoSeleccionado.this, PerfilCliente.class);
-                startActivity(volver);
+                Intent ventanaPerfil = new Intent(MostrarMinimarketsConProductoSeleccionado.this, PerfilCliente.class);
+                Bundle perfilCliente = new Bundle();
+                perfilCliente.putSerializable("cliente", (Serializable) clienteActual);
+                ventanaPerfil.putExtras(perfilCliente);
+                startActivity(ventanaPerfil);
             }
         });
         botonInicio = (Button) findViewById(R.id.productos);
@@ -98,6 +104,7 @@ public class MostrarMinimarketsConProductoSeleccionado extends AppCompatActivity
         Bundle bundle = getIntent().getExtras();
         if (bundle != null){
             this.idProducto = bundle.getString("idProducto");
+            this.clienteActual = (Cliente) bundle.getSerializable("cliente");
         }
         //this.idProducto="7";
     }

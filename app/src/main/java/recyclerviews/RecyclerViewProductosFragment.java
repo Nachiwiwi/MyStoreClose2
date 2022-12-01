@@ -41,7 +41,6 @@ public class RecyclerViewProductosFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        System.out.println("\nAAAAAAAAAAAAAAAAA\n");
         View vista = inflater.inflate(R.layout.fragment_recycler_view_productos, container, false);
         this.recyclerView = (RecyclerView) vista.findViewById(R.id.recyclerViewProductosEmpresa);
         this.layoutManager = new LinearLayoutManager(getActivity());

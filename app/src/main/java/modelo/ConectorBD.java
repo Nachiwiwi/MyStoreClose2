@@ -36,6 +36,7 @@ import java.util.Map;
 
 import adapters.AdaptadorAgregarProductos;
 import adapters.AdaptadorMinimarkets;
+import adapters.AdaptadorOfertasCliente;
 import adapters.AdaptadorProductos;
 
 public class ConectorBD {
@@ -733,10 +734,46 @@ public class ConectorBD {
         requestQueue.add(jsR);
     }
 
+    public void getOfertas(InicioCliente contexto, ArrayList<Oferta> listadoOfertas, AdaptadorOfertasCliente adaptador){
+        String dir = this.url + "getOfertas.php";
+        RequestQueue requestQueue = Volley.newRequestQueue(contexto);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, dir, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    try {
+                        JSONArray array = new JSONArray(response);
+                        for (int i = 0; i < array.length(); i++) {
+                            JSONObject object = array.getJSONObject(i);
+                            String nombreProducto = object.getString("Nombre");
+                            String precioOriginal = object.getString("PrecioUnitario");
+                            int idProducto = object.getInt("IdProducto");
+                            String nombreLocal = object.getString("Nombre_local");
+                            String precioOferta = object.getString("precioOferta");
+                            int idRelacion = object.getInt("IdRel");
+                            //System.out.println(nombreProducto);
+                            Oferta nuevaOferta = new Oferta(idRelacion, idProducto, nombreProducto, nombreLocal, precioOriginal, precioOferta);
+                            //System.out.println(nuevaOferta.getNombreLocal());
+                            listadoOfertas.add(nuevaOferta);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    //adaptador.ordenarOfertas();
+                    adaptador.notifyDataSetChanged();
+                }
+        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+        requestQueue.add(stringRequest);
+    }
+
     public void actualizarEstadoEncargo(int idEncargo, int estadoNuevo, EncargosEmpresa encargosEmpresa){
         String dir =  this.url + "putModificarEstadoEncargo.php";
         RequestQueue requestQueue = Volley.newRequestQueue(encargosEmpresa);
-        System.out.println("Actualizar pedido"+ idEncargo+ " "+estadoNuevo);
+        //System.out.println("Actualizar pedido"+ idEncargo+ " "+estadoNuevo);
         StringRequest stringRequest =new StringRequest(
                 Request.Method.POST,
                 dir,
